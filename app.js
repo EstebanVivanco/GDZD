@@ -12,6 +12,7 @@ app.set('views', path.join(__dirname,'views'));
 
 //Permitir ver imagenes señores
 app.use(express.static(path.join(__dirname,'public')));
+
 //Permitir usar componentes
 app.use(express.static(path.join(__dirname,'public/components')));
 app.use(express.static(path.join(__dirname,'helpers')));
