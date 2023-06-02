@@ -36,8 +36,24 @@ router.get('/index_tienda/:id', (req, res)=>{
 })
 
 const crud = require('./controllers/crud');
+router.get('/ver_productos', (req, res) => {
+    conexion.query('SELECT * FROM productos;', (error, results) => {
+        
+            if (error) {
+                throw error;
+            } else {
+                res.render('ver_productos', { results: results, results2: results2 });
+            }
 
-// router.post('/', crud.validacion);
+    });
+});
+
+router.get('/productos', (req, res)=>{
+    res.render('crear_producto')
+})
+
+const crud = require('./controllers/crud');
+router.post('/GuardarProducto', crud.GuardarProducto);
 router.post('/savestore',crud.savestore);
 
 module.exports = router;
