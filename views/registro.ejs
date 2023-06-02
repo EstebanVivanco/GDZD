@@ -15,33 +15,45 @@
         <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 27rem; border-radius: 30px;">
             <form action="/savestore" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate >
                 <h3 class="text-center">Registro de Tienda</h3>
-                <div class="mt-1">
-                    <b>Ingrese el rut de tienda</b>
-                    <input type='text' name="rut" id="rut" class="form-control" placeholder="11111111-1" size='45'
-                        maxlength='10' required><br>
-                </div>
+        
                 <div class="mt-1">        
                 <b>Nombre de la tienda</b><br>
                 <input type='text' class="form-control" name="name" id="name" placeholder="Ingrese el nombre de la tienda" size='15' maxlength='13' required>
                 </div>       
                 <br>
                 <div class="mt-1">
-                    <b>Email</b>
+                    <b>Correo</b>
                     <input type='email' name="correo" id="correo" class="form-control"  placeholder="Ingrese su correo electrónico" size='45' maxlength='30' required><br>
                 </div>
                 <div>
                     <b>Contraseña</b>
-                    <input type='password' name="password" class="form-control" placeholder="Ingrese su contraseña"><br>
+                    <input type='password' name="password" class="form-control" placeholder="Ingrese su contraseña" required><br>
                 </div>
+                <div class="mt-1">        
+                    <b>Slogan de la tienda</b><br>
+                    <input type='text' class="form-control" name="slogan" id="slogan" placeholder="Ingrese el slogan de la tienda" size='15' maxlength='50' required>
+                </div>  <br> 
+                
                 <div class="mb-3">
                     <b>Ingrese el logo de su tienda</b>
                     <input class="form-control" type="file" id="image" name="image" tabindex="7" accept="image/*" required>
                 </div> 
+                <b>Seleccione el tipo de tienda</b>
+                <select class="form-select form-control-lg" aria-label="Default select example" id="tipo" name="tipo" required>
+                    <option selected> Seleccione una opción: </option>
+                    <% results.forEach((tipos)=>{ %>
+                        <option value="<%= tipos.id_tipo %>" > <%= tipos.nombre_tipo %> </option>
+                    <%})%>
+                </select><br>
+                <b>Seleccione el sector</b>
+                <select class="form-select form-control-lg" aria-label="Default select example" id="sector" name="sector" required>
+                    <option selected> Seleccione una opción: </option>
+                    <% results2.forEach((sector)=>{ %>
+                        <option value="<%= sector.id_sector %>" > <%= sector.nombre_sector %> </option>
+                    <%})%>
+                </select>
+                <br>
 
-                <div class="mt-1">
-                    <b>Ingrese la ubicacion de la tienda</b>
-                    <input type='text' name="ubicacion" id="ubicacion" class="form-control" placeholder="Alameda #132" size='45' maxlength='30' required><br>
-                </div>
 
                 <button type="submit" class="btn btn-info text-white w-100 fw-semibold shadow-sm"> Registrarme </button>
                 <div class="d-flex gap-1 justify-content-center mt-1">
