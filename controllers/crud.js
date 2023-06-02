@@ -77,14 +77,14 @@ exports.savestore =(req, res)=>{
     const logo = req.files['logo'][0].filename;
     const horaio = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
     const tipo = req.body.tipo;
-    const secotr = req.body.sector;
+    const sector = req.body.sector;
 
     console.log(imagen);
     console.log(logo);
 
 
 
-    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk:tipo, id_sector_fk:secotr }, (error, results)=>{
+    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk: tipo, id_sector_fk: sector }, (error, results)=>{
         console.log("results --> ", results);
         
         if(error){
@@ -97,7 +97,7 @@ exports.savestore =(req, res)=>{
                 alertIcon:'success',
                 showConfirmButton: false,
                 timer: 1500,
-                ruta: ''
+                ruta: '/'
             })
         }
     })

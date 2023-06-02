@@ -7,14 +7,14 @@ router.get('/',  (req, res)=>{
 })
 
 router.get('/registro', (req, res) => {
-    res.render('registro')
-    conexion.query('SELECT * FROM sector;', (error, results2) => {
-        conexion.query('SELECT * FROM tipo_tiendas;', (error, results) => {
 
+    conexion.query('SELECT * FROM tipo_tiendas;', (error, tipotienda) => {
+        console.log(tipotienda);
+        conexion.query('SELECT * FROM sector;', (error, sector) => {
             if (error) {
                 throw error;
             } else {
-                res.render('registro', { results: results, results2: results2 });
+                res.render('registro', { tipotienda: tipotienda , sector: sector});
             }
 
         });
