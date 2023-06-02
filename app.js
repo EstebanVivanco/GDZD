@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
 app.use(multer({
     storage,
     dest: path.join(__dirname,'public/uploads')
-}).single('image'));
+}).fields([{ name: 'logo' }, { name: 'image' }]),);
 
 //Motor de plantillas
 app.set('view engine', 'ejs');
