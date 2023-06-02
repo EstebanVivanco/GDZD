@@ -74,8 +74,8 @@ create table tienda (
 );
 
 CREATE TABLE proveedores (
-  id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
-  nombre_proveedor VARCHAR(255) NOT NULL
+    id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_proveedor VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE bodega(
@@ -175,12 +175,12 @@ INSERT INTO estado_sector (nombre_estado_sector) VALUES
     ('Cerrado');
 
 INSERT INTO sector (nombre_sector, id_estado_sector_fk, id_zona_fk) VALUES
-    ('Sector Ropa', 1, 1),
-    ('Sector Electrónica', 1, 1),
-    ('Sector Alimentos', 1, 2),
-    ('Sector Farmacia', 1, 1),
-    ('Sector Variado', 1, 2),
-    ('Sector Juguetes', 2, 3);
+    ('Sector A1', 1, 1),
+    ('Sector A2', 1, 1),
+    ('Sector A3', 1, 1),
+    ('Sector B1', 1, 2),
+    ('Sector B2', 1, 2),
+    ('Sector B3', 2, 2);
 
 INSERT INTO tienda (nombre_tienda, slogan_tienda, logo_tienda, horarios_tienda, id_tipo_fk, id_sector_fk) VALUES
     ('Tienda de Ropa', '¡Moda para todos!', 'logo_ropa.jpg', 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM', 1, 1),
