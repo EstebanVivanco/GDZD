@@ -9,11 +9,13 @@ router.get('/',  (req, res)=>{
 router.get('/registro', (req, res) => {
     conexion.query('SELECT * FROM sector;', (error, results2) => {
         conexion.query('SELECT * FROM tipo_tiendas;', (error, results) => {
+
             if (error) {
                 throw error;
             } else {
                 res.render('registro', { results: results, results2: results2 });
             }
+
         });
     });
 });
@@ -37,12 +39,13 @@ router.get('/index_tienda/:id', (req, res)=>{
 
 const crud = require('./controllers/crud');
 router.get('/ver_productos', (req, res) => {
-    conexion.query('SELECT * FROM productos;', (error, results) => {
+
+    conexion.query('SELECT * FROM productos INNER JOIN estado_producto ON estado_producto.id_estado_producto = productos.id_estado_fk INNER JOIN proveedores ON proveedores.id_proveedor = productos.id_proveedor_fk INNER JOIN categoria_producto ON categoria_producto.id_categoria_producto = productos.id_categoria_producto_fk', (error, results) => {
         
             if (error) {
                 throw error;
             } else {
-                res.render('ver_productos', { results: results, results2: results2 });
+                res.render('ver_productos', { results: results});
             }
 
     });
