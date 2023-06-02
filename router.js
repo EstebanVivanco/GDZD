@@ -10,7 +10,11 @@ router.get('/registro', (req, res)=>{
     res.render('registro')
 })
 
+router.get('/productos', (req, res)=>{
+    res.render('crear_recompensa')
+})
+
 const crud = require('./controllers/crud');
-// router.post('/', crud.validacion);
+router.post('/GuardarProducto', crud.GuardarProducto);
 
 module.exports = router;
