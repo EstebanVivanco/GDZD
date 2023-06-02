@@ -83,7 +83,6 @@ router.get('/logout',  (req, res)=>{
         }
     });
 
-
 })
 
 const crud = require('./controllers/crud');

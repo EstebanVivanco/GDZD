@@ -21,7 +21,28 @@ exports.GuardarProducto =(req, res)=>{
         if(error){
             throw error;
         }else{
-            res.redirect('/productos');
+
+            conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+                conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
+                    conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
+                        conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+                            res.render('crear_producto',{
+                                alert:true,
+                                alertTitle: 'Producto Registrado',
+                                alertMessage: 'Se ha creado correctamente el producto',
+                                alertIcon:'success',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                ruta: 'productos',
+                                user: req.session.user,
+                                categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega
+                            })
+
+                        })
+                    })
+                })
+            })
+
         }
         
     })
