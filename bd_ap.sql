@@ -204,3 +204,5 @@ INSERT INTO productos (nombre_producto, stock, precio_producto, id_categoria_pro
     ('Pantalón de mezclilla', 30, 49.99, 2, 1, 2, 2, 2, 'ruta_imagen_2.jpg'),
     ('Zapatos deportivos', 20, 69.99, 3, 1, 3, 3, 3, 'ruta_imagen_3.jpg');
 
+ALTER TABLE `tienda` ADD `banner_tienda` VARCHAR(300) NOT NULL AFTER `slogan_tienda`;
+

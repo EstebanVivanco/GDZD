@@ -10,6 +10,10 @@ router.get('/registro', (req, res)=>{
     res.render('registro')
 })
 
+router.get('/index_tienda', (req, res)=>{
+    res.render('index_tienda')
+})
+
 const crud = require('./controllers/crud');
 // router.post('/', crud.validacion);
 
