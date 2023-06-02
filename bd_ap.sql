@@ -63,6 +63,7 @@ create table tienda (
     correo_tienda varchar(50) not null,
     pass_tienda varchar(50) not null,
     slogan_tienda varchar(300) not null,
+    banner_tienda VARCHAR(300) NOT NULL, 
     logo_tienda varchar(200) not null,
     horarios_tienda varchar(400) not null,
     id_tipo_fk int,
@@ -77,10 +78,16 @@ CREATE TABLE proveedores (
   nombre_proveedor VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE bodega(
+	id_bodega int AUTO_INCREMENT PRIMARY KEY,
+    nombre_bodega varchar(50)
+);
+
 create table productos (
 
     id_producto int auto_increment primary key,
     nombre_producto varchar(80),
+    imagen_producto VARCHAR(300),
     stock int,
     precio_producto int,
     id_categoria_producto_fk int,
@@ -91,8 +98,8 @@ create table productos (
     FOREIGN KEY (id_categoria_producto_fk) REFERENCES categoria_producto(id_categoria_producto),
     FOREIGN KEY (id_estado_fk) REFERENCES estado_producto(id_estado_producto),
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
-    FOREIGN KEY (id_proveedor_fk) REFERENCES proveedores(id_proveedor)
-    -- FOREIGN KEY (id_bodega_fk) REFERENCES bodega(id_bodega)
+    FOREIGN KEY (id_proveedor_fk) REFERENCES proveedores(id_proveedor),
+    FOREIGN KEY (id_bodega_fk) REFERENCES bodega(id_bodega)
 
 
 );
@@ -199,17 +206,23 @@ INSERT INTO reserva_habitaciones (id_habitacion_fk, fecha_inicio, fecha_fin, pas
     (4, '2023-09-15', '2023-09-17', 'Laura Torres', '43215678-0', 'laura@example.com', 240),
     (5, '2023-10-10', '2023-10-12', 'Ana Silva', '87654321-2', 'ana@example.com', 120);
 
-ALTER TABLE productos ADD imagen_producto VARCHAR(300) NOT NULL AFTER nombre_producto;
-
 INSERT INTO proveedores (nombre_proveedor) VALUES
     ('Proveedor A'),
     ('Proveedor B'),
     ('Proveedor C');
 
-INSERT INTO productos (nombre_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk, imagen_producto) VALUES
-    ('Camisa de manga corta', 50, 29.99, 1, 1, 1, 1, 1, 'ruta_imagen_1.jpg'),
-    ('Pantalón de mezclilla', 30, 49.99, 2, 1, 2, 2, 2, 'ruta_imagen_2.jpg'),
-    ('Zapatos deportivos', 20, 69.99, 3, 1, 3, 3, 3, 'ruta_imagen_3.jpg');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega A');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega B');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega C');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega D');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega E');
 
-ALTER TABLE `tienda` ADD `banner_tienda` VARCHAR(300) NOT NULL AFTER `slogan_tienda`;
+INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
+VALUES ('Producto A', 'imagen1.jpg', 10, 100, 1, 1, 1, 1, 1);
+
+INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
+VALUES ('Producto B', 'imagen2.jpg', 5, 50, 2, 1, 1, 2, 2);
+
+INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
+VALUES ('Producto C', 'imagen3.jpg', 8, 80, 1, 2, 2, 1, 1);
 
