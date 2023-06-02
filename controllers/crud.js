@@ -2,6 +2,33 @@ const router = require('../router');
 const { query } = require('../database/bd');
 const conexion = require('../database/bd');
 
+exports.GuardarProducto =(req, res)=>{
+
+    //ID TIENDA
+    const id_tienda = 1;
+
+    const nombre_producto = req.body.nombre_producto;
+    const imagen_producto = req.file.filename;
+    const stock = req.body.stock;
+    const precio_producto = req.body.precio_producto;
+    const id_categoria_producto_fk = req.body.id_categoria_producto_fk;
+    const id_estado_fk = req.body.id_estado_fk;
+    const id_bodega_fk = req.body.id_bodega_fk;
+    const id_proveedor_fk = req.body.id_proveedor_fk;
+
+    conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk:1, id_proveedor_fk:1},  ], (error, results)=>{
+
+
+        if(error){
+            throw error;
+        }else{
+            res.redirect('/productos');
+        }
+        
+    })
+
+}
+
 exports.login = (req, res)=>{
     const correo = req.body.email;
     const pass = req.body.password;

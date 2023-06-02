@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio de sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="d-flex justify-content-center align-items-center vh-100 mt-2 " style="background-color: hsl(0, 0%, 90%); ">
+        <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 60rem; border-radius: 30px;">
+            <form action="/GuardarProducto" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate >
+
+                <h3 class="text-center mt-2">Registrar producto</h3>
+               
+                <div class="mt-4">
+                    <b>Ingrese el nombre del producto</b>
+                    <input type='text' name="nombre_producto" id="nombre_producto" class="form-control  mt-1" placeholder="ej: Sopaipilla" size='45'
+                        required>
+                </div>
+                
+                <div class="mt-4">        
+                <b>Stock del producto</b><br>
+                <input type='text'  class="form-control  mt-1" name="stock" id="stock" placeholder="Stock del producto" size='15'  required>
+                </div>       
+                <div class="mt-4">
+                    <b>Precio</b>
+                    <input  type='number' name="precio_producto" id="precio_producto" class="form-control mt-1"  placeholder="Ingrese el precio" size='45' maxlength='30' required>
+                </div>
+
+                <div class="mb-3 mt-4">
+                    <b>Ingrese el logo de su tienda</b>
+                    <input class="form-control" type="file" id="image" name="image" tabindex="7" accept="image/*" required>
+                </div> 
+
+                <div class="mt-4" >
+
+                    <b>Categoría</b>
+                    <select class="form-select mt-1 " name="id_categoria_producto_fk" id="id_categoria_producto_fk" aria-label="Default select example">
+                        <option selected>Categoría</option>
+                        <option value="1">Comida</option>
+                        <option value="2">Ropa</option>
+                        <option value="3">Electrónica</option>
+                        <option value="4">Farmacia</option>
+                        <option value="5">Souvenirs</option>
+                    </select>
+
+                </div>
+
+                <div class="mt-4" >
+
+                    <b>Estado</b>
+                    <select class="form-select mt-1 " name="id_estado_fk" id="id_estado_fk" aria-label="Default select example">
+                        <option selected>Estado</option>
+                        <option value="1">Disponible</option>
+                        <option value="2">No Disponible</option>
+                    </select>
+                    
+                </div>
+
+                <div class="mt-4" >
+
+                    <b>Bodega</b>
+                    <select class="form-select mt-1 " name="id_bodega_fk" id="id_bodega_fk" aria-label="Default select example">
+                        <option selected>Bodega</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    
+                </div>
+
+                <div class="mt-4" >
+
+                    <b>Proveedores</b>
+                    <select class="form-select mt-1 " name="id_proveedor_fk" id="id_proveedor_fk" aria-label="Default select example">
+                        <option selected>Proveedores</option>
+                        <option value="1">Proveedor 1</option>
+                        <option value="2">Proveedor 2</option>
+                        <option value="3">Proveedor 3</option>
+                        <option value="4">Proveedor 4</option>
+                        <option value="5">Proveedor 5</option>
+                    </select>
+                    
+                </div>
+
+
+
+
+                <button type="submit" class="btn btn-success w-100 fw-semibold shadow-sm mt-3">
+                    Registrar
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+</html>
