@@ -176,10 +176,10 @@ INSERT INTO sector (nombre_sector, id_estado_sector_fk, id_zona_fk) VALUES
     ('Sector B2', 1, 2),
     ('Sector B3', 2, 2);
 
-INSERT INTO tienda (nombre_tienda, slogan_tienda, logo_tienda, horarios_tienda, id_tipo_fk, id_sector_fk) VALUES
-    ('Dressing UP', '¡Moda para todos!', 'logo_ropa.jpg', 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM', 1, 1),
-    ('Electro Store', 'Tecnología al alcance de todos', 'logo_electro.jpg', 'Lun-Dom: 9AM-9PM', 2, 2),
-    ('FreshMart', 'Calidad y frescura garantizada', 'logo_supermercado.jpg', 'Lun-Dom: 7AM-10PM', 3, 3);
+INSERT INTO tienda (nombre_tienda, slogan_tienda,banner_tienda, logo_tienda, horarios_tienda, id_tipo_fk, id_sector_fk) VALUES
+    ('Dressing UP', '¡Moda para todos!', 'logo-1.png', 'banner-1', 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM', 1, 1),
+    ('Electro Store', 'Tecnología al alcance de todos','banner-2',  'logo-2.png', 'Lun-Dom: 9AM-9PM', 2, 2),
+    ('FreshMart', 'Calidad y frescura garantizada','banner-3',  'logo-3.png', 'Lun-Dom: 7AM-10PM', 3, 3);
 
 INSERT INTO estado_habitacion (nombre_estado_habitacion) VALUES
     ('Disponible'),
