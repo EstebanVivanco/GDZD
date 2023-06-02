@@ -52,7 +52,23 @@ router.get('/ver_productos', (req, res) => {
 });
 
 router.get('/productos', (req, res)=>{
-    res.render('crear_producto')
+
+
+    conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+        conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
+            conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
+                // conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+
+                    res.render('crear_producto',{categoria:categoria,estado:estado,proveedores:proveedores});
+                    console.log('catego :>> ', categoria);
+                    console.log('estado :>> ', estado);
+                    console.log('proveedores :>> ', proveedores);
+
+                // })
+            })
+        })
+    })
+
 })
 
 const crud = require('./controllers/crud');

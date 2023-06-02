@@ -38,11 +38,9 @@
                     <b>Categoría</b>
                     <select class="form-select mt-1 " name="id_categoria_producto_fk" id="id_categoria_producto_fk" aria-label="Default select example">
                         <option selected>Categoría</option>
-                        <option value="1">Comida</option>
-                        <option value="2">Ropa</option>
-                        <option value="3">Electrónica</option>
-                        <option value="4">Farmacia</option>
-                        <option value="5">Souvenirs</option>
+                        <% categoria.forEach((categoria)=>{ %>
+                            <option value="<%= categoria.id_categoria_producto %>" > <%= categoria.nombre_categoria_producto %> </option>
+                        <%})%>
                     </select>
 
                 </div>
@@ -50,10 +48,12 @@
                 <div class="mt-4" >
 
                     <b>Estado</b>
+                    
                     <select class="form-select mt-1 " name="id_estado_fk" id="id_estado_fk" aria-label="Default select example">
                         <option selected>Estado</option>
-                        <option value="1">Disponible</option>
-                        <option value="2">No Disponible</option>
+                        <% estado.forEach((estado)=>{ %>
+                            <option value="<%= estado.id_estado_producto %>" > <%= estado.nombre_estado_producto %> </option>
+                        <%})%>
                     </select>
                     
                 </div>
@@ -63,11 +63,7 @@
                     <b>Bodega</b>
                     <select class="form-select mt-1 " name="id_bodega_fk" id="id_bodega_fk" aria-label="Default select example">
                         <option selected>Bodega</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+             
                     </select>
                     
                 </div>
@@ -77,11 +73,9 @@
                     <b>Proveedores</b>
                     <select class="form-select mt-1 " name="id_proveedor_fk" id="id_proveedor_fk" aria-label="Default select example">
                         <option selected>Proveedores</option>
-                        <option value="1">Proveedor 1</option>
-                        <option value="2">Proveedor 2</option>
-                        <option value="3">Proveedor 3</option>
-                        <option value="4">Proveedor 4</option>
-                        <option value="5">Proveedor 5</option>
+                        <% proveedores.forEach((proveedores)=>{ %>
+                            <option value="<%= proveedores.id_proveedor %>" > <%= proveedores.nombre_proveedor %> </option>
+                        <%})%>
                     </select>
                     
                 </div>
