@@ -10,16 +10,88 @@ exports.GuardarProducto =(req, res)=>{
     const nombre_producto = req.body.nombre_producto;
     const imagen_producto = req.file.filename;
     const stock = req.body.stock;
-    const precio_producto = req.body.precio_product;
+    const precio_producto = req.body.precio_producto;
     const id_categoria_producto_fk = req.body.id_categoria_producto_fk;
     const id_estado_fk = req.body.id_estado_fk;
     const id_bodega_fk = req.body.id_bodega_fk;
     const id_proveedor_fk = req.body.id_proveedor_fk;
 
-    conexion.query('INSERT INTO productos VALUES ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_bodega_fk:id_bodega_fk, id_proveedor_fk:id_proveedor_fk}, id_tienda ], (error, results)=>{
+    conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk:1, id_proveedor_fk:1},  ], (error, results)=>{
 
-        res.render('/');
+
+        if(error){
+            throw error;
+        }else{
+            res.redirect('/productos');
+        }
         
     })
 
+}
+
+exports.login = (req, res)=>{
+    const correo = req.body.email;
+    const pass = req.body.password;
+    if(correo && pass){
+        conexion.query('SELECT * FROM tienda WHERE email_usuario = ? AND password_usuario = ? ', [correo, pass], (error, results)=>{
+            if(error){
+                throw error;
+            }else{
+                if(results.length > 0){
+                    //ENTRA
+                    res.render('login',{
+                        alert:true,
+                        alertTitle: 'Conexion exitosa',
+                        alertMessage: 'Bienvenido! ',
+                        alertIcon:'succes',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta: 'vista_catalogo',
+                        user: req.session.user = results[0]
+                    })
+                }else{
+                    //NO ENTRA
+                    res.render('login',{
+                        alert:true,
+                        alertTitle: 'Error',
+                        alertMessage: 'Nombre o contraseña incorrectos!',
+                        alertIcon:'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: ''
+                    })
+                }
+            }
+        })
+    }
+
+}
+exports.savestore =(req, res)=>{
+    const nombre = req.body.name;
+    const email = req.body.correo;
+    const pass = req.body.password;
+    const slogan = req.body.slogan;
+    const imagen= req.file.filename;
+    const horaio = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
+    const tipo = req.body.tipo;
+    const secotr = req.body.sector;
+
+
+
+    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, logo_tienda:imagen, horarios_tienda:horaio,id_tipo_fk:tipo, id_sector_fk:secotr }, (error, results)=>{
+
+        if(error){
+            throw error;
+        }else{
+            res.render('registro',{
+                alert:true,
+                alertTitle: 'Resgistro',
+                alertMessage: 'Registro de tienda exitoso!',
+                alertIcon:'success',
+                showConfirmButton: false,
+                timer: 1500,
+                ruta: ''
+            })
+        }
+    })
 }
