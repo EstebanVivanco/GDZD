@@ -5,10 +5,10 @@ const conexion = require('../database/bd');
 exports.GuardarProducto =(req, res)=>{
 
     //ID TIENDA
-    const id_tienda = 4;
+    const id_tienda = req.session.user.id_tienda;
 
     const nombre_producto = req.body.nombre_producto;
-    const imagen_producto = req.file.filename;
+    const imagen_producto = req.files['image'][0].filename;
     const stock = req.body.stock;
     const precio_producto = req.body.precio_producto;
     const id_categoria_producto_fk = req.body.id_categoria_producto_fk;
@@ -16,8 +16,7 @@ exports.GuardarProducto =(req, res)=>{
     const id_bodega_fk = req.body.id_bodega_fk;
     const id_proveedor_fk = req.body.id_proveedor_fk;
 
-    conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk:1, id_proveedor_fk:1},  ], (error, results)=>{
-
+    conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk: id_bodega_fk, id_proveedor_fk:id_proveedor_fk},  ], (error, results)=>{
 
         if(error){
             throw error;
@@ -38,17 +37,31 @@ exports.login = (req, res)=>{
                 throw error;
             }else{
                 if(results.length > 0){
+
                     //ENTRA
-                    res.render('login',{
-                        alert:true,
-                        alertTitle: 'Conexion exitosa',
-                        alertMessage: 'Bienvenido! ',
-                        alertIcon:'succes',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        ruta: '',
-                        //user: req.session.user = results[0]
+
+                    conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+                        conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
+                            conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
+                                conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+                                    res.render('login',{
+                                        alert:true,
+                                        alertTitle: 'Conexion exitosa',
+                                        alertMessage: 'Bienvenido! ',
+                                        alertIcon:'succes',
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        ruta: 'productos',
+                                        user: req.session.user = results[0],
+                                        categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega
+                                    })
+                                })
+                            })
+                        })
                     })
+
+
+
                 }else{
                     //NO ENTRA
                     res.render('login',{
@@ -58,7 +71,7 @@ exports.login = (req, res)=>{
                         alertIcon:'error',
                         showConfirmButton: true,
                         timer: false,
-                        ruta: 'ver_productos'
+                        ruta: '/'
                     })
                 }
             }

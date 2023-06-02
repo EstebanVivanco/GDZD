@@ -4,6 +4,8 @@ const path = require('path');
 const app = express();
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const session = require('express-session');
+
 
 app.use(express.urlencoded({extended:false}));
 app.use(express(json));
@@ -30,6 +32,13 @@ app.use(express.static(path.join(__dirname,'public')));
 //Permitir usar componentes
 app.use(express.static(path.join(__dirname,'public/components')));
 app.use(express.static(path.join(__dirname,'helpers')));
+
+//Sessions
+app.use(session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true
+}));
 
 app.use('/', require('./router'));
 

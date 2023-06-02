@@ -7,6 +7,36 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
   <body>
+
+    <% if(user){ %>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Tienda</a>
+                  </li>
+    
+                  <li class="nav-item">
+                    <a class="nav-link" href="/productos">Registrar Producto</a>
+                  </li>
+    
+                  <li class="nav-item">
+                    <a class="nav-link" href="/ver_productos/<%= user.id_tienda %>">Ver Productos</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="/logout">Cerrar Sesión</a>
+                  </li>
+    
+                </ul>
+              </div>
+            </div>
+          </nav>
+    <% } %>  
     <div class="d-flex justify-content-center align-items-center vh-100 mt-2 " style="background-color: hsl(0, 0%, 90%); ">
         <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 60rem; border-radius: 30px;">
             <form action="/GuardarProducto" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate >
@@ -15,7 +45,7 @@
                
                 <div class="mt-4">
                     <b>Ingrese el nombre del producto</b>
-                    <input type='text' name="nombre_producto" id="nombre_producto" class="form-control  mt-1" placeholder="ej: Sopaipilla" size='45'
+                    <input type='text' name="nombre_producto" id="nombre_producto" class="form-control  mt-1" placeholder="ej: Reloj" size='45'
                         required>
                 </div>
                 
@@ -38,11 +68,9 @@
                     <b>Categoría</b>
                     <select class="form-select mt-1 " name="id_categoria_producto_fk" id="id_categoria_producto_fk" aria-label="Default select example">
                         <option selected>Categoría</option>
-                        <option value="1">Comida</option>
-                        <option value="2">Ropa</option>
-                        <option value="3">Electrónica</option>
-                        <option value="4">Farmacia</option>
-                        <option value="5">Souvenirs</option>
+                        <% categoria.forEach((categoria)=>{ %>
+                            <option value="<%= categoria.id_categoria_producto %>" > <%= categoria.nombre_categoria_producto %> </option>
+                        <%})%>
                     </select>
 
                 </div>
@@ -50,10 +78,12 @@
                 <div class="mt-4" >
 
                     <b>Estado</b>
+                    
                     <select class="form-select mt-1 " name="id_estado_fk" id="id_estado_fk" aria-label="Default select example">
                         <option selected>Estado</option>
-                        <option value="1">Disponible</option>
-                        <option value="2">No Disponible</option>
+                        <% estado.forEach((estado)=>{ %>
+                            <option value="<%= estado.id_estado_producto %>" > <%= estado.nombre_estado_producto %> </option>
+                        <%})%>
                     </select>
                     
                 </div>
@@ -63,11 +93,9 @@
                     <b>Bodega</b>
                     <select class="form-select mt-1 " name="id_bodega_fk" id="id_bodega_fk" aria-label="Default select example">
                         <option selected>Bodega</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        <% bodega.forEach((bodega)=>{ %>
+                            <option value="<%= bodega.id_bodega %>" > <%= bodega.nombre_bodega %> </option>
+                        <%})%>
                     </select>
                     
                 </div>
@@ -77,11 +105,9 @@
                     <b>Proveedores</b>
                     <select class="form-select mt-1 " name="id_proveedor_fk" id="id_proveedor_fk" aria-label="Default select example">
                         <option selected>Proveedores</option>
-                        <option value="1">Proveedor 1</option>
-                        <option value="2">Proveedor 2</option>
-                        <option value="3">Proveedor 3</option>
-                        <option value="4">Proveedor 4</option>
-                        <option value="5">Proveedor 5</option>
+                        <% proveedores.forEach((proveedores)=>{ %>
+                            <option value="<%= proveedores.id_proveedor %>" > <%= proveedores.nombre_proveedor %> </option>
+                        <%})%>
                     </select>
                     
                 </div>
