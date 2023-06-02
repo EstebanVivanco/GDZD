@@ -18,9 +18,11 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
+
+        <% tienda.forEach((tienda) => { %>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="/img_tienda/navbar-logo.svg" alt="..." /></a>
+                <a class="navbar-brand" href="#page-top"><img src="/img_tienda/navbar-logo.png" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -34,10 +36,11 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead" style="background-image: url('img_tienda/header-bg.jpg');">
+        <header class="masthead" style="background-image: url('/img_tienda/header-bg.jpg');">
             <div class="container">
                 <div class="masthead-subheading">Bienvenido a!</div>
-                <div class="masthead-heading text-uppercase">Nombre de la tienda</div>
+                <div class="masthead-heading text-uppercase"><%= tienda.nombre_tienda %></div>
+                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services"><%= tienda.slogan_tienda %></a>
             </div>
         </header>
         <!-- Services-->
@@ -83,6 +86,7 @@
                     <h3 class="section-subheading text-muted">Todos los productos disponibles.</h3>
                 </div>
                 <div class="row">
+                    <% productos.forEach((productos) => { %>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <!-- Portfolio item 1-->
                         <div class="portfolio-item">
@@ -92,14 +96,15 @@
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 -->
-                                <img class="img-fluid" src="/img_tienda/portfolio/1.jpg" alt="..." />
+                                <img class="img-fluid" src="<%= productos.imagen_producto %>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Producto</div>
-                                <div class="portfolio-caption-subheading text-muted fs-4">Precio</div>
+                                <div class="portfolio-caption-heading"><%= productos.nombre_producto %></div>
+                                <div class="portfolio-caption-subheading text-muted fs-4">$<%= productos.precio_producto %> CLP</div>
                             </div>
                         </div>
                     </div>
+                    <% }) %>
                 </div>
             </div>
         </section>
@@ -122,6 +127,7 @@
                 </div>
             </div>
         </div>
+        <% }) %>
 
         <!-- Footer-->
         <footer class="footer py-4">

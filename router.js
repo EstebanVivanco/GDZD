@@ -18,8 +18,21 @@ router.get('/registro', (req, res) => {
     });
 });
 
-router.get('/index_tienda', (req, res)=>{
-    res.render('index_tienda')
+
+router.get('/index_tienda/:id', (req, res)=>{
+    
+    const id = req.params.id;
+
+    conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [id], (error,tienda)=>{
+        conexion.query('SELECT * FROM productos WHERE id_tienda_fk = ?', [id],(error,productos)=>{ 
+
+            if (error) {
+                throw error;
+            } else {
+                res.render('index_tienda', { tienda : tienda, productos : productos });
+            }
+        })
+    })
 })
 
 const crud = require('./controllers/crud');
