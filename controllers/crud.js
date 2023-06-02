@@ -116,23 +116,16 @@ exports.savestore =(req, res)=>{
     console.log(imagen);
     console.log(logo);
 
-
+    const ruta = 'registro';
 
     conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk: tipo, id_sector_fk: sector }, (error, results)=>{
-        console.log("results --> ", results);
         
         if(error){
             throw error;
         }else{
-            res.render('registro',{
-                alert:true,
-                alertTitle: 'Resgistro',
-                alertMessage: 'Registro de tienda exitoso!',
-                alertIcon:'success',
-                showConfirmButton: false,
-                timer: 1500,
-                ruta: '/'
-            })
+
+            res.redirect('/')
+
         }
     })
 }
