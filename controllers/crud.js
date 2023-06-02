@@ -73,15 +73,20 @@ exports.savestore =(req, res)=>{
     const email = req.body.correo;
     const pass = req.body.password;
     const slogan = req.body.slogan;
-    const imagen= req.file.filename;
+    const imagen = req.files['image'][0].filename;
+    const logo = req.files['logo'][0].filename;
     const horaio = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
     const tipo = req.body.tipo;
     const secotr = req.body.sector;
 
+    console.log(imagen);
+    console.log(logo);
 
 
-    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, logo_tienda:imagen, horarios_tienda:horaio,id_tipo_fk:tipo, id_sector_fk:secotr }, (error, results)=>{
-        console.log(results)
+
+    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk:tipo, id_sector_fk:secotr }, (error, results)=>{
+        console.log("results --> ", results);
+        
         if(error){
             throw error;
         }else{
