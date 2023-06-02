@@ -141,23 +141,17 @@ CREATE TABLE reserva_habitaciones (
 INSERT INTO tipo_tiendas (nombre_tipo) VALUES
     ('Ropa y Moda'),
     ('Electrónica'),
-    ('Supermercado'),
-    ('Librería'),
-    ('Misceláneo'),
-    ('Artículos deportivos'),
-    ('juguetería'),
-    ('Farmacia');
+    ('Supermercado');
 
 INSERT INTO categoria_producto (nombre_categoria_producto) VALUES
     ('Ropa'),
-    ('Electrodomésticos'),
+    ('Electronica'),
     ('Alimentos'),
     ('Juguetes');
 
 INSERT INTO estado_producto (nombre_estado_producto) VALUES
     ('Disponible'),
-    ('Agotado'),
-    ('En oferta');
+    ('Agotado');
 
 INSERT INTO estado_zona (nombre_estado_zona) VALUES
     ('Activa'),
@@ -165,9 +159,9 @@ INSERT INTO estado_zona (nombre_estado_zona) VALUES
     ('Cerrada');
 
 INSERT INTO zona (nombre_zona, imagen_zona, id_estado_zona_fk) VALUES
-    ('Zona Comercial', 'zona_comercial.jpg', 1),
-    ('Zona Residencial', 'zona_residencial.jpg', 1),
-    ('Zona Industrial', 'zona_industrial.jpg', 2);
+    ('Zona Oeste', 'zona_comercial.jpg', 1),
+    ('Zona Este', 'zona_residencial.jpg', 1),
+    ('Zona Comercio', 'zona_industrial.jpg', 2);
 
 INSERT INTO estado_sector (nombre_estado_sector) VALUES
     ('Activo'),
@@ -182,10 +176,10 @@ INSERT INTO sector (nombre_sector, id_estado_sector_fk, id_zona_fk) VALUES
     ('Sector B2', 1, 2),
     ('Sector B3', 2, 2);
 
-INSERT INTO tienda (nombre_tienda, slogan_tienda, logo_tienda, horarios_tienda, id_tipo_fk, id_sector_fk) VALUES
-    ('Tienda de Ropa', '¡Moda para todos!', 'logo_ropa.jpg', 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM', 1, 1),
-    ('Electro Store', 'Tecnología al alcance de todos', 'logo_electro.jpg', 'Lun-Dom: 9AM-9PM', 2, 2),
-    ('Supermercado FreshMart', 'Calidad y frescura garantizada', 'logo_supermercado.jpg', 'Lun-Dom: 7AM-10PM', 3, 3);
+INSERT INTO tienda (nombre_tienda, slogan_tienda,banner_tienda, logo_tienda, horarios_tienda, id_tipo_fk, id_sector_fk) VALUES
+    ('Dressing UP', '¡Moda para todos!', 'logo-1.png', 'banner-1', 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM', 1, 1),
+    ('Electro Store', 'Tecnología al alcance de todos','banner-2',  'logo-2.png', 'Lun-Dom: 9AM-9PM', 2, 2),
+    ('FreshMart', 'Calidad y frescura garantizada','banner-3',  'logo-3.png', 'Lun-Dom: 7AM-10PM', 3, 3);
 
 INSERT INTO estado_habitacion (nombre_estado_habitacion) VALUES
     ('Disponible'),
@@ -193,18 +187,14 @@ INSERT INTO estado_habitacion (nombre_estado_habitacion) VALUES
     ('Mantenimiento');
 
 INSERT INTO habitaciones (numero, estado_habitacion_fk, descripcion, precio_hora, id_sector_fk) VALUES
-    ('101', 1, 'Habitación doble con vista al mar', 100, 1),
-    ('102', 1, 'Habitación individual estándar', 80, 1),
-    ('201', 2, 'Suite de lujo con jacuzzi privado', 200, 2),
-    ('202', 1, 'Habitación doble con balcón', 120, 2),
-    ('301', 3, 'Habitación individual económica', 60, 3);
+    ('101', 1, 'Habitación doble con vista al mar', 170000, 4),
+    ('102', 1, 'Habitación individual estándar', 80000, 5),
+    ('201', 1, 'Suite de lujo con jacuzzi privado', 300000, 6);
 
 INSERT INTO reserva_habitaciones (id_habitacion_fk, fecha_inicio, fecha_fin, pasajero_nombre, pasajero_rut, pasajero_correo, valor_total) VALUES
     (1, '2023-06-10', '2023-06-15', 'Juan Pérez', '12345678-9', 'juan@example.com', 500),
     (2, '2023-07-01', '2023-07-05', 'María Gómez', '98765432-1', 'maria@example.com', 320),
-    (3, '2023-08-20', '2023-08-25', 'Carlos Rodríguez', '56789123-4', 'carlos@example.com', 1000),
-    (4, '2023-09-15', '2023-09-17', 'Laura Torres', '43215678-0', 'laura@example.com', 240),
-    (5, '2023-10-10', '2023-10-12', 'Ana Silva', '87654321-2', 'ana@example.com', 120);
+    (3, '2023-08-20', '2023-08-25', 'Carlos Rodríguez', '56789123-4', 'carlos@example.com', 1000);
 
 INSERT INTO proveedores (nombre_proveedor) VALUES
     ('Proveedor A'),
@@ -218,11 +208,7 @@ INSERT INTO bodega (nombre_bodega) VALUES ('Bodega D');
 INSERT INTO bodega (nombre_bodega) VALUES ('Bodega E');
 
 INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
-VALUES ('Producto A', 'imagen1.jpg', 10, 100, 1, 1, 1, 1, 1);
+VALUES ('Pantalon de Cotele', 'imagen1.jpg', 10, 20000, 1, 1, 1, 1, 1);
 
 INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
-VALUES ('Producto B', 'imagen2.jpg', 5, 50, 2, 1, 1, 2, 2);
-
-INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
-VALUES ('Producto C', 'imagen3.jpg', 8, 80, 1, 2, 2, 1, 1);
-
+VALUES ('Zapatillas Adidas', 'imagen2.jpg', 5, 70000, 2, 1, 1, 2, 2);
