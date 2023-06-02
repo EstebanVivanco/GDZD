@@ -2,9 +2,23 @@ const express = require('express');
 const { json } = require('express');
 const path = require('path');
 const app = express();
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 app.use(express.urlencoded({extended:false}));
 app.use(express(json));
+
+const storage = multer.diskStorage({
+    destination: path.join(__dirname,'public/uploads'),
+    filename: function (req, file, cb) {
+        cb(null, uuidv4() + '.jpg')
+    }
+});
+
+app.use(multer({
+    storage,
+    dest: path.join(__dirname,'public/uploads')
+}).single('image'));
 
 //Motor de plantillas
 app.set('view engine', 'ejs');

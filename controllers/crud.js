@@ -40,26 +40,30 @@ exports.login = (req, res)=>{
 
 }
 exports.savestore =(req, res)=>{
-    const rut = req.body.rut;
     const nombre = req.body.name;
-    const correo = req.body.correo;
+    const email = req.body.correo;
     const pass = req.body.password;
+    const slogan = req.body.slogan;
     const imagen= req.file.filename;
-    const ubicacion = req.body.ubicacion;
+    const horaio = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
+    const tipo = req.body.tipo;
+    const secotr = req.body.sector;
 
-    conexion.query('INSERT INTO tienda SET ?', {rut_tienda:rut,nombre_tienda:nombre,email_tienda:correo,password_tienda:pass, logo:imagen, ubicacion_tienda:ubicacion}, (error, results)=>{
+
+
+    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, logo_tienda:imagen, horarios_tienda:horaio,id_tipo_fk:tipo, id_sector_fk:secotr }, (error, results)=>{
 
         if(error){
             throw error;
         }else{
-            res.render('registroT',{
+            res.render('registro',{
                 alert:true,
                 alertTitle: 'Resgistro',
                 alertMessage: 'Registro de tienda exitoso!',
                 alertIcon:'success',
                 showConfirmButton: false,
                 timer: 1500,
-                ruta: 'loginTienda'
+                ruta: ''
             })
         }
     })
