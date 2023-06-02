@@ -5,7 +5,7 @@ const conexion = require('../database/bd');
 exports.GuardarProducto =(req, res)=>{
 
     //ID TIENDA
-    const id_tienda = 1;
+    const id_tienda = 4;
 
     const nombre_producto = req.body.nombre_producto;
     const imagen_producto = req.file.filename;
