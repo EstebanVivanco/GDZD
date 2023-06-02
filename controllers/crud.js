@@ -6,7 +6,7 @@ exports.login = (req, res)=>{
     const correo = req.body.email;
     const pass = req.body.password;
     if(correo && pass){
-        conexion.query('SELECT * FROM tienda WHERE email_usuario = ? AND password_usuario = ? ', [correo, pass], (error, results)=>{
+        conexion.query('SELECT * FROM tienda WHERE correo_tienda = ? AND pass_tienda = ? ', [correo, pass], (error, results)=>{
             if(error){
                 throw error;
             }else{
@@ -19,8 +19,8 @@ exports.login = (req, res)=>{
                         alertIcon:'succes',
                         showConfirmButton: false,
                         timer: 1500,
-                        ruta: 'vista_catalogo',
-                        user: req.session.user = results[0]
+                        ruta: '',
+                        //user: req.session.user = results[0]
                     })
                 }else{
                     //NO ENTRA
@@ -31,7 +31,7 @@ exports.login = (req, res)=>{
                         alertIcon:'error',
                         showConfirmButton: true,
                         timer: false,
-                        ruta: ''
+                        ruta: 'ver_productos'
                     })
                 }
             }
@@ -39,6 +39,8 @@ exports.login = (req, res)=>{
     }
 
 }
+
+
 exports.savestore =(req, res)=>{
     const nombre = req.body.name;
     const email = req.body.correo;
@@ -52,7 +54,7 @@ exports.savestore =(req, res)=>{
 
 
     conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, logo_tienda:imagen, horarios_tienda:horaio,id_tipo_fk:tipo, id_sector_fk:secotr }, (error, results)=>{
-
+        console.log(results)
         if(error){
             throw error;
         }else{

@@ -41,20 +41,26 @@
                 <b>Seleccione el tipo de tienda</b>
                 <select class="form-select form-control-lg" aria-label="Default select example" id="tipo" name="tipo" required>
                     <option selected> Seleccione una opción: </option>
-                    <% results.forEach((tipos)=>{ %>
-                        <option value="<%= tipos.id_tipo %>" > <%= tipos.nombre_tipo %> </option>
-                    <%})%>
+                    <option value=1 > Ropa y moda</option>
+                    <option value=2 > Electrónica</option>
+                    <option value=3 > Supermercado</option>
+                    <option value=4 > Librería</option>
+                    <option value=5 > Misceláneo</option>
+                    <option value=6 > Artículos deportivos</option>
+                    <option value=7 > juguetería</option>
+                    <option value=8 > Farmacia</option>
                 </select><br>
                 <b>Seleccione el sector</b>
                 <select class="form-select form-control-lg" aria-label="Default select example" id="sector" name="sector" required>
                     <option selected> Seleccione una opción: </option>
-                    <% results2.forEach((sector)=>{ %>
-                        <option value="<%= sector.id_sector %>" > <%= sector.nombre_sector %> </option>
-                    <%})%>
+                    <option value= 1 >Sector Ropa</option>
+                    <option value= 2 >Sector Electrónica</option>
+                    <option value= 3 >Sector Alimentos</option>
+                    <option value= 4 >Sector Farmacia</option>
+                    <option value= 5 >Sector Variado</option>
+                    <option value= 6 >Sector Juguetes</option>
                 </select>
                 <br>
-
-
                 <button type="submit" class="btn btn-info text-white w-100 fw-semibold shadow-sm"> Registrarme </button>
                 <div class="d-flex gap-1 justify-content-center mt-1">
                     <div>Ya tienes una cuenta?</div>

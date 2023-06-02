@@ -134,7 +134,12 @@ CREATE TABLE reserva_habitaciones (
 INSERT INTO tipo_tiendas (nombre_tipo) VALUES
     ('Ropa y Moda'),
     ('Electrónica'),
-    ('Supermercado');
+    ('Supermercado'),
+    ('Librería'),
+    ('Misceláneo'),
+    ('Artículos deportivos'),
+    ('juguetería'),
+    ('Farmacia');
 
 INSERT INTO categoria_producto (nombre_categoria_producto) VALUES
     ('Ropa'),
@@ -166,6 +171,8 @@ INSERT INTO sector (nombre_sector, id_estado_sector_fk, id_zona_fk) VALUES
     ('Sector Ropa', 1, 1),
     ('Sector Electrónica', 1, 1),
     ('Sector Alimentos', 1, 2),
+    ('Sector Farmacia', 1, 1),
+    ('Sector Variado', 1, 2),
     ('Sector Juguetes', 2, 3);
 
 INSERT INTO tienda (nombre_tienda, slogan_tienda, logo_tienda, horarios_tienda, id_tipo_fk, id_sector_fk) VALUES
