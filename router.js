@@ -8,9 +8,9 @@ router.get('/',  (req, res)=>{
 
 router.get('/registro', (req, res) => {
 
-    conexion.query('SELECT * FROM tipo_tiendas;', (error, tipotienda) => {
-        console.log(tipotienda);
-        conexion.query('SELECT * FROM sector;', (error, sector) => {
+    conexion.query('SELECT * FROM tipo_tiendas', (error, tipotienda) => {
+        conexion.query('SELECT * FROM sector', (error, sector) => {
+
             if (error) {
                 throw error;
             } else {
@@ -18,6 +18,7 @@ router.get('/registro', (req, res) => {
             }
 
         });
+
     });
 });
 
@@ -82,7 +83,6 @@ router.get('/logout',  (req, res)=>{
           res.redirect('/'); // Redirige a la página de inicio de sesión u otra página adecuada
         }
     });
-
 
 })
 

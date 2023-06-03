@@ -22,7 +22,28 @@ exports.GuardarProducto =(req, res)=>{
         if(error){
             throw error;
         }else{
-            res.redirect('/productos');
+
+            conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+                conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
+                    conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
+                        conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+                            res.render('crear_producto',{
+                                alert:true,
+                                alertTitle: 'Producto Registrado',
+                                alertMessage: 'Se ha creado correctamente el producto',
+                                alertIcon:'success',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                ruta: 'productos',
+                                user: req.session.user,
+                                categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega
+                            })
+
+                        })
+                    })
+                })
+            })
+
         }
         
     })
@@ -95,24 +116,17 @@ exports.savestore =(req, res)=>{
     console.log(imagen);
     console.log(logo);
 
-
+    const ruta = 'registro';
 
 
     conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk: tipo, id_sector_fk: sector }, (error, results)=>{
-        console.log("results --> ", results);
         
         if(error){
             throw error;
         }else{
-            res.render('registro',{
-                alert:true,
-                alertTitle: 'Resgistro',
-                alertMessage: 'Registro de tienda exitoso!',
-                alertIcon:'success',
-                showConfirmButton: false,
-                timer: 1500,
-                ruta: '/'
-            })
+
+            res.redirect('/')
+
         }
     })
 }
