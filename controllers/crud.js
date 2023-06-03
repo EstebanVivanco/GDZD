@@ -3,6 +3,7 @@ const { query } = require('../database/bd');
 const conexion = require('../database/bd');
 
 exports.GuardarProducto =(req, res)=>{
+    
 
     //ID TIENDA
     const id_tienda = req.session.user.id_tienda;
@@ -91,9 +92,9 @@ exports.savestore =(req, res)=>{
     const horaio = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
     const tipo = req.body.tipo;
     const sector = req.body.sector;
-
     console.log(imagen);
     console.log(logo);
+
 
 
 
