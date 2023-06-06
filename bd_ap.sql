@@ -138,6 +138,28 @@ CREATE TABLE reserva_habitaciones (
 
 );
 
+CREATE TABLE venta_tienda (
+    id_venta_tienda INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_boleta VARCHAR(100) NOT NULL,
+    id_productos_fk INT NOT NULL,
+    cantidad INT NOT NULL,
+    total INT NOT NULL,
+    id_tienda_fk INT NOT NULL,
+    FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
+    FOREIGN KEY (id_productos_fk) REFERENCES productos(id_producto)
+);
+
+CREATE TABLE arriendos_tiendas (
+    id_arriendo_tienda INT AUTO_INCREMENT PRIMARY KEY,
+    costo_mensual INT,
+    id_tienda_fk INT NOT NULL,
+    FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda)
+);
+
+
+
+
+
 INSERT INTO tipo_tiendas (nombre_tipo) VALUES
     ('Ropa y Moda'),
     ('Electrónica'),
