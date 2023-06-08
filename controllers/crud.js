@@ -129,3 +129,67 @@ exports.savestore =(req, res)=>{
         }
     })
 }
+
+exports.actualizarProducto =(req, res)=>{
+
+    //ID TIENDA
+    const id_tienda = req.session.user.id_tienda;
+    //ID PRODUCTO
+    const id_producto = req.body.id;
+    //nombre producto
+    const nombre_producto = req.body.nombre_producto;
+    //imagen producto
+    const imagen_producto = req.files['image'][0].filename;
+    //stock producto
+    const stock = req.body.stock;
+    //precio producto
+    const precio_producto = req.body.precio_producto;
+    //id de la categoria del producto
+    const id_categoria_producto_fk = req.body.id_categoria_producto_fk;
+    //id del estado del producto
+    const id_estado_fk = req.body.id_estado_fk;
+    //id de la bodega del producto
+    const id_bodega_fk = req.body.id_bodega_fk;
+    //id del proveedor del producto
+    const id_proveedor_fk = req.body.id_proveedor_fk;
+
+    console.log('imagen ', imagen_producto)
+
+    conexion.query('UPDATE productos SET ? WHERE id_producto = ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk: id_bodega_fk, id_proveedor_fk:id_proveedor_fk},  id_producto], (error, results)=>{
+
+        if(error){
+            throw error;
+        }else{
+
+            conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+                conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
+                    conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
+                        conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+                            conexion.query('SELECT * FROM productos WHERE id_producto = ?',[id_producto],(error, producto)=>{
+                                res.render('editar_productos',{
+                                    alert:true,
+                                    alertTitle: 'Producto actualizado',
+                                    alertMessage: 'Se ha actualizado correctamente el producto',
+                                    alertIcon:'success',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    ruta: 'productos',
+                                    user: req.session.user,
+                                    categoria:categoria,
+                                    estado:estado,
+                                    proveedores:proveedores, 
+                                    bodega:bodega,
+                                    producto:producto
+                                })
+
+                            })
+                        })
+                    })
+                })
+            })
+
+        }
+        
+    })
+
+}
