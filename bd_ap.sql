@@ -138,6 +138,8 @@ CREATE TABLE reserva_habitaciones (
 
 );
 
+-- TABLAS NUEVAS
+
 CREATE TABLE venta_tienda (
     id_venta_tienda INT AUTO_INCREMENT PRIMARY KEY,
     codigo_boleta VARCHAR(100) NOT NULL,
@@ -158,7 +160,7 @@ CREATE TABLE arriendos_tiendas (
 
 
 
-
+-- INSERTS
 
 INSERT INTO tipo_tiendas (nombre_tipo) VALUES
     ('Ropa y Moda'),
@@ -223,14 +225,15 @@ INSERT INTO proveedores (nombre_proveedor) VALUES
     ('Proveedor B'),
     ('Proveedor C');
 
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega A');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega B');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega C');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega D');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega E');
 
 INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
 VALUES ('Pantalon de Cotele', 'imagen1.jpg', 10, 20000, 1, 1, 1, 1, 1);
 
 INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
 VALUES ('Zapatillas Adidas', 'imagen2.jpg', 5, 70000, 2, 1, 1, 2, 2);
+
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega A');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega B');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega C');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega D');
+INSERT INTO bodega (nombre_bodega) VALUES ('Bodega E');
