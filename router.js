@@ -84,7 +84,11 @@ router.get('/logout',  (req, res)=>{
     });
 
 })
+router.get('/itinerario',  (req, res)=>{
 
+    res.render('itinerario'); // Redirige a la página de inicio de sesión u otra página adecuada
+    
+})
 //RUTA PARA EDITAR PRODUCTO
 router.get('/editar_producto/:id', (req, res)=>{
     const id = req.params.id;
