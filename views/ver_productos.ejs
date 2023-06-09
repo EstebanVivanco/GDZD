@@ -6,7 +6,10 @@
     <title>Productos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  </head>
+    <!--DATATABLE-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    
+    </head> 
   <body>
 
     <%if(user){%>
@@ -130,8 +133,75 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <!--cdn alertas js-->
+    <!--cdn alertas swalert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    <!--CDN de la datatables-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Script para dataTable -->
+
+    <script>
+      $(document).ready(function () {
+          $('#table').DataTable({
+              "language": espanol,
+
+              pageLength: 5,
+              lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todo']]
+          });
+
+      });
+
+      var espanol = {
+          "processing": "Procesando...",
+          "lengthMenu": "Mostrar _MENU_ registros",
+          "zeroRecords": "No se encontraron resultados",
+          "emptyTable": "No existe ningun producto registrado hasta el momento",
+          "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+          "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+          "search": "Buscar:",
+          "infoThousands": ",",
+          "loadingRecords": "Cargando...",
+          "paginate": {
+              "first": "Primero",
+              "last": "Último",
+              "next": "Siguiente",
+              "previous": "Anterior"
+          },
+          "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+          "stateRestore": {
+              "creationModal": {
+                  "button": "Crear",
+                  "name": "Nombre:",
+                  "order": "Clasificación",
+                  "paging": "Paginación",
+                  "search": "Busqueda",
+                  "select": "Seleccionar",
+                  "columns": {
+                      "search": "Búsqueda de Columna",
+                      "visible": "Visibilidad de Columna"
+                  },
+                  "title": "Crear Nuevo Estado",
+                  "toggleLabel": "Incluir:"
+              },
+              "emptyError": "El nombre no puede estar vacio",
+              "removeConfirm": "¿Seguro que quiere eliminar este %s?",
+              "removeError": "Error al eliminar el registro",
+              "removeJoiner": "y",
+              "removeSubmit": "Eliminar",
+              "renameButton": "Cambiar Nombre",
+              "renameLabel": "Nuevo nombre para %s",
+              "duplicateError": "Ya existe un Estado con este nombre.",
+              "emptyStates": "No hay Estados guardados",
+              "removeTitle": "Remover Estado",
+              "renameTitle": "Cambiar Nombre Estado"
+          }
+      }
+    </script>
+
+
+
     <script>
 
       function confirmar(id, nombre) {
