@@ -99,7 +99,7 @@ create table productos (
     FOREIGN KEY (id_estado_fk) REFERENCES estado_producto(id_estado_producto),
     FOREIGN KEY (id_tienda_fk) REFERENCES tienda(id_tienda),
     FOREIGN KEY (id_proveedor_fk) REFERENCES proveedores(id_proveedor),
-    FOREIGN KEY (id_bodega_fk) REFERENCES bodega(id_bodega)
+    FOREIGN KEY (id_bodega_fk) REFERENCES bodega(id)
 
 
 );
@@ -220,10 +220,20 @@ INSERT INTO reserva_habitaciones (id_habitacion_fk, fecha_inicio, fecha_fin, pas
     (2, '2023-07-01', '2023-07-05', 'María Gómez', '98765432-1', 'maria@example.com', 320),
     (3, '2023-08-20', '2023-08-25', 'Carlos Rodríguez', '56789123-4', 'carlos@example.com', 1000);
 
+
+
 INSERT INTO proveedores (nombre_proveedor) VALUES
     ('Proveedor A'),
     ('Proveedor B'),
     ('Proveedor C');
+
+INSERT INTO estado_bodega(estado) VALUES   
+    ('habilitada'), 
+    ('deshabilitada');
+
+INSERT INTO bodega (capacidad_maxima, tipo_bodega, codigo_bodega, id_sector_fk, usuario_id_fk, estado_bodega_id_fk ) VALUES (100, 'Bodega General', 'ASDA12312',1, 2, 1),
+(50, 'Bodega 2', 'KJHBK123',1, 2, 1),
+(300, 'Bodega 3', 'XZCZX213',1, 1, 1);
 
 
 INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
@@ -232,8 +242,6 @@ VALUES ('Pantalon de Cotele', 'imagen1.jpg', 10, 20000, 1, 1, 1, 1, 1);
 INSERT INTO productos (nombre_producto, imagen_producto, stock, precio_producto, id_categoria_producto_fk, id_estado_fk, id_tienda_fk, id_bodega_fk, id_proveedor_fk)
 VALUES ('Zapatillas Adidas', 'imagen2.jpg', 5, 70000, 2, 1, 1, 2, 2);
 
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega A');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega B');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega C');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega D');
-INSERT INTO bodega (nombre_bodega) VALUES ('Bodega E');
+
+INSERT INTO `usuario` ( `nombre`, `apellido`, `rut`, `correo`, `contrasena`, `id_rol_fk`) VALUES
+('Matias', 'Marchant', '20.922.543-3', 'matias@gmail.com', '111', 1);
