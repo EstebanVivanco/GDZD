@@ -97,7 +97,15 @@ router.get('/logout',  (req, res)=>{
 })
 router.get('/itinerario',  (req, res)=>{
 
-    res.render('itinerario'); // Redirige a la página de inicio de sesión u otra página adecuada
+    conexion.query('SELECT numero_vuelo, nombre , estado_vuelo ciudad FROM aeropuerto.Aeropuerto INNER JOIN Vuelos ON Vuelos.aeropuerto_destino_id = Aeropuerto.id;', (error, destino)=>{
+
+        conexion.query('SELECT nombre, ciudad FROM aeropuerto.Aeropuerto INNER JOIN Vuelos ON Vuelos.aeropuerto_origen_id = Aeropuerto.id;', (error, origen)=>{
+            
+            console.log('origen :>> ', origen);
+            res.render('itinerario', {origen: origen, destino:destino}); 
+
+        })
+    })
     
 })
 //RUTA PARA EDITAR PRODUCTO

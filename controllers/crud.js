@@ -17,6 +17,7 @@ exports.GuardarProducto =(req, res)=>{
     const id_bodega_fk = req.body.id_bodega_fk;
     const id_proveedor_fk = req.body.id_proveedor_fk;
 
+    console.log("AAACAAAAAAAAAAAAAAA", id_bodega_fk);
     conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk: id_bodega_fk, id_proveedor_fk:id_proveedor_fk},  ], (error, results)=>{
 
         if(error){
@@ -70,7 +71,7 @@ exports.login = (req, res)=>{
                                         alert:true,
                                         alertTitle: 'Conexion exitosa',
                                         alertMessage: 'Bienvenido! ',
-                                        alertIcon:'succes',
+                                        alertIcon:'success',
                                         showConfirmButton: false,
                                         timer: 1500,
                                         ruta: 'productos',
@@ -157,11 +158,9 @@ exports.actualizarProducto =(req, res)=>{
     console.log('imagen ', imagen_producto)
 
     conexion.query('UPDATE productos SET ? WHERE id_producto = ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk: id_bodega_fk, id_proveedor_fk:id_proveedor_fk},  id_producto], (error, results)=>{
-
         if(error){
             throw error;
         }else{
-
             conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
                 conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
                     conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
@@ -188,9 +187,6 @@ exports.actualizarProducto =(req, res)=>{
                     })
                 })
             })
-
         }
-        
     })
-
 }

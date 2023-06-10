@@ -18,15 +18,32 @@
 
                         <th>Compañía</th>
                         <th>VUELO</th>
+                        <th>ORIGEN</th>
+                        <th>CIUDAD</th>
                         <th>DESTINO</th>
-                        <th>SALIDA</th>
-                        <th>EMBARQUE</th>
-                        <th>ESTADO</th>
+                        <th>ESTADO</th> 
 
                     </tr>
                 </thead>
 
                 <tbody>
+
+                  <% origen.forEach((origen)=> { %>
+                    <% destino.forEach((destino)=> { %>
+                      <tr>
+                      
+                        <td>Compañía</td>
+                        <td><%= destino.numero_vuelo %></td>
+                        <td><%= origen.nombre %></td>
+                        <td><%= origen.ciudad %></td>
+                        <td><%= destino.nombre %></td>
+                        <td><%= destino.ciudad %></td>
+                        <td><%= destino.estado_vuelo %></td>
+                        
+                      </tr>
+                    <%})%>
+                  <%}) %>
+
                 </tbody>
 
             </table>
