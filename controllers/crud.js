@@ -190,3 +190,16 @@ exports.actualizarProducto =(req, res)=>{
         }
     })
 }
+
+exports.buscarTienda= (req, res) => {
+    //RUTA PARA EL PORTAL DE TIENDAS
+    const comparacion = req.body.comparacion;
+    conexion.query(`SELECT * FROM tienda WHERE nombre_tienda LIKE '%${comparacion}%'`, (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('portal_tiendas', {tiendas:tiendas});
+        }
+    })
+
+}
