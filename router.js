@@ -23,6 +23,17 @@ router.get('/registro', (req, res) => {
 });
 
 
+//RUTA PARA EL PORTAL DE TIENDAS
+router.get('/portal_tiendas', (req, res)=>{
+    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('portal_tiendas', {tiendas:tiendas});
+        }
+    })
+})
+
 router.get('/index_tienda/:id', (req, res)=>{
     
     const id = req.params.id;

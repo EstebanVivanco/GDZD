@@ -42,7 +42,7 @@ app.use(session({
 
 app.use('/', require('./router'));
 
-app.listen(4000, ()=>{
-    console.log("Server corriendo en el puerto 4000, buenas");
+app.listen(5000, ()=>{
+    console.log("Server corriendo en el puerto 5000, buenas");
 });
 

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Aerobulla - Comercio</title>
+        <title>Aerobulla - Portal Tiendas</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -19,10 +19,9 @@
     <body id="page-top">
         <!-- Navigation-->
 
-        <% tienda.forEach((tienda) => { %>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="/uploads/<%= tienda.logo_tienda %>" alt="..." /></a>
+                <a class="navbar-brand" href="#page-top"><img src="/img_tienda/logos/facebook.svg" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
@@ -36,11 +35,11 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead" style="background-image: url('/uploads/<%= tienda.banner_tienda %>');">
+        <header class="masthead" style="background-image: url('/uploads/banners/aeropuerto.jpg');">
             <div class="container">
                 <div class="masthead-subheading">Bienvenido a!</div>
-                <div class="masthead-heading text-uppercase"><%= tienda.nombre_tienda %></div>
-                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services"><%= tienda.slogan_tienda %></a>
+                <div class="masthead-heading text-uppercase">HashPortBulla</div>
+                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services">Por que te queremos ver volar</a>
             </div>
         </header>
         <!-- Services-->
@@ -82,11 +81,11 @@
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Productos</h2>
-                    <h3 class="section-subheading text-muted">Todos los productos disponibles.</h3>
+                    <h2 class="section-heading text-uppercase">Tiendas</h2>
+                    <h3 class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
                 </div>
                 <div class="row">
-                    <% productos.forEach((productos) => { %>
+                <% tiendas.forEach((tienda)=>{ %>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <!-- Portfolio item 1-->
                         <div class="portfolio-item">
@@ -96,11 +95,11 @@
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
                                 -->
-                                <img class="img-fluid" src="/uploads/<%= productos.imagen_producto %>" alt="..." />
+                                <img class="img-fluid" src="/uploads/<%= tienda.logo_tienda %>" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading"><%= productos.nombre_producto %></div>
-                                <div class="portfolio-caption-subheading text-muted fs-4">$<%= productos.precio_producto %> CLP</div>
+                                <div class="portfolio-caption-heading"><%= tienda.nombre_tienda %></div>
+                                <div class="portfolio-caption-subheading text-muted fs-5"><%= tienda.horarios_tienda %></div>
                             </div>
                         </div>
                     </div>
@@ -127,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <% }) %>
+
 
         <!-- Footer-->
         <footer class="footer py-4">
