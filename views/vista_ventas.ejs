@@ -37,9 +37,11 @@
                     <a class="nav-link" href="/ver_productosDes/<%= user.id_tienda %>">Ver Productos eliminados</a>
                   </li>
                   
+
                   <li class="nav-item">
                     <a class="nav-link" href="/ver_ventas/<%= user.id_tienda %>">Ventas</a>
                   </li>
+    
 
                   <li class="nav-item">
                     <a class="nav-link" href="/index_tienda/<%= user.id_tienda %>">Landing</a>
@@ -60,7 +62,7 @@
     <%}%> 
 
     <div class="container mt-4">
-        <h1 style="text-align: center; "> PRODUCTOS REGISTRADOS </h1>
+        <h1 style="text-align: center; "> PRODUCTOS VENDIDOS </h1>
     </div>
 
     <div class="container-fluid">
@@ -70,16 +72,13 @@
                 <thead id="titletable">
                     <tr class="table-success ">
 
-                        <th>ID </th>
-                        <th>NOMBRE</th>
-                        <th>STOCK</th>
-                        <th>PRECIO</th>
-                        <th>ESTADO</th>
-                        <th>CATEGORÍA</th>
-                        <th>BODEGA</th>
-                        <th>PROVEEDORES</th>
-                        <th>IMAGEN</th>
-                        <th>ACCIONES</th>
+                        <th class="text-center">ID </th>
+                        <th class="text-center">CÓDIGO BOLETA</th>
+                        <th class="text-center">PRODUCTO</th>
+                        <th class="text-center">CANTIDAD</th>
+                        <th class="text-center">TOTAL</th>
+                        <th class="text-center">FECHA</th>
+                
 
                     </tr>
                 </thead>
@@ -89,41 +88,25 @@
                         <tr >
                             
                             <td>
-                                <%= producto.id_producto %>
+                                <%= producto.id_venta_tienda %>
+                            </td>
+                            <td>
+                                <%= producto.codigo_boleta %>
                             </td>
                             <td>
                                 <%= producto.nombre_producto %>
                             </td>
                             <td>
-                                <%= producto.stock %>
+                                <%= producto.cantidad %>
                             </td>
                             <td>
-                                <%= producto.precio_producto %>
-                            </td>
-                            <td>
-                                <%= producto.nombre_estado_producto %>
+                                $ <%= producto.total %>
                             </td>
 
                             <td>
-                                <%= producto.nombre_categoria_producto %>
+                                <%= producto.fecha_venta %>
                             </td>
-                            <td>
-                                <%= producto.id_bodega_fk %>
-                            </td>
-
-                            <td>
-                                <%= producto.nombre_proveedor %>
-                            </td>
-
-                            <td>
-                                <img src="/uploads/<%= producto.imagen_producto %>" style="width: 80px; height: 80px;" alt="">
-                                
-                            </td>
-
-                            <td>
-                              <a href="/editar_producto/<%= producto.id_producto %>" class="btn btn-info"><span class="material-symbols-outlined">border_color</span></a>
-                              <a onclick="confirmar(<%= producto.id_producto %>, '<%= producto.nombre_producto %>')" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></a>
-                            </td>
+ 
                         
                         </tr>
 

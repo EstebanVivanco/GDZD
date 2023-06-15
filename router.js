@@ -158,6 +158,23 @@ router.get('/ver_productosDes/:id', (req, res) => {
     });
 });
 
+
+//RUTA PARA VER PRODUCTOS ELIMINADOS
+router.get('/ver_ventas/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    conexion.query('SELECT venta_tienda.id_venta_tienda, venta_tienda.codigo_boleta, venta_tienda.cantidad, venta_tienda.total, productos.nombre_producto, DATE_FORMAT(venta_tienda.fecha_venta, "%m/%d/%Y") AS fecha_venta  FROM venta_tienda INNER JOIN productos ON productos.id_producto = venta_tienda.id_productos_fk  WHERE venta_tienda.id_tienda_fk = ? ', [id] ,(error, results) => {
+        
+            if (error) {
+                throw error;
+            } else {
+                res.render('vista_ventas', { results: results, user : req.session.user});
+            }
+    });
+
+});
+
 //RUTA PARA HABILITAR PRODUCTOS
 
 router.get('/habilitar_producto/:id', (req, res)=>{
