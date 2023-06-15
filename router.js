@@ -23,6 +23,17 @@ router.get('/registro', (req, res) => {
 });
 
 
+//RUTA PARA EL PORTAL DE TIENDAS
+router.get('/portal_tiendas', (req, res)=>{
+    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('portal_tiendas', {tiendas:tiendas});
+        }
+    })
+})
+
 router.get('/index_tienda/:id', (req, res)=>{
     
     const id = req.params.id;
@@ -169,5 +180,6 @@ router.post('/GuardarProducto', crud.GuardarProducto);
 router.post('/savestore',crud.savestore);
 router.post('/login', crud.login);
 router.post('/actualizarProducto', crud.actualizarProducto);
+router.post('/buscarTienda', crud.buscarTienda);
 
 module.exports = router;

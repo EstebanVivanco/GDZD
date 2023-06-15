@@ -3,6 +3,7 @@ const { query } = require('../database/bd');
 const conexion = require('../database/bd');
 
 exports.GuardarProducto =(req, res)=>{
+    
 
     //ID TIENDA
     const id_tienda = req.session.user.id_tienda;
@@ -113,13 +114,13 @@ exports.savestore =(req, res)=>{
     const horaio = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
     const tipo = req.body.tipo;
     const sector = req.body.sector;
-
     console.log(imagen);
     console.log(logo);
 
     const ruta = 'registro';
 
-    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk: tipo, id_sector_fk: 1 }, (error, results)=>{
+
+    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk: tipo, id_sector_fk: sector }, (error, results)=>{
         
         if(error){
             throw error;
@@ -188,4 +189,17 @@ exports.actualizarProducto =(req, res)=>{
             })
         }
     })
+}
+
+exports.buscarTienda= (req, res) => {
+    //RUTA PARA EL PORTAL DE TIENDAS
+    const comparacion = req.body.comparacion;
+    conexion.query(`SELECT * FROM tienda WHERE nombre_tienda LIKE '%${comparacion}%'`, (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('portal_tiendas', {tiendas:tiendas});
+        }
+    })
+
 }
