@@ -6,6 +6,22 @@ router.get('/',  (req, res)=>{
     res.render('login');
 })
 
+router.get('/caja_productos/:id', (req, res)=>{
+    
+    const id = req.params.id;
+
+    conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [id], (error,tienda)=>{
+        conexion.query('SELECT * FROM productos WHERE id_tienda_fk = ?', [id],(error,productos)=>{ 
+
+            if (error) {
+                throw error;
+            } else {
+                res.render('caja_productos', { tienda : tienda, productos : productos, user : req.session.user });
+            }
+        })
+    })
+})
+
 router.get('/registro', (req, res) => {
 
     conexion.query('SELECT * FROM tipo_tiendas', (error, tipotienda) => {
