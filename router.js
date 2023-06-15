@@ -86,14 +86,12 @@ router.get('/logout',  (req, res)=>{
 })
 router.get('/itinerario',  (req, res)=>{
 
-    conexion.query('SELECT numero_vuelo, nombre , estado_vuelo ciudad FROM aeropuerto.Aeropuerto INNER JOIN Vuelos ON Vuelos.aeropuerto_destino_id = Aeropuerto.id;', (error, destino)=>{
+    conexion.query('SELECT pe.numero AS puerta_embarque, ca.nombre AS compania_aerea, v.numero_vuelo, ao.nombre AS aeropuerto_origen, ao.ciudad AS ciudad_origen ,ad.nombre AS aeropuerto_destino, ad.ciudad AS ciudad_destino, estado_vuelo FROM Vuelos v JOIN Aeropuerto ao ON v.aeropuerto_origen_id = ao.id JOIN Aeropuerto ad ON v.aeropuerto_destino_id = ad.id JOIN CompañiaAerea ca ON v.compañia_id = ca.id JOIN PuertaEmbarque pe ON v.puerta_embarque_id = pe.id GROUP BY numero_vuelo', (error, results)=>{
 
-        conexion.query('SELECT nombre, ciudad FROM aeropuerto.Aeropuerto INNER JOIN Vuelos ON Vuelos.aeropuerto_origen_id = Aeropuerto.id;', (error, origen)=>{
-            
-            console.log('origen :>> ', origen);
-            res.render('itinerario', {origen: origen, destino:destino}); 
 
-        })
+        res.render('itinerario', {results:results}); 
+
+
     })
     
 })
