@@ -113,7 +113,13 @@ router.get('/logout',  (req, res)=>{
 })
 router.get('/itinerario',  (req, res)=>{
 
-    res.render('itinerario'); // Redirige a la página de inicio de sesión u otra página adecuada
+    conexion.query('SELECT pe.numero AS puerta_embarque, ca.nombre AS compania_aerea, v.numero_vuelo, ao.nombre AS aeropuerto_origen, ao.ciudad AS ciudad_origen ,ad.nombre AS aeropuerto_destino, ad.ciudad AS ciudad_destino, estado_vuelo FROM Vuelos v JOIN Aeropuerto ao ON v.aeropuerto_origen_id = ao.id JOIN Aeropuerto ad ON v.aeropuerto_destino_id = ad.id JOIN CompañiaAerea ca ON v.compañia_id = ca.id JOIN PuertaEmbarque pe ON v.puerta_embarque_id = pe.id GROUP BY numero_vuelo', (error, results)=>{
+
+
+        res.render('itinerario', {results:results}); 
+
+
+    })
     
 })
 //RUTA PARA EDITAR PRODUCTO
@@ -166,6 +172,23 @@ router.get('/ver_productosDes/:id', (req, res) => {
                 res.render('ver_productosDes', { results: results, user : req.session.user});
             }
     });
+});
+
+
+//RUTA PARA VER PRODUCTOS ELIMINADOS
+router.get('/ver_ventas/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    conexion.query('SELECT venta_tienda.id_venta_tienda, venta_tienda.codigo_boleta, venta_tienda.cantidad, venta_tienda.total, productos.nombre_producto, DATE_FORMAT(venta_tienda.fecha_venta, "%m/%d/%Y") AS fecha_venta  FROM venta_tienda INNER JOIN productos ON productos.id_producto = venta_tienda.id_productos_fk  WHERE venta_tienda.id_tienda_fk = ? ', [id] ,(error, results) => {
+        
+            if (error) {
+                throw error;
+            } else {
+                res.render('vista_ventas', { results: results, user : req.session.user});
+            }
+    });
+
 });
 
 //RUTA PARA HABILITAR PRODUCTOS
