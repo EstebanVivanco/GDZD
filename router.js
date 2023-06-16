@@ -55,7 +55,7 @@ router.get('/index_tienda/:id', (req, res)=>{
     const id = req.params.id;
 
     conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [id], (error,tienda)=>{
-        conexion.query('SELECT * FROM productos WHERE id_tienda_fk = ?', [id],(error,productos)=>{ 
+        conexion.query('SELECT * FROM productos WHERE id_tienda_fk = ? AND id_estado_fk = 1', [id],(error,productos)=>{ 
 
             if (error) {
                 throw error;
