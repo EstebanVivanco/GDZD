@@ -6,42 +6,63 @@
     <title>Inicio de sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   </head>
-  <body>
+  <body style="background-color: hsl(0, 0%, 96%)">
+  <section class="d-flex justify-content-center align-items-center vh-100 ">
+    <div>
+        <div class="container mb-8">
+            <div class="row gx-lg-5 align-items-center">
 
-    <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: hsl(0, 0%, 90%);">
-      <!--comienzo del form-->
-      <form action="login" method="post">
-      <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 25rem; border-radius: 30PX;">
-          
-          <div class="d-flex justify-content-center">
-            <img src="login-icon.svg" alt="login-icon" style="height: 7rem" />
-          </div>
-          <h6 class="text-center fs-1 fw-bold">Bienvenido</h6>
-          <div class="input-group mt-4">
-            <div class="input-group-text bg-info">
-              <img src="username-icon.svg" alt="username-icon" style="height: 1rem" />
-            </div>
-            <!--input-->
-            <input class="form-control bg-light" type="email" id="email" name="email" placeholder="Correo electrónico" />
-          </div>
-          <div class="input-group mt-1">
-            <div class="input-group-text bg-info">
-              <img src="password-icon.svg" alt="password-icon"style="height: 1rem" />
-            </div>
-            <!--input-->
-            <input class="form-control bg-light" type="password" id="password" name="password"  placeholder="Contraseña" />
-          </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <!--FOTO-->
+                    <img class="img-fluid rounded mx-auto d-block" src="hasb1.png " alt="">
+                    <p style="color: hsl(217, 10%, 58.8%)" class="hidden-mobile">
+                      ¡Bienvenido/a la pagina de gestión de tiendas en el aeropuerto! Aquí encontrarás todas las herramientas necesarias para llevar tu un buen control de tu negocio en esta ubicación única.
+                    </p>
+                </div>
 
-          <button type="submit" class="btn btn-info text-white w-100 mt-4 fw-semibold shadow-sm">
-            Ingresar
-          </button>
-          <div class="d-flex gap-1 justify-content-center mt-4">
-            <a href="/registro" class="text-decoration-none text-info fw-semibold">Registrar</a>
-          </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body py-5 px-md-5">
+                            <h5 class="align-middle text-center">INICIO DE SESIÓN DE TIENDAS</h5>
+                            <hr>
+                            <br>
+                            <!--DESDE ACÁ-->
+                            <form method="POST" action="/login">
+                                <!-- Email input -->
+                                <div class="form-group">
+                                    <b>INGRESA TU EMAIL</b><br>
+                                    <input type='email' name="email" id="email" class="form-control mt-2"
+                                        placeholder="Correo electrónico" size='45' maxlength='30' required><br>
+                                    <div class="invalid-feedback">
+                                        Es necesario ingresar su correo
+                                    </div>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-group">
+                                    <b>INGRESA TU CONTRASEÑA</b>
+                                    <input type='password' name="password" id="password" class="form-control mt-2"
+                                        placeholder="Contraseña" size='45' maxlength='30' required><br>
+                                    <div class="invalid-feedback">
+                                        Es necesario ingresar una contraseña
+                                    </div>
+                                </div>
+                                <!-- Submit button -->
+                                <button style="background-color: #e0ac04;" type="submit" id="submit-btn"
+                                    class="btn text-white w-100 mt-4 fw-semibold shadow-sm"> 
+                                    Iniciar Sesión
+                                </button>
+
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-      </form>
-      <!--Fin del form-->
-  </div>
+    </div>
+    </div>
+    <!-- Jumbotron -->
+</section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
