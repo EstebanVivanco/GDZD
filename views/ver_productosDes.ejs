@@ -23,7 +23,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -49,7 +50,8 @@
               <a class="nav-link" href="/index_tienda/<%= user.id_tienda %>">Landing</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket fs-3 pe-5" style="color: #b30004; "></i> </a>
+              <a title="Cerrar sesión" data-bs-toggle="tooltip" class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket fs-3 pe-5"
+                  style="color: #b30004; "></i> </a>
             </li>
           </ul>
         </div>
@@ -63,7 +65,8 @@
       </div>
 
       <div class="container-fluid">
-        <a href="/ver_productos/<%= user.id_tienda %>" class="btn btn-primary btn-md text-uppercase text-black mb-4">Vista de Productos</a>
+        <a title="Listar productos habilitados" data-bs-toggle="tooltip" href="/ver_productos/<%= user.id_tienda %>"
+          class="btn btn-primary btn-md text-uppercase text-black mb-4">Vista de Productos</a>
         <div class="table-responsive align-middle">
           <table id="table" class="table table-striped text-center mt-4">
             <thead id="titletable">
@@ -120,7 +123,7 @@
                   </td>
 
                   <td>
-                    <a onclick="confirmar(<%= producto.id_producto %>, '<%= producto.nombre_producto %>')"
+                    <a  title="Habilitar producto" data-bs-toggle="tooltip" onclick="confirmar(<%= producto.id_producto %>, '<%= producto.nombre_producto %>')"
                       class="btn btn-info"><span class="material-symbols-outlined">add_task</span></a>
                   </td>
 
@@ -225,6 +228,13 @@
           })
         }
 
+      </script>
+      <!--SCRIPT TOOLTIP-->
+      <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
       </script>
 
 </body>

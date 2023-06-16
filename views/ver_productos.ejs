@@ -46,7 +46,7 @@
                 <a class="nav-link" href="/index_tienda/<%= user.id_tienda %>">Landing</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket fs-3 pe-5" style="color: #b30004; "></i> </a>
+                <a title="Cerrar sesión" data-bs-toggle="tooltip" class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket fs-3 pe-5" style="color: #b30004; "></i> </a>
               </li>
             </ul>
           </div>
@@ -62,7 +62,7 @@
     
 
     <div class="container-fluid">
-      <a href="/ver_productosDes/<%= user.id_tienda %>" class="btn btn-primary btn-md text-uppercase text-black mb-4">Productos Eliminados</a>
+      <a title="Lista los productos eliminados" data-bs-toggle="tooltip" href="/ver_productosDes/<%= user.id_tienda %>" class="btn btn-primary btn-md text-uppercase text-black mb-4">Productos Eliminados</a>
         <div class="table-responsive align-middle" >
             <table id="table" class="table table-striped text-center mt-4">
                 <thead id="titletable">
@@ -119,8 +119,8 @@
                             </td>
 
                             <td>
-                              <a href="/editar_producto/<%= producto.id_producto %>" class="btn btn-info"><span class="material-symbols-outlined">border_color</span></a>
-                              <a onclick="confirmar(<%= producto.id_producto %>, '<%= producto.nombre_producto %>')" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></a>
+                              <a title="Editar producto" data-bs-toggle="tooltip" href="/editar_producto/<%= producto.id_producto %>" class="btn btn-info"><span class="material-symbols-outlined">border_color</span></a>
+                              <a title="Eliminar producto" data-bs-toggle="tooltip" onclick="confirmar(<%= producto.id_producto %>, '<%= producto.nombre_producto %>')" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></a>
                             </td>
                         
                         </tr>
@@ -224,6 +224,12 @@
       }
 
   </script>
-    
+    <!--SCRIPT TOOLTIP-->
+    <script>
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    </script>
 </body>
 </html>
