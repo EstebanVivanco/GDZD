@@ -15,10 +15,12 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/estilo_tienda.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/axios.js"></script>
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
-
         <% tienda.forEach((tienda) => { %>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -37,13 +39,13 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead" style="background-image: url('/uploads/<%= tienda.banner_tienda %>');">
+        <!-- <header class="masthead" style="background-image: url('/uploads/<%= tienda.banner_tienda %>');">
             <div class="container">
                 <div class="masthead-subheading">Bienvenido a!</div>
                 <div class="masthead-heading text-uppercase"><%= tienda.nombre_tienda %></div>
                 <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services"><%= tienda.slogan_tienda %></a>
             </div>
-        </header>
+        </header> -->
 
                 <!-- Contact-->
                 <section class="page-section" id="contact">
@@ -67,29 +69,75 @@
                                         <input class="form-control" type="text" id="rut" name="rut" placeholder="Rut de cliente *" />
                                     </div>
                                 </div>
-                                
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- Email address input-->
-                                        <select class="form-select form-select-lg mb-3" id="producto" name="producto" aria-label=".form-select-lg example">
-                                            <option selected disabled>Seleccione un producto</option>
-                                            <% productos.forEach((productos) => { %>
-                                            <option value="<%= productos.id_producto %>"><%= productos.nombre_producto %></option>
-                                            <% }) %>
-                                        </select>
-                                        
-                                    </div>
-                                </div>
+                     
+                        </div>
 
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- Email address input-->
-                                        <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad *" />
+                        <input type="number" name="" id="">
+                            <div class="card mb-3">
+                                <div class="container-fluid">
+                                    <div class="table-responsive align-middle" >
+                                        <table id="tablin" class="table table-striped text-center mt-4">
+                                            <thead id="titletable">
+                                                <tr class="table-warning ">
+                            
+                                                    <th>ID </th>
+                                                    <th>NOMBRE</th>
+                                                    <th>STOCK</th>
+                                                    <th>PRECIO</th>
+                                                    <th>ESTADO</th>
+                                                    <th>CATEGORÍA</th>
+                                                    <th>IMAGEN</th>
+                                                    <th>CARRITO</th>
+                                                 
+                            
+                                                </tr>
+                                            </thead>
+                                            <tbody >
+                                                
+                                                <% productos.forEach((producto)=> { %>
+                                                    <tr >
+                                                        
+                                                        <td>
+                                                            <%= producto.id_producto %>
+                                                        </td>
+                                                        <td>
+                                                            <%= producto.nombre_producto %>
+                                                        </td>
+                                                        <td>
+                                                            <%= producto.stock %>
+                                                        </td>
+                                                        <td>
+                                                            <%= producto.precio_producto %>
+                                                        </td>
+                                                        <td>
+                                                            <%= producto.nombre_estado_producto %>
+                                                        </td>
+                            
+                                                        <td>
+                                                            <%= producto.nombre_categoria_producto %>
+                                                        </td>
+                            
+                                                        <td>
+                                                            <img src="/uploads/<%= producto.imagen_producto %>" style="width: 80px; height: 80px;" alt="">
+                                                        </td>
+
+                                                        <td>
+                                                            <a class="btn-ver"><span class="material-symbols-outlined">AÑADIR</span></a>
+                                                        </td>
+                                                    
+                                                    </tr>
+                            
+                                                    <% }) %>
+                                                        <!-- Agrega más filas según tus necesidades -->
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="text-end"><input class="btn btn-primary btn-xl text-uppercase" type="button" value="Agregar" onclick="agregarDatos()" type="submit"></div>
+                            <div id="detalle" style="background-color: white;"></div>
+
+                            <!-- <div class="text-end"><input class="btn btn-primary btn-xl text-uppercase" type="button" value="Agregar" onclick="agregarDatos()" type="submit"></div> -->
 
                             <ul class="text-white" id="listaDatos"></ul>
 
@@ -164,6 +212,133 @@
             }
         </script>
 
+
+        <!--CDN de la datatables-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#tablin').DataTable({
+                    "language": espanol,
+                    paging: false,
+                    ordering: false,
+                    info: false,
+                });
+
+            });
+
+            var espanol = {
+                "processing": "Procesando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron resultados",
+                "emptyTable": "No existe ningun producto registrado hasta el momento",
+                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "search": "Buscar:",
+                "infoThousands": ",",
+                "loadingRecords": "Cargando...",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "stateRestore": {
+                    "creationModal": {
+                        "button": "Crear",
+                        "name": "Nombre:",
+                        "order": "Clasificación",
+                        "paging": "Paginación",
+                        "search": "Busqueda",
+                        "select": "Seleccionar",
+                        "columns": {
+                            "search": "Búsqueda de Columna",
+                            "visible": "Visibilidad de Columna"
+                        },
+                        "title": "Crear Nuevo Estado",
+                        "toggleLabel": "Incluir:"
+                    },
+                    "emptyError": "El nombre no puede estar vacio",
+                    "removeConfirm": "¿Seguro que quiere eliminar este %s?",
+                    "removeError": "Error al eliminar el registro",
+                    "removeJoiner": "y",
+                    "removeSubmit": "Eliminar",
+                    "renameButton": "Cambiar Nombre",
+                    "renameLabel": "Nuevo nombre para %s",
+                    "duplicateError": "Ya existe un Estado con este nombre.",
+                    "emptyStates": "No hay Estados guardados",
+                    "removeTitle": "Remover Estado",
+                    "renameTitle": "Cambiar Nombre Estado"
+                }
+            }
+
+        </script>
+
+        <script>
+
+            const detalle = document.getElementById("detalle");
+            const divdetalle = document.createElement("div");
+
+            $(document).ready(function() {
+            // Seguimiento de los elementos creados previamente
+            const elementos = [];
+            
+            // Asignar evento click al botón con la clase "btn-ver"
+            $('.btn-ver').on('click', function() {
+                // Obtener la fila actual
+                const fila = $(this).closest('tr');
+                
+                // Obtener los datos de la fila
+                const nombre = fila.find('td:eq(1)').text();
+                const precio = parseFloat(fila.find('td:eq(3)').text());
+                
+                // Crear un nuevo elemento de lista para el detalle
+                const lista = document.createElement("ul");
+                lista.classList = "list-group";
+                
+                // Crear elementos de lista para los datos
+                const nombreElement = document.createElement("li");
+                nombreElement.classList = "list-group-item";
+                nombreElement.textContent = "Nombre: " + nombre;
+                
+                const precioElement = document.createElement("li");
+                precioElement.textContent = "Precio: $" + precio.toFixed(2);
+                
+                const cantidadElement = document.createElement("li");
+                cantidadElement.textContent = "Cantidad: 1";
+                
+                const btnAumentar = document.createElement("button");
+                btnAumentar.classList = "btn btn-danger";
+                btnAumentar.textContent = "+";
+
+                const btnRestar = document.createElement("button");
+                btnRestar.classList = "btn btn-primary";
+                btnRestar.textContent = "-";
+                
+                
+                // Agregar elementos de lista al elemento de lista
+                lista.appendChild(nombreElement);
+                lista.appendChild(precioElement);
+                lista.appendChild(cantidadElement);
+                lista.appendChild(btnAumentar);
+                
+                // Agregar la lista al arreglo de elementos
+                elementos.push(lista);
+                
+                // Limpiar el contenido del elemento detalle
+                detalle.innerHTML = "";
+                
+                // Insertar todos los elementos en el elemento con el ID "detalle"
+                elementos.forEach(function(elemento) {
+                detalle.appendChild(elemento);
+                });
+            });
+            });
+
+
+        </script>
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
