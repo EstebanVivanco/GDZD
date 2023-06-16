@@ -16,7 +16,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/estilo_tienda.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="/axios.js"></script>
+        
 
     </head>
     <body id="page-top">
@@ -72,7 +72,6 @@
                      
                         </div>
 
-                        <input type="number" name="" id="">
                             <div class="card mb-3">
                                 <div class="container-fluid">
                                     <div class="table-responsive align-middle" >
@@ -122,7 +121,8 @@
                                                         </td>
 
                                                         <td>
-                                                            <a class="btn-ver"><span class="material-symbols-outlined">AÑADIR</span></a>
+                                                            <button type="button" class="btn-obtener-datos">Agregar</button>
+
                                                         </td>
                                                     
                                                     </tr>
@@ -136,7 +136,6 @@
                             </div>
 
                             <div id="detalle" style="background-color: white;"></div>
-
                             <!-- <div class="text-end"><input class="btn btn-primary btn-xl text-uppercase" type="button" value="Agregar" onclick="agregarDatos()" type="submit"></div> -->
 
                             <ul class="text-white" id="listaDatos"></ul>
@@ -150,6 +149,8 @@
                 </section>
 
         <% }) %>
+
+        <div id="detalle"></div>
 
         <!-- Footer-->
         <footer class="footer py-4">
@@ -211,8 +212,6 @@
 
             }
         </script>
-
-
         <!--CDN de la datatables-->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -278,62 +277,30 @@
 
         <script>
 
-            const detalle = document.getElementById("detalle");
-            const divdetalle = document.createElement("div");
 
             $(document).ready(function() {
-            // Seguimiento de los elementos creados previamente
-            const elementos = [];
-            
-            // Asignar evento click al botón con la clase "btn-ver"
-            $('.btn-ver').on('click', function() {
+            // Asignar evento click al botón con la clase "btn-obtener-datos"
+            $('.btn-obtener-datos').on('click', function() {
                 // Obtener la fila actual
                 const fila = $(this).closest('tr');
                 
-                // Obtener los datos de la fila
+                // Obtener los datos de la columna deseada
                 const nombre = fila.find('td:eq(1)').text();
                 const precio = parseFloat(fila.find('td:eq(3)').text());
                 
-                // Crear un nuevo elemento de lista para el detalle
-                const lista = document.createElement("ul");
-                lista.classList = "list-group";
+                // Crear elementos para mostrar los datos y el input
+                const divDatos = $('<div>').text('Nombre: ' + nombre + ', Precio: $' + precio.toFixed(2));
+                const inputCantidad = $('<input>').attr('type', 'number').val(1);
                 
-                // Crear elementos de lista para los datos
-                const nombreElement = document.createElement("li");
-                nombreElement.classList = "list-group-item";
-                nombreElement.textContent = "Nombre: " + nombre;
-                
-                const precioElement = document.createElement("li");
-                precioElement.textContent = "Precio: $" + precio.toFixed(2);
-                
-                const cantidadElement = document.createElement("li");
-                cantidadElement.textContent = "Cantidad: 1";
-                
-                const btnAumentar = document.createElement("button");
-                btnAumentar.classList = "btn btn-danger";
-                btnAumentar.textContent = "+";
-
-                const btnRestar = document.createElement("button");
-                btnRestar.classList = "btn btn-primary";
-                btnRestar.textContent = "-";
-                
-                
-                // Agregar elementos de lista al elemento de lista
-                lista.appendChild(nombreElement);
-                lista.appendChild(precioElement);
-                lista.appendChild(cantidadElement);
-                lista.appendChild(btnAumentar);
-                
-                // Agregar la lista al arreglo de elementos
-                elementos.push(lista);
-                
-                // Limpiar el contenido del elemento detalle
-                detalle.innerHTML = "";
-                
-                // Insertar todos los elementos en el elemento con el ID "detalle"
-                elementos.forEach(function(elemento) {
-                detalle.appendChild(elemento);
+                // Agregar evento input al inputCantidad para actualizar el precio
+                inputCantidad.on('input', function() {
+                const cantidad = parseInt($(this).val());
+                const precioTotal = (precio * cantidad).toFixed(2);
+                divDatos.text('Nombre: ' + nombre + ', Precio: $' + precioTotal);
                 });
+                
+                // Agregar los elementos al div deseado
+                $('#detalle').append(divDatos, inputCantidad);
             });
             });
 
@@ -344,6 +311,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/scripts_tienda.js"></script>
+        <script src="/axios.js"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
