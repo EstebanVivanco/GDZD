@@ -170,48 +170,7 @@
             </div>
         </footer>
         <!-- Portfolio Modals-->
-        <script>
-            let datosLista = [];
-
-            function agregarDatos() {
-                let rut = document.getElementById('rut').value;
-                let producto = document.getElementById('producto').value;
-                let cantidad = document.getElementById('cantidad').value;
-                
-                let datos = {
-                    rut: rut,
-                    producto: producto,
-                    cantidad: cantidad
-                };
-
-                datosLista.push(datos);
-
-                let lista = document.getElementById('listaDatos');
-                let listItem = document.createElement('li');
-                listItem.textContent = JSON.stringify(datos);
-                lista.appendChild(listItem);
-
-                document.getElementById('rut').value = '';
-                document.getElementById('producto').value = 'Seleccione un producto';
-                document.getElementById('cantidad').value = '';
-
-            }
-
-            function mostrarResultados() {
-                let resultadosDiv = document.getElementById('resultados');
-                resultadosDiv.innerHTML = '';
-            
-                for (let i = 0; i < datosLista.length; i++) {
-                    let datos = datosLista[i];
-                    
-                    console.log(datos);
-                    let div = document.createElement('div');
-                    div.textContent = 'RUT: ' + datos.rut + ', Producto: ' + datos.producto + ', Cantidad: ' + datos.cantidad;
-                    resultadosDiv.appendChild(div);
-                }
-
-            }
-        </script>
+             
         <!--CDN de la datatables-->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -277,6 +236,7 @@
 
         <script>
 
+            const arreglo = []
 
             $(document).ready(function() {
             // Asignar evento click al botón con la clase "btn-obtener-datos"
@@ -297,8 +257,12 @@
                 const cantidad = parseInt($(this).val());
                 const precioTotal = (precio * cantidad).toFixed(2);
                 divDatos.text('Nombre: ' + nombre + ', Precio: $' + precioTotal);
-                });
                 
+            });
+            
+                
+                console.log('arreglo :>> ', arreglo);
+
                 // Agregar los elementos al div deseado
                 $('#detalle').append(divDatos, inputCantidad);
             });
