@@ -21,7 +21,6 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
-
         <% tienda.forEach((tienda) => { %>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
@@ -73,6 +72,7 @@
                      
                         </div>
 
+                        <input type="number" name="" id="">
                             <div class="card mb-3">
                                 <div class="container-fluid">
                                     <div class="table-responsive align-middle" >
@@ -282,6 +282,9 @@
             const divdetalle = document.createElement("div");
 
             $(document).ready(function() {
+            // Seguimiento de los elementos creados previamente
+            const elementos = [];
+            
             // Asignar evento click al botón con la clase "btn-ver"
             $('.btn-ver').on('click', function() {
                 // Obtener la fila actual
@@ -289,16 +292,52 @@
                 
                 // Obtener los datos de la fila
                 const nombre = fila.find('td:eq(1)').text();
-                const precio = fila.find('td:eq(3)').text();
+                const precio = parseFloat(fila.find('td:eq(3)').text());
                 
-                // Hacer algo con los datos (en este caso, mostrarlos en la consola)
-                const detalle = '' + nombre + ', Total' + precio;
+                // Crear un nuevo elemento de lista para el detalle
+                const lista = document.createElement("ul");
+                lista.classList = "list-group";
                 
-                // Insertar la cadena en el elemento con el ID "detalle"
-                $('#detalle').text(detalle);
+                // Crear elementos de lista para los datos
+                const nombreElement = document.createElement("li");
+                nombreElement.classList = "list-group-item";
+                nombreElement.textContent = "Nombre: " + nombre;
+                
+                const precioElement = document.createElement("li");
+                precioElement.textContent = "Precio: $" + precio.toFixed(2);
+                
+                const cantidadElement = document.createElement("li");
+                cantidadElement.textContent = "Cantidad: 1";
+                
+                const btnAumentar = document.createElement("button");
+                btnAumentar.classList = "btn btn-danger";
+                btnAumentar.textContent = "+";
 
+                const btnRestar = document.createElement("button");
+                btnRestar.classList = "btn btn-primary";
+                btnRestar.textContent = "-";
+                
+                
+                // Agregar elementos de lista al elemento de lista
+                lista.appendChild(nombreElement);
+                lista.appendChild(precioElement);
+                lista.appendChild(cantidadElement);
+                lista.appendChild(btnAumentar);
+                
+                // Agregar la lista al arreglo de elementos
+                elementos.push(lista);
+                
+                // Limpiar el contenido del elemento detalle
+                detalle.innerHTML = "";
+                
+                // Insertar todos los elementos en el elemento con el ID "detalle"
+                elementos.forEach(function(elemento) {
+                detalle.appendChild(elemento);
+                });
             });
             });
+
+
         </script>
 
         <!-- Bootstrap core JS-->
