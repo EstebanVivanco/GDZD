@@ -11,7 +11,7 @@ router.get('/caja_productos/:id', (req, res)=>{
     const id = req.params.id;
 
     conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [id], (error,tienda)=>{
-        conexion.query('SELECT * FROM productos WHERE id_tienda_fk = ?', [id],(error,productos)=>{ 
+        conexion.query('SELECT * FROM productos INNER JOIN estado_producto ON estado_producto.id_estado_producto = productos.id_estado_fk INNER JOIN proveedores ON proveedores.id_proveedor = productos.id_proveedor_fk INNER JOIN categoria_producto ON categoria_producto.id_categoria_producto = productos.id_categoria_producto_fk INNER JOIN tienda ON tienda.id_tienda = productos.id_tienda_fk WHERE tienda.id_tienda = ? and productos.id_estado_fk = 1', [id],(error,productos)=>{ 
 
             if (error) {
                 throw error;
@@ -205,6 +205,32 @@ router.get('/habilitar_producto/:id', (req, res)=>{
         }
     })
 })
+
+// Ruta para obtener los datos de los productos desde la base de datos
+router.get('/productos', async (req, res) => {
+    try {
+      const [rows] = await conexion.query('SELECT * FROM productos');
+      res.json(rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error en la consulta' });
+    }
+  });
+  
+  // Ruta para recibir las solicitudes de búsqueda de productos
+  router.get('/buscar-productos', async (req, res) => {
+    try {
+      const termino = req.query.termino; // Obtén el término de búsqueda de la solicitud
+  
+      // Realiza la consulta a la base de datos utilizando el término de búsqueda
+      const [rows] = await conexion.query('SELECT * FROM productos WHERE nombre_producto LIKE ?', [`%${termino}%`]);
+  
+      res.json(rows); // Envía los resultados al cliente en formato JSON
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error en la consulta' });
+    }
+  });
 
 
 const crud = require('./controllers/crud');
