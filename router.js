@@ -223,20 +223,31 @@ router.get('/productos', async (req, res) => {
     }
   });
   
-  // Ruta para recibir las solicitudes de búsqueda de productos
-  router.get('/buscar-productos', async (req, res) => {
-    try {
-      const termino = req.query.termino; // Obtén el término de búsqueda de la solicitud
-  
-      // Realiza la consulta a la base de datos utilizando el término de búsqueda
-      const [rows] = await conexion.query('SELECT * FROM productos WHERE nombre_producto LIKE ?', [`%${termino}%`]);
-  
-      res.json(rows); // Envía los resultados al cliente en formato JSON
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error en la consulta' });
-    }
-  });
+// Ruta para recibir las solicitudes de búsqueda de productos
+router.get('/buscar-productos', async (req, res) => {
+  try {
+    const termino = req.query.termino; // Obtén el término de búsqueda de la solicitud
+
+    // Realiza la consulta a la base de datos utilizando el término de búsqueda
+    const [rows] = await conexion.query('SELECT * FROM productos WHERE nombre_producto LIKE ?', [`%${termino}%`]);
+
+    res.json(rows); // Envía los resultados al cliente en formato JSON
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error en la consulta' });
+  }
+});
+
+//RUTA PARA EL PORTAL DE TIENDAS
+router.get('/superadmin', (req, res)=>{
+    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('superadmin', {tiendas:tiendas});
+        }
+    })
+})
 
   //RUTA PARA VER HABITACIONES
   router.get('/ver_habitaciones', (req,res)=>{
