@@ -238,13 +238,23 @@ router.get('/buscar-productos', async (req, res) => {
   }
 });
 
-//RUTA PARA EL PORTAL DE TIENDAS
+//RUTA PARA EL SUPERADMIN
 router.get('/superadmin', (req, res)=>{
     conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
         if(error){
             throw error;
         }else{
             res.render('superadmin', {tiendas:tiendas});
+        }
+    })
+})
+
+router.get('/superadmin_edit', (req, res)=>{
+    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('editar_tienda_sueradmin', {tiendas:tiendas});
         }
     })
 })
