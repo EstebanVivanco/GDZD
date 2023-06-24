@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boleta de Venta</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .boleta-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .boleta-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .boleta-header h2 {
+      margin-top: 0;
+    }
+    .boleta-info {
+      margin-bottom: 20px;
+    }
+    .boleta-info p {
+      margin: 5px 0;
+    }
+    .boleta-detalle th {
+      text-align: left;
+    }
+    .boleta-detalle td {
+      padding: 5px;
+    }
+    .boleta-total {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .boleta-total p {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container boleta-container">
+    <div class="boleta-header">
+      <h2>Boleta de Venta</h2>
+    </div>
+    <div class="boleta-info">
+      <p><strong>Código de Boleta:</strong> <span id="codigo-boleta"></span></p>
+      <p><strong>RUT Cliente:</strong> <span id="rut-cliente"></span></p>
+      <p><strong>Fecha:</strong> <span id="fecha"></span></p>
+      <p><strong>Tienda:</strong> <span id="tienda"></span></p>
+    </div>
+    <table class="table table-bordered boleta-detalle">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="detalle-productos">
+        <!-- Los productos se agregarán dinámicamente aquí -->\\
+      </tbody>
+    </table>
+    <div class="boleta-total">
+      <p><strong>Total:</strong> <span id="total"></span></p>
+    </div>
+  </div>
+
+
+
+  <script>
+    // Aquí puedes utilizar JavaScript para obtener los datos y rellenar la boleta
+    var codigoBoleta = "AAA-231";
+    var rutCliente = "12345678-9";
+    var fecha = "2023-06-24";
+    var tienda = "Tienda Ejemplo";
+    var productos = [
+      { nombre: "Producto 1", cantidad: 2, total: 1000 },
+      { nombre: "Producto 2", cantidad: 1, total: 500 },
+      { nombre: "Producto 3", cantidad: 3, total: 1500 }
+    ];
+    var total = productos.reduce((acc, producto) => acc + producto.total, 0);
+
+    // Rellenar los datos en la boleta
+    document.getElementById("codigo-boleta").textContent = codigoBoleta;
+    document.getElementById("rut-cliente").textContent = rutCliente;
+    document.getElementById("fecha").textContent = fecha;
+    document.getElementById("tienda").textContent = tienda;
+    document.getElementById("total").textContent = total.toFixed(2);
+
+    // Rellenar los productos en la tabla de detalle
+    var detalleProductos = document.getElementById("detalle-productos");
+    productos.forEach(function(producto) {
+      var row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${producto.nombre}</td>
+        <td>${producto.cantidad}</td>
+        <td>${producto.total.toFixed(2)}</td>
+      `;
+      detalleProductos.appendChild(row);
+    });
+  </script>
+</body>
+</html>

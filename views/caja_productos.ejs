@@ -16,7 +16,11 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/estilo_tienda.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
+        <script>
+            const pathnameSegments = window.location.pathname.split('/');
+            const id_tienda = pathnameSegments[2];
+            console.log('id_tienda :>> ', id_tienda);
+        </script>
 
     </head>
     <body id="page-top">
@@ -59,17 +63,8 @@
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm">
-                            <div class="row align-items-stretch mb-5">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <!-- Email address input-->
-                                        <input class="form-control" type="text" id="rut" name="rut" placeholder="Rut de cliente *" />
-                                    </div>
-                                </div>
                      
                         </div>
-
                             <div class="card mb-3">
                                 <div class="container-fluid">
                                     <div class="table-responsive align-middle" >
@@ -133,14 +128,30 @@
                                 </div>
                             </div>
 
-                            <div id="detalle" style="background-color: white;"></div>
                             <!-- <div class="text-end"><input class="btn btn-primary btn-xl text-uppercase" type="button" value="Agregar" onclick="agregarDatos()" type="submit"></div> -->
-
+                            <div id="detalle" style="background-color: white; padding: 4%;">
+                                <div class="row">
+                                    <div class="col-md-9" id="divProducto"></div>
+                                    <div class="col-md-3" id="divCantidad"></div>
+                                </div>
+                            </div>
                             <ul class="text-white" id="listaDatos"></ul>
 
-                            <!-- Submit Button-->
-                            <h2 class="section-heading text-uppercase text-end">Total:</h2>
-                            <div class="text-end"><button class="btn btn-primary btn-xl text-uppercase" type="submit">Generar Boleta</button></div>
+
+                            <form action="/cajaCompletada" method="post">
+                                <div class="row align-items-stretch mb-5">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="rut" name="rut" placeholder="Rut de cliente *" />
+                                        </div>
+                                    </div>
+    
+                                <input type="text" name="inputcarrito" id="inputcarrito" hidden>
+                                <input type="text" name="idtienda" id="idtienda" hidden>
+
+                                <!-- Submit Button-->
+                                <!-- <h2 class="section-heading text-uppercase text-end">Total:</h2> -->
+                                <div class="text-end"><button class="btn btn-primary btn-xl text-uppercase" type="submit">Generar Boleta</button></div>
 
                         </form>
                     </div>
@@ -148,7 +159,7 @@
 
         <% }) %>
 
-        <div id="detalle"></div>
+
 
         <!-- Footer-->
         <footer class="footer py-4">
@@ -173,6 +184,8 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        
+        <!-- SCRIPT DE DATA TABLE -->
         <script>
             $(document).ready(function () {
                 $('#tablin').DataTable({
@@ -232,44 +245,117 @@
 
         </script>
 
+        <!-- SCRIPT CARRITO -->
         <script>
-
-            const arreglo = []
-
-            $(document).ready(function() {
-            // Asignar evento click al botón con la clase "btn-obtener-datos"
-            $('.btn-obtener-datos').on('click', function() {
-                // Obtener la fila actual
-                const fila = $(this).closest('tr');
-                
-                // Obtener los datos de la columna deseada
-                const nombre = fila.find('td:eq(1)').text();
-                const precio = parseFloat(fila.find('td:eq(3)').text());
-                
-                // Crear elementos para mostrar los datos y el input
-                const divDatos = $('<div>').text('Nombre: ' + nombre + ', Precio: $' + precio.toFixed(2));
-                const inputCantidad = $('<input>').attr('type', 'number').val(1);
-                
-                // Agregar evento input al inputCantidad para actualizar el precio
-                inputCantidad.on('input', function() {
-                const cantidad = parseInt($(this).val());
-                const precioTotal = (precio * cantidad).toFixed(2);
-                divDatos.text('Nombre: ' + nombre + ', Precio: $' + precioTotal);
-                
-            });
-            
-                
-                console.log('arreglo :>> ', arreglo);
-
-                // Agregar los elementos al div deseado
-                $('#detalle').append(divDatos, inputCantidad);
-            });
-            });
-
-
+            // Obtener todos los botones con la clase "btn-obtener-datos"
+            var btnsAgregar = document.getElementsByClassName("btn-obtener-datos");
+            const detalle = document.getElementById('detalle');
+            const inputCarrito = document.getElementById('inputcarrito');
+            var carritoCompra = {}; // Objeto para almacenar los productos en el carrito
+            const idtienda = document.getElementById('idtienda');
+            idtienda.value = id_tienda;
+            // Recorrer todos los botones y agregar un evento de clic a cada uno
+            for (var i = 0; i < btnsAgregar.length; i++) {
+                btnsAgregar[i].addEventListener("click", function() {
+                    // Obtener la fila actual del botón
+                    var fila = this.closest("tr");
+        
+                    // Obtener el valor del nombre y precio de la fila actual
+                    var id = fila.querySelector("td:nth-child(1)").innerText;
+                    var nombre = fila.querySelector("td:nth-child(2)").innerText;
+                    var precio = parseFloat(fila.querySelector("td:nth-child(4)").innerText);
+        
+                    // Verificar si el producto ya ha sido agregado al carrito
+                    if (carritoCompra[nombre]) {
+                        // Si el producto ya existe en el carrito, aumentar la cantidad y actualizar el precio total
+                        carritoCompra[nombre].cantidad++;
+                        carritoCompra[nombre].precioTotal = carritoCompra[nombre].cantidad * carritoCompra[nombre].precioUnitario;
+                    } else {
+                        // Si es un producto nuevo, agregarlo al carrito con cantidad y precio total
+                        carritoCompra[nombre] = {
+                            id:id,
+                            cantidad: 1,
+                            precioUnitario: precio,
+                            precioTotal: precio
+                        };
+                    }
+        
+                    // Actualizar el contenido del div de detalle
+                    updateDetalle();
+                    printCarritoCompra();
+                });
+            }
+        
+            // Función para actualizar el contenido del div de detalle
+            function updateDetalle() {
+                detalle.innerHTML = "";
+        
+                // Recorrer los productos en el carrito y mostrarlos en el div
+                Object.keys(carritoCompra).forEach(function(nombreProducto) {
+                    var producto = carritoCompra[nombreProducto];
+                    var div = document.createElement("div");
+        
+                    // Crear input numérico para ajustar la cantidad del producto
+                    var inputCantidad = document.createElement("input");
+                    inputCantidad.type = "number";
+                    inputCantidad.style = "width: 50px";
+                    inputCantidad.value = producto.cantidad;
+                    inputCantidad.addEventListener("input", function() {
+                        var nuevaCantidad = parseInt(this.value);
+                        if (!isNaN(nuevaCantidad) && nuevaCantidad >= 0) {
+                            producto.cantidad = nuevaCantidad;
+                            producto.precioTotal = nuevaCantidad * producto.precioUnitario;
+                            updateDetalle();
+                            printCarritoCompra();
+                        }
+                    });
+        
+                    // Crear botón para eliminar el producto
+                    var btnEliminar = document.createElement("button");
+                    btnEliminar.innerText = "Eliminar";
+                    btnEliminar.className = "btn btn-danger"
+                    btnEliminar.style = "margin-left: 10px"
+                    btnEliminar.addEventListener("click", function() {
+                        delete carritoCompra[nombreProducto];
+                        updateDetalle();
+                        printCarritoCompra();
+                    });
+        
+                    // Agregar los elementos al div
+                    div.innerText = "Nombre: " + nombreProducto + ", Precio Total: " + producto.precioTotal + " ";
+                    div.appendChild(inputCantidad);
+                    div.appendChild(btnEliminar);
+                    detalle.appendChild(div);
+                });
+            }
+        
+            // Función para imprimir el carrito de compra en la consola y actualizar el valor del input
+            function printCarritoCompra() {
+                console.clear();
+                console.log("Carrito de Compra:");
+                console.log(carritoCompra);
+                inputCarrito.value = JSON.stringify(carritoCompra);
+            }
         </script>
+        
 
+</script>
         <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <% if(typeof alert !="undefined" ){ %>
+            <script>
+                Swal.fire({
+                    title: '<%= alertTitle%>',
+                    text: '<%= alertMessage%>',
+                    icon: '<%= alertIcon%>',
+                    showConfirmButton: <%= showConfirmButton%> ,
+                    timer: <%= timer %>
+                }).then(() => {
+                        window.location = '/ <%= ruta%>'
+                    })
+            </script>
+        <% } %>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/scripts_tienda.js"></script>

@@ -203,3 +203,88 @@ exports.buscarTienda= (req, res) => {
     })
 
 }
+
+function generarCodigo() {
+    // Generar letras aleatorias
+    var letras = '';
+    var caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (var i = 0; i < 3; i++) {
+      letras += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+  
+    // Generar números aleatorios
+    var numeros = '';
+    for (var j = 0; j < 3; j++) {
+      numeros += Math.floor(Math.random() * 10);
+    }
+  
+    // Combinar letras y números en el formato AAA-231
+    var codigo = letras + '-' + numeros;
+  
+    return codigo;
+}
+
+
+exports.cajaCompletada= (req, res) => {
+
+    const rut = req.body.rut;
+    const cadenaObjeto = req.body.inputcarrito;
+    const objetoProductos = JSON.parse(cadenaObjeto);
+    const codigoBoleta = generarCodigo();
+    const idtienda = req.body.idtienda;
+    var fechaActual = new Date();
+
+    // console.log('objetoProductos :>> ', objetoProductos);
+    // console.log('rut :>> ', rut);
+    // console.log('codigoBoleta :>> ', codigoBoleta);     
+    
+    for (const producto in objetoProductos) {
+        if (objetoProductos.hasOwnProperty(producto)) {
+          const { id, cantidad,precioTotal } = objetoProductos[producto];
+          // Consulta SQL para actualizar el stock
+          const sql = `UPDATE productos SET stock = stock - ${cantidad} WHERE id_producto = ${id}`;
+      
+          // Ejecutar la consulta
+          conexion.query(sql, (err, result) => {
+            if (err) {
+              console.error('Error al actualizar el stock:', err);
+              return;
+            }else{
+
+                conexion.query('INSERT INTO venta_tienda SET ?', {codigo_boleta: codigoBoleta, rut_cliente:rut, id_productos_fk:id, cantidad:cantidad, total: precioTotal, fecha_venta:fechaActual ,id_tienda_fk: idtienda}, (error, resultss)=>{
+        
+                    if(error){
+                        throw error;
+                    }else{
+            
+                        conexion.query('SELECT venta_tienda.id_venta_tienda, venta_tienda.codigo_boleta, venta_tienda.cantidad, venta_tienda.total, productos.nombre_producto, DATE_FORMAT(venta_tienda.fecha_venta, "%m/%d/%Y") AS fecha_venta  FROM venta_tienda INNER JOIN productos ON productos.id_producto = venta_tienda.id_productos_fk  WHERE venta_tienda.id_tienda_fk = ? ', [idtienda] ,(error, results) => {
+        
+                            if (error) {
+                                throw error;
+                            } else {
+
+                                    res.render('vista_ventas',{
+                                        alert:true,
+                                        alertTitle: 'Producto actualizado',
+                                        alertMessage: 'Se ha actualizado correctamente el producto',
+                                        alertIcon:'success',
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        ruta: 'caja_productos/'+idtienda,
+                                        results: results,
+                                        user: req.session.user
+                                    })
+
+                            }
+                        });
+
+                        
+                    }
+                })
+
+            }
+          });
+        }
+      }
+
+}

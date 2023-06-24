@@ -22,6 +22,12 @@ router.get('/caja_productos/:id', (req, res)=>{
     })
 })
 
+router.get('/boleta_venta', (req, res)=>{
+    
+    res.render('boleta_venta');
+
+})
+
 router.get('/registro', (req, res) => {
 
     conexion.query('SELECT * FROM tipo_tiendas', (error, tipotienda) => {
@@ -175,7 +181,7 @@ router.get('/ver_productosDes/:id', (req, res) => {
 });
 
 
-//RUTA PARA VER PRODUCTOS ELIMINADOS
+
 router.get('/ver_ventas/:id', (req, res) => {
 
     const id = req.params.id;
@@ -240,5 +246,6 @@ router.post('/savestore',crud.savestore);
 router.post('/login', crud.login);
 router.post('/actualizarProducto', crud.actualizarProducto);
 router.post('/buscarTienda', crud.buscarTienda);
+router.post('/cajaCompletada', crud.cajaCompletada);
 
 module.exports = router;
