@@ -238,6 +238,29 @@ router.get('/productos', async (req, res) => {
     }
   });
 
+  //RUTA PARA VER HABITACIONES
+  router.get('/ver_habitaciones', (req,res)=>{
+    conexion.query('SELECT habitaciones.id_habitacion, habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk, estado_habitacion.nombre_estado_habitacion FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk WHERE habitaciones.estado_habitacion_fk != 4;', (error, results)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('ver_habitaciones', {results:results});
+        }
+    })
+    
+  })
+
+  //RUTA PARA ACTUALIZAR HABIACIONES
+  router.get('/editar_habitacion', (req,res)=>{
+    res.render('editar_habitaciones');
+  })
+
+  //RUTA PARA VER HABITACIONES DESHABILITADAS
+
+  router.get('/ver_habitaciones_deshabilitadas', (req,res)=>{
+    res.render('ver_habitaciones_deshabilitadas');
+  })
+
 
 const crud = require('./controllers/crud');
 
