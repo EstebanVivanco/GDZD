@@ -16,16 +16,13 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/estilo_tienda.css" rel="stylesheet" />
+        <link href="/forms.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         
         <!-- Navigation-->
 
-        <style>
-
-          </style>
-
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top background-trans" >
             <div class="container">
                 <a class="" href="#page-top"><img src="/img_tienda/logos/hasb.png" height="75px" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,10 +49,9 @@
         </header>
 
 
-
-
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
+            
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Tiendas</h2>
@@ -68,6 +64,13 @@
                     </form>
                     <h3 class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
                 </div>
+
+                <style>
+
+
+                </style>
+
+
                 <div class="row">
                 <% tiendas.forEach((tienda)=>{ %>
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -80,17 +83,31 @@
                               </div>
                               -->
                               <div class="image-container">
-                                <img class="" src="/uploads/<%= tienda.banner_tienda %>" alt="..." height="225px" width="100%"/>
-                                <div class="image-text">
-                                  <a class="btn btn-primary btn-xl text-uppercase text-black" href="/index_tienda/<%=tienda.id_tienda %>"><%= tienda.nombre_tienda %></a>
-                                </div>
+                                <img class="" src="/uploads/img_tiendas/<%= tienda.banner_tienda %>" alt="..." height="225px" width="100%"/>
+                                <% if(tienda.id_estado_tienda_fk === 1) {%>
+                                    <div class="image-text">
+                                      <a class="btn btn-primary btn-xl text-uppercase text-black" href="/index_tienda/<%=tienda.id_tienda %>"><%= tienda.nombre_estado_tienda %></a>
+                                    </div>
+                                <%}else{%>
+                                    <div class="texto-superpuesto text-center">
+                                        <a class="btn btn-danger btn-xl text-uppercase text-black text-center" href="/index_tienda/<%=tienda.id_tienda %>"><%= tienda.nombre_estado_tienda %></a>
+                                    </div>
+                                <%}%>
                                 <div class="row position-absolute top-0 start-100" >
                                     <div class="col-12 text-end">
-                                        <button class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></button>
+                                        <% if(tienda.id_estado_tienda_fk === 1) {%>
+                                            <a href="/superadmin_eliminar_tienda/<%= tienda.id_tienda  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
+                                        <%}else{%>
+                                            <a href="/superadmin_habilitar_tienda/<%= tienda.id_tienda  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
+                                        <%}%>
                                     </div>
+<!-- 
+                                    <div class="col-12 text-end pt-1">
+                                        <a href="/superadmin_edit/<%= tienda.id_tienda  %>"  class="btn btn-info btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
+                                    </div> -->
 
                                     <div class="col-12 text-end pt-1">
-                                        <button class="btn btn-info btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></button>
+                                        <a data-bs-toggle="modal" href="#portfolioModal-<%= tienda.id_tienda %>"  class="btn btn-info btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
                                     </div>
                                 </div>
                               </div>
@@ -101,13 +118,72 @@
                             </div>
                           </div>
                     </div>
+                <% }) %>
+                <% tiendas.forEach((tienda)=>{ %>
+                    <div class="portfolio-modal modal fade" id="portfolioModal-<%= tienda.id_tienda %>" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                                <div class="container-fluid px-1 py-5 mx-auto">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                                            <div>
+                                                <h2  class="text-center mb-4">Edicion de Tienda</h2>
+                                                <form class="form-card" action="/editestore" method="POST" enctype="multipart/form-data">
+                                                    <input type="hidden" name="formType" value="tienda">
+                                                    <input hidden type="text" name="id" id="id" value="<%= tienda.id_tienda %>">
+
+                                                    <input type="text" name="id" id="id" value="<%= tienda.id_tienda %>">
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Nombre</label> <input type="text" id="name" name="name" value="<%= tienda.nombre_tienda %>"> </div>
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Slogan</label> <input type="text" id="slogan" name="slogan" value="<%= tienda.slogan_tienda %>"> </div>
+                                                    </div>
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Logo</label> <input class="form-control" type="file" id="logo" name="logo" value="<%= tienda.logo_tienda %>"></div>
+                                                        
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Banner</label> <input class="form-control" type="file" id="image" name="image" value="<%= tienda.banner_tienda %>"></div>
+                                                    </div>
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo de tienda</label>
+                                                            <select class="form-control mt-2 py-2" id="tipo" name="tipo">
+                                                                <% tipo_tiendas.forEach((tipo) => { %>
+                                                                    <option value=" <%= tipo.id_tipo %>"> <%= tipo.nombre_tipo %></option>
+                                                                <% }) %>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Sector</label>
+                                                            <select class="form-control mt-2 py-2" id="sector" name="sector">
+                                                                <% sectores.forEach((sector) => { %>
+                                                                    <option value=" <%= sector.id_sector %>"> <%= sector.nombre_sector %></option>
+                                                                <% }) %>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Horarios</label> <input type="text" id="descripcion" name="descripcion" value="<%= tienda.horarios_tienda%>"> </div>
+                                                        <div class="form-group col-12 flex-column d-flex"> <button type="submit" class="btn btn-primary text-black">Enviar</button> </div>
+                                                    </div>  
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <% }) %>
+                   
                 </div>
             </div>
         </section>
 
+        
 
-        <div class="py-5" hidden>
+    
+
+
+        <!-- <div class="py-5" hidden>
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-3 col-sm-6 my-3">
@@ -124,7 +200,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+        
 
 
         <!-- Footer-->

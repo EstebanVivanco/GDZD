@@ -47,7 +47,7 @@ router.get('/registro', (req, res) => {
 
 //RUTA PARA EL PORTAL DE TIENDAS
 router.get('/portal_tiendas', (req, res)=>{
-    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+    conexion.query('SELECT * FROM tienda WHERE id_estado_tienda_fk = 1', (error, tiendas)=>{
         if(error){
             throw error;
         }else{
@@ -240,21 +240,86 @@ router.get('/buscar-productos', async (req, res) => {
 
 //RUTA PARA EL SUPERADMIN
 router.get('/superadmin', (req, res)=>{
-    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
-        if(error){
-            throw error;
-        }else{
-            res.render('superadmin', {tiendas:tiendas});
-        }
+
+
+    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                if(error){
+                    throw error;
+                }else{
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                }
+            })
+        })
     })
 })
 
-router.get('/superadmin_edit', (req, res)=>{
-    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+router.get('/superadmin_eliminar_tienda/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('UPDATE tienda SET id_estado_tienda_fk = 3 WHERE id_tienda = ?',[id], (error, tienda) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                    conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                        if(error){
+                            throw error;
+                        }else{
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                        }
+                    })
+                })
+            })
+        }
+    }) 
+    
+
+})
+
+router.get('/superadmin_habilitar_tienda/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('UPDATE tienda SET id_estado_tienda_fk = 1 WHERE id_tienda = ?',[id], (error, tienda) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                    conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                        if(error){
+                            throw error;
+                        }else{
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                        }
+                    })
+                })
+            })
+        }
+    }) 
+    
+
+})
+
+
+router.get('/superadmin_edit/:id', (req, res)=>{
+
+    const id = req.params.id;
+    conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [id], (error, tiendas)=>{
         if(error){
             throw error;
         }else{
-            res.render('editar_tienda_sueradmin', {tiendas:tiendas});
+            res.render('editar_tienda_superadmin', {tiendas:tiendas});
         }
     })
 })
@@ -291,5 +356,6 @@ router.post('/login', crud.login);
 router.post('/actualizarProducto', crud.actualizarProducto);
 router.post('/buscarTienda', crud.buscarTienda);
 router.post('/cajaCompletada', crud.cajaCompletada);
+router.post('/editestore', crud.editestore);
 
 module.exports = router;
