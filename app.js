@@ -11,16 +11,28 @@ app.use(express.urlencoded({extended:false}));
 app.use(express(json));
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname,'public/uploads'),
-    filename: function (req, file, cb) {
-        cb(null, uuidv4() + '.jpg')
+
+    destination: (req, file, cb) => {
+        let uploadPath = '';
+        if (req.body.formType === 'producto') {
+          uploadPath = path.join(__dirname, 'public/uploads/img_productos');
+        } else if (req.body.formType === 'tienda') {
+          uploadPath = path.join(__dirname, 'public/uploads/img_tiendas');
+        }
+        cb(null, uploadPath);
+      },
+
+    filename: (req, file , cb) =>{
+        cb(null, uuidv4() + '.jpg');
     }
 });
 
 app.use(multer({
     storage,
-    dest: path.join(__dirname,'public/uploads')
-}).fields([{ name: 'logo' }, { name: 'image' }]),);
+}).fields([{ name: 'image' }, { name: 'logo' }]),);
+
+
+
 
 //Motor de plantillas
 app.set('view engine', 'ejs');

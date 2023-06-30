@@ -53,7 +53,7 @@ router.get('/registro', (req, res) => {
 
 //RUTA PARA EL PORTAL DE TIENDAS
 router.get('/portal_tiendas', (req, res)=>{
-    conexion.query('SELECT * FROM tienda', (error, tiendas)=>{
+    conexion.query('SELECT * FROM tienda WHERE id_estado_tienda_fk = 1', (error, tiendas)=>{
         if(error){
             throw error;
         }else{
@@ -229,20 +229,129 @@ router.get('/productos', async (req, res) => {
     }
   });
   
-  // Ruta para recibir las solicitudes de búsqueda de productos
-  router.get('/buscar-productos', async (req, res) => {
-    try {
-      const termino = req.query.termino; // Obtén el término de búsqueda de la solicitud
-  
-      // Realiza la consulta a la base de datos utilizando el término de búsqueda
-      const [rows] = await conexion.query('SELECT * FROM productos WHERE nombre_producto LIKE ?', [`%${termino}%`]);
-  
-      res.json(rows); // Envía los resultados al cliente en formato JSON
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error en la consulta' });
-    }
-  });
+// Ruta para recibir las solicitudes de búsqueda de productos
+router.get('/buscar-productos', async (req, res) => {
+  try {
+    const termino = req.query.termino; // Obtén el término de búsqueda de la solicitud
+
+    // Realiza la consulta a la base de datos utilizando el término de búsqueda
+    const [rows] = await conexion.query('SELECT * FROM productos WHERE nombre_producto LIKE ?', [`%${termino}%`]);
+
+    res.json(rows); // Envía los resultados al cliente en formato JSON
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error en la consulta' });
+  }
+});
+
+//RUTA PARA EL SUPERADMIN
+router.get('/superadmin', (req, res)=>{
+
+
+    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                if(error){
+                    throw error;
+                }else{
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                }
+            })
+        })
+    })
+})
+
+router.get('/superadmin_eliminar_tienda/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('UPDATE tienda SET id_estado_tienda_fk = 3 WHERE id_tienda = ?',[id], (error, tienda) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                    conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                        if(error){
+                            throw error;
+                        }else{
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                        }
+                    })
+                })
+            })
+        }
+    }) 
+    
+
+})
+
+router.get('/superadmin_habilitar_tienda/:id',  (req, res)=>{
+
+    const id = req.params.id;
+
+    conexion.query('UPDATE tienda SET id_estado_tienda_fk = 1 WHERE id_tienda = ?',[id], (error, tienda) => {
+
+        if(error){
+
+            throw error;
+    
+        }else{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                    conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                        if(error){
+                            throw error;
+                        }else{
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                        }
+                    })
+                })
+            })
+        }
+    }) 
+    
+
+})
+
+
+router.get('/superadmin_edit/:id', (req, res)=>{
+
+    const id = req.params.id;
+    conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [id], (error, tiendas)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('editar_tienda_superadmin', {tiendas:tiendas});
+        }
+    })
+})
+
+  //RUTA PARA VER HABITACIONES
+  router.get('/ver_habitaciones', (req,res)=>{
+    conexion.query('SELECT habitaciones.id_habitacion, habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk, estado_habitacion.nombre_estado_habitacion FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk WHERE habitaciones.estado_habitacion_fk != 4;', (error, results)=>{
+        if(error){
+            throw error;
+        }else{
+            res.render('ver_habitaciones', {results:results});
+        }
+    })
+    
+  })
+
+  //RUTA PARA ACTUALIZAR HABIACIONES
+  router.get('/editar_habitacion', (req,res)=>{
+    res.render('editar_habitaciones');
+  })
+
+  //RUTA PARA VER HABITACIONES DESHABILITADAS
+
+  router.get('/ver_habitaciones_deshabilitadas', (req,res)=>{
+    res.render('ver_habitaciones_deshabilitadas');
+  })
 
 
 const crud = require('./controllers/crud');
@@ -253,5 +362,6 @@ router.post('/login', crud.login);
 router.post('/actualizarProducto', crud.actualizarProducto);
 router.post('/buscarTienda', crud.buscarTienda);
 router.post('/cajaCompletada', crud.cajaCompletada);
+router.post('/editestore', crud.editestore);
 
 module.exports = router;
