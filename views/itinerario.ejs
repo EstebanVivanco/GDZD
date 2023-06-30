@@ -16,11 +16,12 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/estilo_tienda.css" rel="stylesheet" />
+        <link href="/globales.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
 
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #212529;" id="mainNav">
             <div class="container">
                 <a class="" href="#page-top"><img src="/img_tienda/logos/hasb.png" height="75px" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,18 +38,9 @@
                 </div>
             </div>
         </nav>
-        <!-- Masthead-->
-        <header class="masthead" style="background-image: url('/uploads/banners/bannerhashport.jpg');">
-            <div class="container">
-                <div class="masthead-subheading">Bienvenido a!</div>
-                <div class="masthead-heading text-uppercase">HashPortBulla</div>
-                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services">Por que te queremos ver volar</a>
-            </div>
-        </header>
-
                 <!-- Portfolio Grid-->
                 <section class="page-section bg-light" id="portfolio">
-                  <div class="container">
+                  <div class="container-fluid">
                     <div class="table-responsive align-middle" >
                         
                       <table id="table" class="table table-striped text-center mt-4">
@@ -56,14 +48,14 @@
                             <thead class="table-light" >
                                 <tr>
             
-                                    <th>COMPAÑIA</th>
-                                    <th>VUELO</th>
-                                    <th>EMBARQUE</th>
-                                    <th>ORIGEN</th>
+                                    <th class="py-4" style="font-size: x-large;">COMPAÑIA</th>
+                                    <th class="py-4" style="font-size: x-large;">VUELO</th>
+                                    <th class="py-4" style="font-size: x-large;">EMBARQUE</th>
+                                    <th class="py-4" style="font-size: x-large;">ORIGEN</th>
                                     <!-- <th>CIUDAD</th> -->
-                                    <th>DESTINO</th>
+                                    <th class="py-4" style="font-size: x-large;">DESTINO</th>
                                     <!-- <th>CIUDAD</th> -->
-                                    <th>ESTADO</th> 
+                                    <th class="py-4" style="font-size: x-large;">ESTADO</th> 
             
                                 </tr>
                             </thead>
@@ -72,16 +64,16 @@
             
                               <% results.forEach((iti)=> { %>
                                 
-                                  <tr>
+                                  <tr  class="py-">
                                   
-                                    <td><%= iti.compania_aerea %></td>
-                                    <td><%= iti.numero_vuelo %></td>
-                                    <td><%= iti.puerta_embarque %></td>
-                                    <td><%= iti.aeropuerto_origen %></td>
+                                    <td  class="py-4" style="font-size: x-large;"><%= iti.compania_aerea %></td>
+                                    <td  class="py-4" style="font-size: x-large;"><%= iti.numero_vuelo %></td>
+                                    <td  class="py-4" style="font-size: x-large;"><%= iti.puerta_embarque %></td>
+                                    <td  class="py-4" style="font-size: x-large;"><%= iti.aeropuerto_origen %></td>
                                     <!-- <td><%= iti.ciudad_origen %></td> -->
-                                    <td><%= iti.aeropuerto_destino %></td>
+                                    <td  class="py-4" style="font-size: x-large;"><%= iti.aeropuerto_destino %></td>
                                     <!-- <td><%= iti.ciudad_destino%></td> -->
-                                    <td><%= iti.estado_vuelo %></td>
+                                    <td  class="py-4" style="font-size: x-large;"><%= iti.estado_vuelo %></td>
                                     
                                   </tr>
             
@@ -94,44 +86,6 @@
                     </div>
               </section>
       
-
-        <!-- Services-->
-        <section class="page-section" id="services">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Servicios</h2>
-                    <h3 class="section-subheading text-muted">Nos aseguramos de que tu comodidad sea nuestra prioridad.</h3>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Tiendas</h4>
-                        <p class="text-muted">Las tiendas virtuales dentro del aeropuerto te mostraran todos los productos que puedes comprar.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-plane fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Acceso</h4>
-                        <p class="text-muted">El aeropuerto te brindara la conexion a internet necesaria para que puedas usar nuestros servicios.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Seguridad</h4>
-                        <p class="text-muted">Tu informacion estara protegida en todo momento, puedes sentirnte libre de usar comodamente nuestros sistemas.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
         <div class="py-5" hidden>
             <div class="container">
                 <div class="row align-items-center">

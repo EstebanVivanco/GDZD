@@ -16,7 +16,7 @@ router.get('/caja_productos/:id', (req, res)=>{
             if (error) {
                 throw error;
             } else {
-                res.render('caja_productos', { tienda : tienda, productos : productos, user : req.session.user });
+                res.render('caja_productos', { tienda :tienda, productos :productos, user : req.session.user });
             }
         })
     })
@@ -24,6 +24,12 @@ router.get('/caja_productos/:id', (req, res)=>{
 
 router.get('/boleta_venta', (req, res)=>{
     res.render('boleta_venta');
+})
+
+router.get('/cargando', (req, res)=>{
+    
+    res.render('cargando');
+
 })
 
 router.get('/registro', (req, res) => {
@@ -90,7 +96,7 @@ router.get('/productos', (req, res)=>{
     conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
         conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
             conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
-                conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+                conexion.query('SELECT * FROM bodega JOIN sector ON bodega.id_sector_fk = sector.id_sector where tipo_bodega = "tienda" AND estado_bodega_id_fk = 1', (error, bodega) => {
 
                     res.render('crear_producto',{categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega, user : req.session.user});
                     // console.log('catego :>> ', categoria);
@@ -189,7 +195,7 @@ router.get('/ver_ventas/:id', (req, res) => {
             if (error) {
                 throw error;
             } else {
-                res.render('vista_ventas', { results: results, user : req.session.user});
+                res.render('vista_ventas',{ results: results, user : req.session.user});
             }
     });
 
@@ -236,6 +242,13 @@ router.get('/buscar-productos', async (req, res) => {
   }
 });
 
+//LOGIN SUPERADMIN
+
+router.get('/loginS',  (req, res)=>{
+    res.render('loginSuperAdmin');
+})
+
+
 //RUTA PARA EL SUPERADMIN
 router.get('/superadmin', (req, res)=>{
 
@@ -246,7 +259,7 @@ router.get('/superadmin', (req, res)=>{
                 if(error){
                     throw error;
                 }else{
-                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores,  superA: req.session.superA });
                 }
             })
         })
@@ -394,5 +407,6 @@ router.post('/actualizarProducto', crud.actualizarProducto);
 router.post('/buscarTienda', crud.buscarTienda);
 router.post('/cajaCompletada', crud.cajaCompletada);
 router.post('/editestore', crud.editestore);
+router.post('/LoginSuperAdmin', crud.LoginSuperAdmin);
 
 module.exports = router;

@@ -103,6 +103,57 @@ exports.login = (req, res)=>{
 
 }
 
+exports.LoginSuperAdmin = (req, res)=>{
+    const rut = req.body.rut;
+    const pass = req.body.password;
+    if(rut && pass){
+        conexion.query('SELECT * FROM usuario WHERE rut = ? AND contrasena = SHA(?);', [rut, pass], (error, results)=>{
+            console.log(results[0])
+            if(error){
+                throw error;
+            }else{
+                if(results.length > 0){
+
+                    //ENTRA
+
+                    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                                res.render('login',{
+                                    alert:true,
+                                    alertTitle: 'Conexion exitosa',
+                                    alertMessage: 'Bienvenido! ',
+                                    alertIcon:'success',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    ruta: 'superadmin',
+                                    superA: req.session.superA = results[0],
+                                    tiendas:tiendas,tipo_tiendas:tipo_tiendas,sectores:sectores
+                                })
+                            })
+                        })
+                    })
+
+
+
+                }else{
+                    //NO ENTRA
+                    res.render('login',{
+                        alert:true,
+                        alertTitle: 'Error',
+                        alertMessage: 'Rut o Contraseña incorrectos!',
+                        alertIcon:'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: '/'
+                    })
+                }
+            }
+        })
+    }
+
+}
+
 
 exports.savestore =(req, res)=>{
     const nombre = req.body.name;
@@ -282,13 +333,15 @@ exports.cajaCompletada= (req, res) => {
                         throw error;
                     }else{
             
-                        conexion.query('SELECT venta_tienda.id_venta_tienda, venta_tienda.codigo_boleta, venta_tienda.cantidad, venta_tienda.total, productos.nombre_producto, DATE_FORMAT(venta_tienda.fecha_venta, "%m/%d/%Y") AS fecha_venta  FROM venta_tienda INNER JOIN productos ON productos.id_producto = venta_tienda.id_productos_fk  WHERE venta_tienda.id_tienda_fk = ? ', [idtienda] ,(error, results) => {
-        
-                            if (error) {
-                                throw error;
-                            } else {
 
-                                    res.render('vista_ventas',{
+                        conexion.query('SELECT * FROM tienda WHERE id_tienda = ?',[id], (error,tienda)=>{
+                            conexion.query('SELECT * FROM productos INNER JOIN estado_producto ON estado_producto.id_estado_producto = productos.id_estado_fk INNER JOIN proveedores ON proveedores.id_proveedor = productos.id_proveedor_fk INNER JOIN categoria_producto ON categoria_producto.id_categoria_producto = productos.id_categoria_producto_fk INNER JOIN tienda ON tienda.id_tienda = productos.id_tienda_fk WHERE tienda.id_tienda = ? and productos.id_estado_fk = 1', [id],(error,productos)=>{ 
+                    
+                                if (error) {
+                                    throw error;
+                                } else {
+                                    
+                                    res.render('cargando',{
                                         alert:true,
                                         alertTitle: 'Producto actualizado',
                                         alertMessage: 'Se ha actualizado correctamente el producto',
@@ -296,13 +349,14 @@ exports.cajaCompletada= (req, res) => {
                                         showConfirmButton: false,
                                         timer: 1500,
                                         ruta: 'caja_productos/'+idtienda,
-                                        results: results,
-                                        user: req.session.user
+                                        user: req.session.user,
+                                        productos: productos,
+                                        tienda:tienda
                                     })
-
-                            }
-                        });
-
+                                }
+                            })
+                        })
+                
                         
                     }
                 })
