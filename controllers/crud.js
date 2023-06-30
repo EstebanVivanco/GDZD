@@ -103,6 +103,57 @@ exports.login = (req, res)=>{
 
 }
 
+exports.LoginSuperAdmin = (req, res)=>{
+    const rut = req.body.rut;
+    const pass = req.body.password;
+    if(rut && pass){
+        conexion.query('SELECT * FROM usuario WHERE rut = ? AND contrasena = SHA(?);', [rut, pass], (error, results)=>{
+            console.log(results[0])
+            if(error){
+                throw error;
+            }else{
+                if(results.length > 0){
+
+                    //ENTRA
+
+                    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                                res.render('login',{
+                                    alert:true,
+                                    alertTitle: 'Conexion exitosa',
+                                    alertMessage: 'Bienvenido! ',
+                                    alertIcon:'success',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    ruta: 'superadmin',
+                                    superA: req.session.superA = results[0],
+                                    tiendas:tiendas,tipo_tiendas:tipo_tiendas,sectores:sectores
+                                })
+                            })
+                        })
+                    })
+
+
+
+                }else{
+                    //NO ENTRA
+                    res.render('login',{
+                        alert:true,
+                        alertTitle: 'Error',
+                        alertMessage: 'Rut o Contraseña incorrectos!',
+                        alertIcon:'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: '/'
+                    })
+                }
+            }
+        })
+    }
+
+}
+
 
 exports.savestore =(req, res)=>{
     const nombre = req.body.name;

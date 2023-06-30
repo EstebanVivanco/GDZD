@@ -1,3 +1,4 @@
+<% if(superA){ %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,7 +26,7 @@
     <body class="s_body" id="body-pd">
         <header class="s_header" id="header">
             <div class="s_header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-            <div class="s_header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+            <div class="s_header_img"> <img src="/icono.png" alt=""> </div>
             
             
         </header>
@@ -67,7 +68,7 @@
         <header class="masthead" style="background-image: url('/uploads/banners/bannerhashport.jpg');">
             <div class="container">
                 <div class="masthead-subheading">Bienvenido !</div>
-                <div class="masthead-heading text-uppercase">Nombre</div>
+                <div class="masthead-heading text-uppercase"><%= superA.nombre %></div>
                 <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services">Por</a>
             </div>
         </header>
@@ -253,3 +254,7 @@
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
+
+<% }else{ %>
+<h1>DENAGNOIDE</h1>
+<% } %>
