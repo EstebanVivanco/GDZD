@@ -38,11 +38,11 @@
                             <i class='bx bx-store s_nav_icon'></i> 
                             <span class="s_nav_name">Tiendas</span> 
                         </a> 
-                        <a href="#" class="s-a s_nav_link"> 
+                        <a href="/ver_habitaciones_admin" class="s-a s_nav_link"> 
                             <i class='bx bx-bed s_nav_icon'></i> 
-                            <span class="nav_name">Users</span>
+                            <span class="nav_name">Habitaciones</span>
                         </a> 
-                        <a href="#" class="s-a s_nav_link"> 
+                        <!--<a href="#" class="s-a s_nav_link"> 
                             <i class='bx bx-message-square-detail s_nav_icon'></i> 
                             <span class="nav_name">Messages</span> 
                         </a> 
@@ -57,7 +57,8 @@
                         <a href="#" class="s-a s_nav_link"> 
                             <i class='bx bx-bar-chart-alt-2 s_nav_icon'></i> 
                             <span class="nav_name">Stats</span> 
-                        </a> 
+                        </a>   -->
+                        
                     </div>
                 </div> <a href="/loginS" class="s-a s_nav_link"> <i class='bx bx-log-out s_nav_icon'></i> <span class="nav_name">SignOut</span> </a>
             </nav>
@@ -69,7 +70,7 @@
             <div class="container">
                 <div class="masthead-subheading">Bienvenido !</div>
                 <div class="masthead-heading text-uppercase"><%= superA.nombre %></div>
-                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#services">Por</a>
+                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#t">Tiendas</a>
             </div>
         </header>
 
@@ -87,7 +88,7 @@
                             <button class="btn btn-warning px-4 rounded-circle" type="submit"><i class="bi bi-search fs-4"></i></button>
                         </div> -->
                     </form>
-                    <h3 class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
+                    <h3 id="t" class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
                 </div>
                 <div class="row">
                 <% tiendas.forEach((tienda)=>{ %>
@@ -114,13 +115,13 @@
                                 <div class="row position-absolute top-0 start-100" >
                                     <div class="col-12 text-end">
                                         <% if(tienda.id_estado_tienda_fk === 1) {%>
-                                            <a href="/superadmin_eliminar_tienda/<%= tienda.id_tienda  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
+                                            <a title="Deshabilitar tienda" data-bs-toggle="tooltip" href="/superadmin_eliminar_tienda/<%= tienda.id_tienda  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
                                         <%}else{%>
-                                            <a href="/superadmin_habilitar_tienda/<%= tienda.id_tienda  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
+                                            <a title="Habilitar tienda" data-bs-toggle="tooltip" href="/superadmin_habilitar_tienda/<%= tienda.id_tienda  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
                                         <%}%>
                                     </div>
                                     <div class="col-12 text-end pt-1">
-                                        <a data-bs-toggle="modal" href="#portfolioModal-<%= tienda.id_tienda %>"  class="btn btn-primary btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
+                                        <a title="Editar tienda" data-bs-toggle="tooltip" data-bs-toggle="modal" href="#portfolioModal-<%= tienda.id_tienda %>"  class="btn btn-primary btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
                                     </div>
                                 </div>
                               </div>
@@ -246,6 +247,12 @@
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </html>
 
 <% }else{ %>

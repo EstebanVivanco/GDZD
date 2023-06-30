@@ -345,7 +345,7 @@ router.get('/superadmin_edit/:id', (req, res)=>{
                     if(error){
                         throw error;
                     }else{
-                        res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector});
+                        res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector,superA: req.session.superA});
                     }
                 })
             })
@@ -365,7 +365,7 @@ router.get('/superadmin_habilitar_habitacion/:id',  (req, res)=>{
                         if(error){
                             throw error;
                         }else{
-                            res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector});
+                            res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector,superA: req.session.superA});
                         }
                     })
                 })
@@ -387,7 +387,7 @@ router.get('/superadmin_eliminar_habitacion/:id',  (req, res)=>{
                         if(error){
                             throw error;
                         }else{
-                            res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector});
+                            res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector,superA: req.session.superA});
                         }
                     })
                 })
