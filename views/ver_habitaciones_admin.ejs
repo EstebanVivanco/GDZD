@@ -1,3 +1,4 @@
+<% if(superA){ %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -111,13 +112,13 @@
                                 <div class="row position-absolute top-0 start-100" >
                                     <div class="col-12 text-end">
                                         <% if(results.estado_habitacion_fk === 1) {%>
-                                            <a title="Deshabilitar habitacion" data-bs-toggle="tooltip" href="/superadmin_eliminar_habitacion/<%= results.id_habitacion  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
+                                            <a title="Deshabilitar habitacion" data-bs-toggl="tooltip" href="/superadmin_eliminar_habitacion/<%= results.id_habitacion  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
                                         <%}else{%>
-                                            <a title="Habilitar habitacion" data-bs-toggle="tooltip" href="/superadmin_habilitar_habitacion/<%= results.id_habitacion  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
+                                            <a title="Habilitar habitacion" data-bs-toggl="tooltip" href="/superadmin_habilitar_habitacion/<%= results.id_habitacion  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
                                         <%}%>
                                     </div>
                                     <div class="col-12 text-end pt-1">
-                                        <a title="Editar habitacion" data-bs-toggle="modal" href="#portfolioModal-<%= results.id_habitacion %>"  class="btn btn-primary btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
+                                        <a title="Editar habitacion" data-bs-toggl="tooltip" data-bs-toggle="modal" href="#portfolioModal-<%= results.id_habitacion %>"  class="btn btn-primary btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
                                     </div>
                                 </div>
                               </div>
@@ -241,9 +242,13 @@
     </body>
 
     <script>
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
 </html>
+<% }else{ %>
+    <h1>DENAGNOIDE</h1>
+    <% } %>
+    

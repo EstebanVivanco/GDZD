@@ -115,13 +115,13 @@
                                 <div class="row position-absolute top-0 start-100" >
                                     <div class="col-12 text-end">
                                         <% if(tienda.id_estado_tienda_fk === 1) {%>
-                                            <a title="Deshabilitar tienda" data-bs-toggle="tooltip" href="/superadmin_eliminar_tienda/<%= tienda.id_tienda  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
+                                            <a title="Deshabilitar tienda" data-bs-toggl="tooltip" href="/superadmin_eliminar_tienda/<%= tienda.id_tienda  %>" class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></a>
                                         <%}else{%>
-                                            <a title="Habilitar tienda" data-bs-toggle="tooltip" href="/superadmin_habilitar_tienda/<%= tienda.id_tienda  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
+                                            <a title="Habilitar tienda" data-bs-toggl="tooltip" href="/superadmin_habilitar_tienda/<%= tienda.id_tienda  %>" class="btn btn-success btn-circle translate-middle"><i class="fa-solid fa-trash-can-arrow-up text-center "></i></a>
                                         <%}%>
                                     </div>
                                     <div class="col-12 text-end pt-1">
-                                        <a title="Editar tienda" data-bs-toggle="modal" href="#portfolioModal-<%= tienda.id_tienda %>"  class="btn btn-primary btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
+                                        <a title="Editar tienda" data-bs-toggl="tooltip" data-bs-toggle="modal" href="#portfolioModal-<%= tienda.id_tienda %>"  class="btn btn-primary btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></a>
                                     </div>
                                 </div>
                               </div>
@@ -248,7 +248,7 @@
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
     <script>
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
