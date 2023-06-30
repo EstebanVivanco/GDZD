@@ -313,3 +313,39 @@ exports.cajaCompletada= (req, res) => {
       }
 
 }
+
+
+exports.editestore =(req, res)=>{
+    const id = req.body.id;
+    const nombre = req.body.name;
+    const slogan = req.body.slogan;
+    const imagen = req.files['image'][0].filename;
+    const logo = req.files['logo'][0].filename;
+    const horario = 'Lun-Vie: 9AM-8PM, Sáb-Dom: 10AM-6PM';
+    const tipo = req.body.tipo;
+    const sector = req.body.sector;
+    console.log(imagen);
+    console.log(logo);
+
+    const ruta = 'registro';
+
+    const query = `UPDATE tienda SET nombre_tienda = '${nombre}', slogan_tienda = '${slogan}', banner_tienda = '${imagen}', logo_tienda = '${logo}', horarios_tienda = '${horario}', id_tipo_fk = '${tipo}', id_sector_fk = '${sector}' WHERE id_tienda = '${id}';`;
+
+    conexion.query(query, (error, results) => {
+      if (error) {
+        throw error;
+      } else {
+        res.redirect('/superadmin');
+      }
+    });
+}
+
+exports.editHabitacion = (req, res)=>{
+    conts idHabitacion = req.body.id;
+    const numero = req.body.numero;
+    const estadoHabitacion = req.body.estado_habitacion;
+    const descripcion = req.body.descripcion;
+    const precioHora = req.body.precio;
+    const idSector_fk = req.body.sector;
+    const imagen = 
+}
