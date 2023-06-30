@@ -58,53 +58,42 @@
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Tiendas</h2>
-                    <form action="/buscarTienda" method="POST">
-                        <!-- <div class="form-group d-flex mb-4">
+                <div class="table-responsive align-middle" >
+                    
+                  <table id="table" class="table table-striped text-center mt-4">
+                    
+                        <thead class="table-light" >
+                            <tr>
+        
+                                <th>ID HABITACION</th>
+                                <th>NUMERO</th>
+                                <th>DESCRIPCION</th>
+                                <th>PRECIO</th>
+                                <!-- <th>CIUDAD</th> -->
+                                <th>SECTOR</th>
+                                <!-- <th>CIUDAD</th> -->
+                                <th>IMAGEN</th> 
+                                <th>ESTADO HABITACION</th> 
+        
+                            </tr>
+                        </thead>
+        
+                        <tbody>
+        
+                          <% results.forEach((habitacion)=> { %>
                             
-                            <input class="form-control p-4 rounded-pill" id="comparacion" name="comparacion" type="text" placeholder="Buscador de tiendas">
-                            <button class="btn btn-warning px-4 rounded-circle" type="submit"><i class="bi bi-search fs-4"></i></button>
-                        </div> -->
-                    </form>
-                    <h3 class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
+                              <tr>
+                              
+                                <td><%=  %></td>
+                              </tr>
+        
+                          <%}) %>
+        
+                        </tbody>
+        
+                    </table>
+                  </div>
                 </div>
-                <div class="row">
-                <% tiendas.forEach((tienda)=>{ %>
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 1-->
-                        <div class="portfolio-item mx-4">
-                            <a class="portfolio-link" href="/index_tienda/<%=tienda.id_tienda %>">
-                              <!--
-                              <div class="portfolio-hover">
-                                  <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                              </div>
-                              -->
-                              <div class="image-container">
-                                <img class="" src="/uploads/<%= tienda.banner_tienda %>" alt="..." height="225px" width="100%"/>
-                                <div class="image-text">
-                                  <a class="btn btn-primary btn-xl text-uppercase text-black" href="/index_tienda/<%=tienda.id_tienda %>"><%= tienda.nombre_tienda %></a>
-                                </div>
-                                <div class="row position-absolute top-0 start-100" >
-                                    <div class="col-12 text-end">
-                                        <button class="btn btn-danger btn-circle translate-middle"><i class="fa-solid fa-xmark text-black text-center"></i></button>
-                                    </div>
-
-                                    <div class="col-12 text-end pt-1">
-                                        <button class="btn btn-info btn-circle translate-middle"><i class="fa-solid fa-pen-to-square text-black text-center"></i></button>
-                                    </div>
-                                </div>
-                              </div>
-                            </a>
-                            <div class="portfolio-caption">
-                              <div class="portfolio-caption-heading"><%= tienda.nombre_tienda %></div>
-                              <div class="portfolio-caption-subheading text-muted fs-5"><%= tienda.horarios_tienda %></div>
-                            </div>
-                          </div>
-                    </div>
-                    <% }) %>
-                </div>
-            </div>
         </section>
 
 

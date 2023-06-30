@@ -23,9 +23,7 @@ router.get('/caja_productos/:id', (req, res)=>{
 })
 
 router.get('/boleta_venta', (req, res)=>{
-    
     res.render('boleta_venta');
-
 })
 
 router.get('/registro', (req, res) => {

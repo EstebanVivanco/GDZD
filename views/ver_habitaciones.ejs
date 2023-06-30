@@ -51,11 +51,12 @@
 
     <!-- Portfolio Grid-->
     <section class="page-section bg-light">
-        <% results.forEach((habitacion)=> { %>
+        
             <div class="container">
                 <div class="row">
+                    <% results.forEach((habitacion)=> { %>
                     <div class="col-md-4 col-sm-12 col-12">
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: 20rem;">
                             <img src="..." class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Habitacion <%= habitacion.numero %>
@@ -70,13 +71,14 @@
                                     <%= habitacion.id_sector_fk %>
                                 </p>
                                 <p class="card-text">Estado de la habitacion: <%= habitacion.nombre_estado_habitacion %> </p>
-                                <a href="#" class="btn btn-primary">Pedir?</a>
+                        
                             </div>
                         </div>
                     </div>
+                    <%}) %>
                 </div>
             </div>
-            <%}) %>
+           
     </section>
 
 
