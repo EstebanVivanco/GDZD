@@ -73,7 +73,7 @@
                                 <img class="" src="/uploads/img_habitaciones/<%= results.image %>" alt="..." height="225px" width="100%"/>
                                 <% if(results.estado_habitacion_fk === 1) {%>
                                     <div class="image-text">
-                                      <a class="btn btn-primary btn-xl text-uppercase text-black"><%= results.nombre_estado_habitacion %></a>
+                                      <a class="btn btn-primary btn-xl text-uppercase text-black"> <%= results.nombre_estado_habitacion %></a>
                                     </div>
                                 <%}else{%>
                                     <div class="texto-superpuesto text-center">
@@ -95,7 +95,7 @@
                               </div>
                             </a>
                             <div class="portfolio-caption">
-                              <div class="portfolio-caption-heading"><%= results.numero %></div>
+                              <div class="portfolio-caption-heading"><span>Numero de habitacion: </span><%= results.numero %></div>
                             </div>
                           </div>
                     </div>
@@ -113,6 +113,7 @@
                                                 <h2  class="text-center mb-4">Edicion de habitacion</h2>
                                                 <form class="form-card" action="/editHabitacion" method="POST" enctype="multipart/form-data">
                                                     <input type="hidden" name="formType" value="habitacion">
+                                                    
                                                     <input hidden type="text" name="id" id="id" value="<%= results.id_habitacion %>">
 
                                                     <input type="text" name="id" id="id" value="<%= results.id_habitacion %>">
@@ -121,7 +122,7 @@
                                                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Precio por Hora</label> <input type="text" id="precio" name="precio" value="<%= results.precio_hora %>"> </div>
                                                     </div>
                                                     <div class="row justify-content-between text-left">
-                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Imagen</label> <input class="form-control" type="file" id="imagen" name="imagen" value="<%= results.image %>"></div>
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Imagen</label> <input class="form-control" type="file" id="image" name="image" value="<%= results.image %>"></div>
                                                     </div>
                                                     <div class="row justify-content-between text-left">
                                                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Estado de la habitacion</label>
