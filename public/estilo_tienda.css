@@ -11356,6 +11356,8 @@ section#contact form#contactForm :-ms-input-placeholder {
   position: relative;
 }
 
+
+/* Texto sobre imagen cuando la tienda esta habilitada */
 .image-text {
   position: absolute;
   top: 50%;
@@ -11385,4 +11387,38 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
   font-size: 12px;
   line-height: 1.42857;
+}
+
+/* Texto sobre imagen cuando esta deshabilitada */
+
+.contenedor-imagen {
+  position: relative; /* Establece el contenedor como posición relativa */
+  display: inline-block;
+  overflow: hidden; /* Oculta el contenido que excede el contenedor */
+}
+
+.texto-superpuesto {
+  position: absolute; /* Establece el texto como posición absoluta */
+  top: 50%; /* Centra verticalmente */
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%); /* Ajusta verticalmente según la mitad del tamaño del texto */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro translúcido */
+  color: white;
+  padding: 60px;
+  box-sizing: border-box; /* Considera el padding en el tamaño total */
+}
+
+.texto-superpuesto h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.texto-superpuesto p {
+  font-size: 16px;
+}
+
+/*  */
+.background-trans{
+  background-color: rgba(0, 0, 0, 0.5);
 }
