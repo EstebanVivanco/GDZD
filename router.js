@@ -285,7 +285,7 @@ router.get('/superadmin_eliminar_tienda/:id',  (req, res)=>{
                         if(error){
                             throw error;
                         }else{
-                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores, superA: req.session.superA });
                         }
                     })
                 })
@@ -313,7 +313,7 @@ router.get('/superadmin_habilitar_tienda/:id',  (req, res)=>{
                         if(error){
                             throw error;
                         }else{
-                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores, superA: req.session.superA });
                         }
                     })
                 })
@@ -332,7 +332,7 @@ router.get('/superadmin_edit/:id', (req, res)=>{
         if(error){
             throw error;
         }else{
-            res.render('editar_tienda_superadmin', {tiendas:tiendas});
+            res.render('editar_tienda_superadmin', {tiendas:tiendas , superA: req.session.superA});
         }
     })
 })

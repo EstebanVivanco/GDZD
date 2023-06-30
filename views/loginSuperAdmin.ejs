@@ -1,88 +1,163 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inicio de sesión</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  </head>
-  <body style="background-color: hsl(0, 0%, 96%)">
-  <section class="d-flex justify-content-center align-items-center vh-100 ">
-    <div>
-        <div class="container mb-8">
-            <div class="row gx-lg-5 align-items-center">
 
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <!--FOTO-->
-                    <img class="img-fluid rounded mx-auto d-block" src="hasb1.png " alt="">
-                    <p style="color: hsl(217, 10%, 58.8%)" class="hidden-mobile">
-                      ¡Bienvenido/a la pagina de gestión de tiendas en el aeropuerto! Aquí encontrarás todas las herramientas necesarias para llevar tu un buen control de tu negocio en esta ubicación única.
-                    </p>
-                </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/loginTienda.css">
+  <script src="https://kit.fontawesome.com/ca048bf1d7.js" crossorigin="anonymous"></script>
+  <title>Inicio de sesión</title>
+</head>
 
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div class="card" style="border-radius: 15px;">
-                        <div class="card-body py-5 px-md-5">
-                            <h5 class="align-middle text-center">INICIO DE SESIÓN DE TIENDAS</h5>
-                            <hr>
-                            <br>
-                            <!--DESDE ACÁ-->
-                            <form method="POST" action="/LoginSuperAdmin">
-                                <!-- Email input -->
-                                <div class="form-group">
-                                    <b>INGRESA TU RUT</b><br>
-                                    <input type='text' name="rut" id="rut" class="form-control mt-2"
-                                        placeholder="Correo electrónico" size='45' maxlength='70' required><br>
-                                    <div class="invalid-feedback">
-                                        Es necesario ingresar su correo
-                                    </div>
-                                </div>
-
-                                <!-- Password input -->
-                                <div class="form-group">
-                                    <b>INGRESA TU CONTRASEÑA</b>
-                                    <input type='password' name="password" id="password" class="form-control mt-2"
-                                        placeholder="Contraseña" size='45' maxlength='30' required><br>
-                                    <div class="invalid-feedback">
-                                        Es necesario ingresar una contraseña
-                                    </div>
-                                </div>
-                                <!-- Submit button -->
-                                <button style="background-color: #e0ac04;" type="submit" id="submit-btn"
-                                    class="btn text-white w-100 mt-4 fw-semibold shadow-sm"> 
-                                    Iniciar Sesión
-                                </button>
-                                <div class="d-flex gap-1 justify-content-center mt-4">
-                                  <div>¿No tienes una cuenta?</div>
-                                  <a href="/registro" class="text-decoration-none text-warning fw-semibold">Registrar</a>
-                                </div>
-
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<body>
+  <img class="wave" src="/uploads/wave.svg" height="100%">
+  <div class="container">
+    <div class="img">
+      <img src="/uploads/logo.png" style="margin-left: 20%; width: 100%;">
+    </div>
+    <div class="login-container">
+        <form method="POST" action="/LoginSuperAdmin">
+        <h2>Super Administrador</h2>
+        <div class="input-div one">
+          <div class="i">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div>
+            <h5>Rut</h5>
+            <input class="input" type="text" id="rut" name="rut" maxlength="10" required/>
+          </div>
         </div>
+        <div class="input-div two">
+          <div class="i">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <div>
+            <h5>Contraseña</h5>
+            <input class="input" type="password" name="password" required/>
+          </div>
+        </div>
+        <button type="submit" class="btn" id="submit-btn-vali">
+          Ingresar
+        </button>
+          <div>¿No tienes una cuenta? <a href="registro" class="text-decoration-none text-warning fw-semibold">Registrar</a></div>
+      </form>
     </div>
-    </div>
-    <!-- Jumbotron -->
-</section>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-
+  </div>
+  <script type="text/javascript" src="uwu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <% if(typeof alert !="undefined" ){ %>
+    <script>
+      Swal.fire({
+        title: '<%= alertTitle%>',
+        text: '<%= alertMessage%>',
+        icon: '<%= alertIcon%>',
+        showConfirmButton: <%= showConfirmButton%> ,
+        timer: <%= timer %>
+            }).then(() => {
+          window.location = '/<%= ruta%>'
+        })
+    </script>
+    <% } %>
       <script>
-          Swal.fire({
-              title: '<%= alertTitle%>',
-              text: '<%= alertMessage%>',
-              icon: '<%= alertIcon%>',
-              showConfirmButton: <%= showConfirmButton%> ,
-              timer: <%= timer %>
-          }).then(() => {
-                  window.location = '/<%= ruta%>'
-              })
+          // Example starter JavaScript for disabling form submissions if there are invalid fields
+          (() => {
+            'use strict'
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+              form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+              }, false)
+            })
+          })()
       </script>
-  <% } %>
-  </body>
+
+
+<script>
+    //VALIDADOR DE RUT
+
+let rutInput = document.getElementById('rut');
+let submitBtn = document.getElementById('submit-btn-vali');
+let validacionRut = document.getElementById('validacion-rut');
+
+rutInput.addEventListener('input', function() {
+
+let rut = this.value;
+
+if (/^[0-9]{7,8}-[0-9Kk]{1}$/.test(rut) && validarRut(rut) && !esRutConDigitosIguales(rut)) {
+  submitBtn.disabled = false;
+  validacionRut.innerHTML = '<i class="fas fa-check-circle" style="color: #21252B;"></i>';
+} else {
+    submitBtn.disabled = true;
+    validacionRut.innerHTML = '<i class="fas fa-times-circle" style="color: #21252B;"></i>';
+}
+});
+
+function validarRut(rut) {
+
+
+
+  let [numero, digitoVerificador] = rut.split('-');
+  let suma = 0;
+  let multiplicador = 2;
+
+  for (let i = numero.length - 1; i >= 0; i--) {
+    suma += multiplicador * numero.charAt(i);
+    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+  }
+
+  let resto = suma % 11;
+  let digitoCalculado = 11 - resto;
+  if (digitoCalculado === 11) {
+    digitoCalculado = '0';
+  } else if (digitoCalculado === 10) {
+    digitoCalculado = 'K';
+  }
+
+  return digitoCalculado.toString() === digitoVerificador.toUpperCase();
+}
+
+function esRutConDigitosIguales(rut) {
+  let [numero] = rut.split('-');
+  return numero.split('').every(d => d === numero[0]);
+}
+
+
+</script>
+
+
+
+<script>
+  const inputs = document.querySelectorAll('.input');
+
+function focusFunc(){
+    let parent = this.parentNode.parentNode;
+    parent.classList.add('focus');
+}
+
+function blurFunc(){
+    let parent = this.parentNode.parentNode;
+    if(this.value == ""){
+        parent.classList.remove('focus');
+    }
+}
+
+inputs.forEach(input =>{
+    input.addEventListener('focus', focusFunc);
+    input.addEventListener('blur', blurFunc);
+});
+</script>
+
+
+</body>
+
 </html>
