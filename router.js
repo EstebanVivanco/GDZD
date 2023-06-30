@@ -409,5 +409,6 @@ router.post('/cajaCompletada', crud.cajaCompletada);
 router.post('/editestore', crud.editestore);
 router.post('/LoginSuperAdmin', crud.LoginSuperAdmin);
 router.post('/editHabitacion', crud.editHabitacion);
+router.post('/createHabitacion', crud.createHabitacion);
 
 module.exports = router;

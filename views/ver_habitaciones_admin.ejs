@@ -72,13 +72,13 @@
             <div class="container">
                 <div class="masthead-subheading">Bienvenido !</div>
                 <div class="masthead-heading text-uppercase"><%= superA.nombre %></div>
-                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#h">Habitaciones</a>
+                <a class="btn btn-primary btn-xl text-uppercase text-black" href="#t">Habitaciones</a>
             </div>
         </header>
 
         <section class="page-section bg-light" id="portfolio">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Habitaciones</h2>
+                <h2 id="t" class="section-heading text-uppercase">Habitaciones</h2>
                 <form action="/buscarTienda" method="POST">
                     <!-- <div class="form-group d-flex mb-4">
                         
@@ -86,7 +86,8 @@
                         <button class="btn btn-warning px-4 rounded-circle" type="submit"><i class="bi bi-search fs-4"></i></button>
                     </div> -->
                 </form>
-                <h3 id="h" class="section-subheading text-muted">Habitaciones registradas</h3>
+                <a class="btn btn-primary btn-xl text-uppercase text-black" data-bs-toggle="modal" href="#portfolioModalCreate">Crear habitacion</a>
+
             </div>
             <div class="pt-5"></div>
             <div class="container">
@@ -142,10 +143,10 @@
                                                 <h2  class="text-center mb-4">Edicion de habitacion</h2>
                                                 <form class="form-card" action="/editHabitacion" method="POST" enctype="multipart/form-data">
                                                     <input type="hidden" name="formType" value="habitacion">
-                                                    
                                                     <input hidden type="text" name="id" id="id" value="<%= results.id_habitacion %>">
 
-                                                    <input type="text" name="id" id="id" value="<%= results.id_habitacion %>">
+                                                  
+
                                                     <div class="row justify-content-between text-left">
                                                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Numero</label> <input type="text" id="numero" name="numero" value="<%= results.numero %>"> </div>
                                                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Precio por Hora</label> <input type="text" id="precio" name="precio" value="<%= results.precio_hora %>"> </div>
@@ -183,6 +184,48 @@
                         </div>
                     </div>
                     <% }) %>
+                    <!-- MODAL PARA CREAR HABITACION -->
+                    <div class="portfolio-modal modal fade" id="portfolioModalCreate" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
+                                <div class="container-fluid px-1 py-5 mx-auto">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                                            <div>
+                                                <h2  class="text-center mb-4">Crear habitacion</h2>
+                                                <form class="form-card" action="/createHabitacion" method="POST" enctype="multipart/form-data">
+                                                    <input type="hidden" name="formType" value="habitacion">
+
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Numero de la habitacion</label> <input type="text" id="numero" name="numero" required> </div>
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Precio por Hora</label> <input type="text" id="precio" name="precio" required> </div>
+                                                    </div>
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-12 flex-column d-flex"><label class="form-control-label px-3">Imagen</label> <input class="form-control" type="file" id="image" name="image" required></div>
+                                                    </div>
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Sector de la habitacion</label>
+                                                            <select class="form-control mt-2 py-2" id="sector" name="sector" required>
+                                                                <% sector.forEach((sec) => { %>
+                                                                    <option value=" <%= sec.id_sector %>"> <%= sec.nombre_sector %></option>
+                                                                <% }) %>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row justify-content-between text-left">
+                                                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Descripcion</label> <input type="text" id="descripcion" name="descripcion" required> </div>
+                                                        <div class="form-group col-12 flex-column d-flex"> <button type="submit" class="btn btn-primary text-black">Guardar</button> </div>
+                                                    </div>  
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                    
                 </div>
             </div>

@@ -385,3 +385,23 @@ exports.editHabitacion = (req, res)=>{
       }
     });
 }
+
+exports.createHabitacion = (req, res)=>{
+
+    const numero = req.body.numero;
+    const estadoHabitacion = 1;
+    const descripcion = req.body.descripcion;
+    const precioHora = req.body.precio;
+    const idSector = req.body.sector;
+    const imagenHabitacion = req.files['image'][0].filename;
+
+    const query = `INSERT INTO habitaciones (numero, estado_habitacion_fk, descripcion, precio_hora, id_sector_fk, image) VALUES ('${numero}', '${estadoHabitacion}', '${descripcion}', '${precioHora}', '${idSector}', '${imagenHabitacion}')`;
+
+    conexion.query(query, (error, results) => {
+      if (error) {
+        throw error;
+      } else {
+        res.redirect('/ver_habitaciones_admin');
+      }
+    });
+}
