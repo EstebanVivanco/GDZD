@@ -257,13 +257,15 @@ exports.cajaCompletada= (req, res) => {
                         throw error;
                     }else{
             
-                        conexion.query('SELECT venta_tienda.id_venta_tienda, venta_tienda.codigo_boleta, venta_tienda.cantidad, venta_tienda.total, productos.nombre_producto, DATE_FORMAT(venta_tienda.fecha_venta, "%m/%d/%Y") AS fecha_venta  FROM venta_tienda INNER JOIN productos ON productos.id_producto = venta_tienda.id_productos_fk  WHERE venta_tienda.id_tienda_fk = ? ', [idtienda] ,(error, results) => {
-        
-                            if (error) {
-                                throw error;
-                            } else {
 
-                                    res.render('vista_ventas',{
+                        conexion.query('SELECT * FROM tienda WHERE id_tienda = ?',[id], (error,tienda)=>{
+                            conexion.query('SELECT * FROM productos INNER JOIN estado_producto ON estado_producto.id_estado_producto = productos.id_estado_fk INNER JOIN proveedores ON proveedores.id_proveedor = productos.id_proveedor_fk INNER JOIN categoria_producto ON categoria_producto.id_categoria_producto = productos.id_categoria_producto_fk INNER JOIN tienda ON tienda.id_tienda = productos.id_tienda_fk WHERE tienda.id_tienda = ? and productos.id_estado_fk = 1', [id],(error,productos)=>{ 
+                    
+                                if (error) {
+                                    throw error;
+                                } else {
+                                    
+                                    res.render('cargando',{
                                         alert:true,
                                         alertTitle: 'Producto actualizado',
                                         alertMessage: 'Se ha actualizado correctamente el producto',
@@ -271,13 +273,14 @@ exports.cajaCompletada= (req, res) => {
                                         showConfirmButton: false,
                                         timer: 1500,
                                         ruta: 'caja_productos/'+idtienda,
-                                        results: results,
-                                        user: req.session.user
+                                        user: req.session.user,
+                                        productos: productos,
+                                        tienda:tienda
                                     })
-
-                            }
-                        });
-
+                                }
+                            })
+                        })
+                
                         
                     }
                 })

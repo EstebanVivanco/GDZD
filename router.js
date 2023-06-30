@@ -16,7 +16,7 @@ router.get('/caja_productos/:id', (req, res)=>{
             if (error) {
                 throw error;
             } else {
-                res.render('caja_productos', { tienda : tienda, productos : productos, user : req.session.user });
+                res.render('caja_productos', { tienda :tienda, productos :productos, user : req.session.user });
             }
         })
     })
@@ -25,6 +25,12 @@ router.get('/caja_productos/:id', (req, res)=>{
 router.get('/boleta_venta', (req, res)=>{
     
     res.render('boleta_venta');
+
+})
+
+router.get('/cargando', (req, res)=>{
+    
+    res.render('cargando');
 
 })
 
@@ -191,7 +197,7 @@ router.get('/ver_ventas/:id', (req, res) => {
             if (error) {
                 throw error;
             } else {
-                res.render('vista_ventas', { results: results, user : req.session.user});
+                res.render('vista_ventas',{ results: results, user : req.session.user});
             }
     });
 
