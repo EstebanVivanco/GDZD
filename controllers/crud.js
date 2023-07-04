@@ -332,8 +332,6 @@ exports.cajaCompletada= (req, res) => {
                     if(error){
                         throw error;
                     }else{
-            
-
                         conexion.query('SELECT * FROM tienda WHERE id_tienda = ?',[id], (error,tienda)=>{
                             conexion.query('SELECT * FROM productos INNER JOIN estado_producto ON estado_producto.id_estado_producto = productos.id_estado_fk INNER JOIN proveedores ON proveedores.id_proveedor = productos.id_proveedor_fk INNER JOIN categoria_producto ON categoria_producto.id_categoria_producto = productos.id_categoria_producto_fk INNER JOIN tienda ON tienda.id_tienda = productos.id_tienda_fk WHERE tienda.id_tienda = ? and productos.id_estado_fk = 1', [id],(error,productos)=>{ 
                     
@@ -356,14 +354,54 @@ exports.cajaCompletada= (req, res) => {
                                 }
                             })
                         })
-                
-                        
                     }
                 })
-
             }
           });
         }
       }
 
+}
+
+
+
+
+exports.editHabitacion = (req, res)=>{
+    const idHabitacion = req.body.id;
+    const numero = req.body.numero;
+    const estadoHabitacion = req.body.estado_habitacion;
+    const descripcion = req.body.descripcion;
+    const precioHora = req.body.precio;
+    const idSector_fk = req.body.sector;
+    const imagenHabitacion = req.files['image'][0].filename;
+
+    const query = `UPDATE habitaciones SET numero = '${numero}', estado_habitacion_fk = '${estadoHabitacion}', descripcion = '${descripcion}', precio_hora = '${precioHora}', id_sector_fk = '${idSector_fk}', image = '${imagenHabitacion}' WHERE id_habitacion = '${idHabitacion}';`;
+
+    conexion.query(query, (error, results) => {
+      if (error) {
+        throw error;
+      } else {
+        res.redirect('/ver_habitaciones_admin');
+      }
+    });
+}
+
+exports.createHabitacion = (req, res)=>{
+
+    const numero = req.body.numero;
+    const estadoHabitacion = 1;
+    const descripcion = req.body.descripcion;
+    const precioHora = req.body.precio;
+    const idSector = req.body.sector;
+    const imagenHabitacion = req.files['image'][0].filename;
+
+    const query = `INSERT INTO habitaciones (numero, estado_habitacion_fk, descripcion, precio_hora, id_sector_fk, image) VALUES ('${numero}', '${estadoHabitacion}', '${descripcion}', '${precioHora}', '${idSector}', '${imagenHabitacion}')`;
+
+    conexion.query(query, (error, results) => {
+      if (error) {
+        throw error;
+      } else {
+        res.redirect('/ver_habitaciones_admin');
+      }
+    });
 }

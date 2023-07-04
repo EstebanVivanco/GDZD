@@ -23,9 +23,7 @@ router.get('/caja_productos/:id', (req, res)=>{
 })
 
 router.get('/boleta_venta', (req, res)=>{
-    
     res.render('boleta_venta');
-
 })
 
 router.get('/cargando', (req, res)=>{
@@ -285,7 +283,7 @@ router.get('/superadmin_eliminar_tienda/:id',  (req, res)=>{
                         if(error){
                             throw error;
                         }else{
-                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores, superA: req.session.superA });
                         }
                     })
                 })
@@ -313,7 +311,7 @@ router.get('/superadmin_habilitar_tienda/:id',  (req, res)=>{
                         if(error){
                             throw error;
                         }else{
-                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores });
+                            res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores, superA: req.session.superA });
                         }
                     })
                 })
@@ -332,33 +330,72 @@ router.get('/superadmin_edit/:id', (req, res)=>{
         if(error){
             throw error;
         }else{
-            res.render('editar_tienda_superadmin', {tiendas:tiendas});
+            res.render('editar_tienda_superadmin', {tiendas:tiendas , superA: req.session.superA});
         }
     })
 })
 
-  //RUTA PARA VER HABITACIONES
-  router.get('/ver_habitaciones', (req,res)=>{
-    conexion.query('SELECT habitaciones.id_habitacion, habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk, estado_habitacion.nombre_estado_habitacion FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk WHERE habitaciones.estado_habitacion_fk != 4;', (error, results)=>{
+
+
+    //RUTA PARA VER HABITACIONES ADMIN
+    router.get('/ver_habitaciones_admin', (req,res)=>{
+        conexion.query('SELECT * FROM estado_habitacion', (error, estado)=>{
+            conexion.query('SELECT * FROM sector WHERE id_estado_sector_fk = 1', (error, sector)=>{
+                conexion.query('SELECT habitaciones.id_habitacion, habitaciones.image, habitaciones.estado_habitacion_fk ,habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk,estado_habitacion.nombre_estado_habitacion FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk;', (error, results)=>{
+                    if(error){
+                        throw error;
+                    }else{
+                        res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector,superA: req.session.superA});
+                    }
+                })
+            })
+        })
+    })
+
+//HABILITAR HABITACION
+router.get('/superadmin_habilitar_habitacion/:id',  (req, res)=>{
+    const id = req.params.id;
+    conexion.query('UPDATE habitaciones SET estado_habitacion_fk = 1 WHERE id_habitacion = ?',[id], (error) => {
         if(error){
             throw error;
         }else{
-            res.render('ver_habitaciones', {results:results});
+            conexion.query('SELECT * FROM estado_habitacion', (error, estado)=>{
+                conexion.query('SELECT * FROM sector WHERE id_estado_sector_fk = 1', (error, sector)=>{
+                    conexion.query('SELECT habitaciones.id_habitacion,habitaciones.image, habitaciones.estado_habitacion_fk ,habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk,estado_habitacion.nombre_estado_habitacion FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk;', (error, results)=>{
+                        if(error){
+                            throw error;
+                        }else{
+                            res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector,superA: req.session.superA});
+                        }
+                    })
+                })
+            })
         }
-    })
-    
-  })
+    }) 
+})
 
-  //RUTA PARA ACTUALIZAR HABIACIONES
-  router.get('/editar_habitacion', (req,res)=>{
-    res.render('editar_habitaciones');
-  })
+//DESHABILITAR HABITACION
+router.get('/superadmin_eliminar_habitacion/:id',  (req, res)=>{
+    const id = req.params.id;
+    conexion.query('UPDATE habitaciones SET estado_habitacion_fk = 4 WHERE id_habitacion = ?',[id], (error) => {
+        if(error){
+            throw error;
+        }else{
+            conexion.query('SELECT * FROM estado_habitacion', (error, estado)=>{
+                conexion.query('SELECT * FROM sector WHERE id_estado_sector_fk = 1', (error, sector)=>{
+                    conexion.query('SELECT habitaciones.id_habitacion, habitaciones.image, habitaciones.estado_habitacion_fk ,habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk,estado_habitacion.nombre_estado_habitacion FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk;', (error, results)=>{
+                        if(error){
+                            throw error;
+                        }else{
+                            res.render('ver_habitaciones_admin', {results:results, estado:estado, sector:sector,superA: req.session.superA});
+                        }
+                    })
+                })
+            })
+        }
+    }) 
+})
 
-  //RUTA PARA VER HABITACIONES DESHABILITADAS
-
-  router.get('/ver_habitaciones_deshabilitadas', (req,res)=>{
-    res.render('ver_habitaciones_deshabilitadas');
-  })
 
 
 const crud = require('./controllers/crud');
@@ -371,5 +408,7 @@ router.post('/buscarTienda', crud.buscarTienda);
 router.post('/cajaCompletada', crud.cajaCompletada);
 router.post('/editestore', crud.editestore);
 router.post('/LoginSuperAdmin', crud.LoginSuperAdmin);
+router.post('/editHabitacion', crud.editHabitacion);
+router.post('/createHabitacion', crud.createHabitacion);
 
 module.exports = router;

@@ -18,6 +18,8 @@ const storage = multer.diskStorage({
           uploadPath = path.join(__dirname, 'public/uploads/img_productos');
         } else if (req.body.formType === 'tienda') {
           uploadPath = path.join(__dirname, 'public/uploads/img_tiendas');
+        } else if (req.body.formType === 'habitacion'){
+          uploadPath = path.join(__dirname, 'public/uploads/img_habitaciones');
         }
         cb(null, uploadPath);
       },
