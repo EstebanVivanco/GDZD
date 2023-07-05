@@ -47,7 +47,7 @@
                               <span class="s_nav_name">Crear Producto</span> 
                           </a> 
     
-                          <a href="/ver_productos/<%= user.id_tienda %>" class="s-a s_nav_link active"> 
+                          <a href="/ver_productos/<%= user.id_tienda %>" class="s-a s_nav_link"> 
                               <i class='bx bxs-purchase-tag-alt' ></i>
                               <span class="nav_name">Ver Productos</span>
                           </a> 
@@ -57,7 +57,7 @@
                               <span class="nav_name">Ver Ventas</span> 
                           </a> 
 
-                          <a href="/ver_productos_bodega/<%= user.id_tienda %>" class="s-a s_nav_link"> 
+                          <a href="/ver_productos_bodega/<%= user.id_tienda %>" class="s-a s_nav_link  active"> 
                             <i class='bx bx-package'></i>
                             <span class="nav_name">Ver Productos en Bodega</span> 
                           </a> 
@@ -80,24 +80,17 @@
     <div class="container-fluid">
       
       <div class="row mt-4">
-        <h1 class="text-center mt-5"> PRODUCTOS REGISTRADOS </h1>
+        <h1 class="text-center mt-5"> PRODUCTOS EN BODEGA </h1>
       </div>
     
-      <a title="Lista los productos eliminados" data-bs-toggle="tooltip" href="/ver_productosDes/<%= user.id_tienda %>" class="btn btn-primary btn-md text-uppercase text-black mb-4">Productos Eliminados</a>
         <div class="table-responsive align-middle" >
             <table id="table" class="table table-striped text-center mt-4">
                 <thead id="titletable">
                     <tr class="table-primary ">
 
-                        <th class="text-center">ID </th>
-                        <th class="text-center">NOMBRE</th>
-                        <th class="text-center">STOCK</th>
-                        <th class="text-center">PRECIO</th>
-                        <th class="text-center">ESTADO</th>
-                        <th class="text-center">CATEGORÍA</th>
-                        <th class="text-center">PROVEEDORES</th>
-                        <th class="text-center">IMAGEN</th>
-                        <th class="text-center">ACCIONES</th>
+                        <th class="text-center">NOMBRE PRODUCTO</th>
+                        <th class="text-center">STOCK EN BODEGA</th>
+                        <th class="text-center">BODEGA EN LA QUE SE ENCUENTRA</th>
 
                     </tr>
                 </thead>
@@ -107,38 +100,16 @@
                         <tr >
                             
                             <td>
-                                <%= producto.id_producto %>
-                            </td>
-                            <td>
                                 <%= producto.nombre_producto %>
                             </td>
+                  
                             <td>
-                                <%= producto.stock %>
+                                <%= producto.cantidad %>
                             </td>
-                            <td>
-                                <%= producto.precio_producto %>
-                            </td>
-                            <td>
-                                <%= producto.nombre_estado_producto %>
-                            </td>
+                            
 
                             <td>
-                                <%= producto.nombre_categoria_producto %>
-                            </td>
-
-
-                            <td>
-                                <%= producto.nombre_proveedor %>
-                            </td>
-
-                            <td>
-                                <img src="/uploads/img_productos/<%= producto.imagen_producto %>" style="width: 80px; height: 80px;" alt="">
-                                
-                            </td>
-
-                            <td>
-                              <a title="Editar producto" data-bs-toggle="tooltip" href="/editar_producto/<%= producto.id_producto %>" class="btn btn-warning"><span class="material-symbols-outlined">border_color</span></a>
-                              <a title="Eliminar producto" data-bs-toggle="tooltip" onclick="confirmar(<%= producto.id_producto %>, '<%= producto.nombre_producto %>')" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></a>
+                                <%= producto.nombre_bodega %>
                             </td>
                         
                         </tr>

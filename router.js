@@ -90,13 +90,27 @@ router.get('/ver_productos/:id', (req, res) => {
     });
 });
 
+router.get('/ver_productos_bodega/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    conexion.query('SELECT pb.nombre_producto, ib.cantidad, b.nombre_bodega FROM productos_bodega pb JOIN inventario_bodega ib ON pb.id = ib.producto_bodega_id_fk JOIN bodega b ON ib.bodega_id_fk = b.id where tienda_id_fk = ?', [id] ,(error, results) => {
+        
+            if (error) {
+                throw error;
+            } else {
+                res.render('ver_productos_bodega', { results: results, user : req.session.user});
+            }
+    });
+});
+
 router.get('/productos', (req, res)=>{
 
 
     conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
         conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
             conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
-                conexion.query('SELECT * FROM bodega JOIN sector ON bodega.id_sector_fk = sector.id_sector where tipo_bodega = "tienda" AND estado_bodega_id_fk = 1', (error, bodega) => {
+                conexion.query('SELECT * FROM bodega  Where estado_bodega_id_fk = 1', (error, bodega) => {
 
                     res.render('crear_producto',{categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega, user : req.session.user});
                     // console.log('catego :>> ', categoria);

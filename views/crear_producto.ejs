@@ -49,11 +49,18 @@
                             <span class="nav_name">Ver Ventas</span> 
                         </a> 
 
+                        <a href="/ver_productos_bodega/<%= user.id_tienda %>" class="s-a s_nav_link"> 
+                            <i class='bx bx-package'></i>
+                            <span class="nav_name">Ver Productos en Bodega</span> 
+                        </a> 
+
                         <a href="/index_tienda/<%= user.id_tienda %>" class="s-a s_nav_link"> 
                             <i class='bx bx-chalkboard' ></i>
                             <span class="nav_name">Ver Landing</span> 
                         </a> 
 
+
+                        
                     </div>
                 </div> <a href="/logout" class="s-a s_nav_link"> <i class='bx bx-log-out s_nav_icon'></i> <span class="nav_name">Salir</span> </a>
             </nav>
@@ -61,7 +68,7 @@
 
 
 
-    <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: hsl(0, 0%, 90%); ">
+    <div class="d-flex justify-content-center align-items-center vh-100">
 
         <div class="bg-white p-5 rounded-5" style="width: 60rem; border-radius: 30px;">
             <div class="container mt-1">
@@ -116,17 +123,17 @@
                     
                 </div>
 
-                <div class="mt-4" >
+                <!-- <div class="mt-4" >
 
                     <b>Bodega</b>
                     <select class="form-select mt-1 " name="id_bodega_fk" id="id_bodega_fk" aria-label="Default select example">
                         <option selected>Seleccione bodega</option>
                         <% bodega.forEach((bodega)=>{ %>
-                            <option value="<%= bodega.id %>" > <%= bodega.codigo_bodega %> - <%= bodega.nombre_sector %> </option>
+                            <option value="<%= bodega.id %>" > <%= bodega.nombre_bodega %> </option>
                         <%})%>
                     </select>
                     
-                </div>
+                </div> -->
 
                 <div class="mt-4" >
 

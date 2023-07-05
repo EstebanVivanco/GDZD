@@ -14,11 +14,10 @@ exports.GuardarProducto =(req, res)=>{
     const precio_producto = req.body.precio_producto;
     const id_categoria_producto_fk = req.body.id_categoria_producto_fk;
     const id_estado_fk = req.body.id_estado_fk;
-    const id_bodega_fk = req.body.id_bodega_fk;
+    // const id_bodega_fk = req.body.id_bodega_fk;
     const id_proveedor_fk = req.body.id_proveedor_fk;
 
-    console.log("AAACAAAAAAAAAAAAAAA", id_bodega_fk);
-    conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_bodega_fk: id_bodega_fk, id_proveedor_fk:id_proveedor_fk},  ], (error, results)=>{
+    conexion.query('INSERT INTO productos SET ?', [{nombre_producto:nombre_producto , imagen_producto: imagen_producto, stock:stock, precio_producto:precio_producto, id_categoria_producto_fk: id_categoria_producto_fk, id_estado_fk:id_estado_fk, id_estado_fk:id_estado_fk, id_tienda_fk: id_tienda, id_proveedor_fk:id_proveedor_fk},  ], (error, results)=>{
 
         if(error){
             throw error;
