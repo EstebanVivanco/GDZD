@@ -273,7 +273,7 @@ router.get('/superadmin', (req, res)=>{
                 if(error){
                     throw error;
                 }else{
-                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores,  superA: req.session.superA });
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores});
                 }
             })
         })
