@@ -409,7 +409,7 @@ exports.editHabitacion = (req, res) => {
     const descripcion = req.body.descripcion;
     const precioHora = req.body.precio;
     const idSector_fk = req.body.sector;
-    const imagenHabitacion = req.files['image'][0].filename;
+    const imagenHabitacion = req.files?.['image']?.[0]?.filename;
     const imgBD = req.body.imgexistente;
 
     let parametroImagen = '';
