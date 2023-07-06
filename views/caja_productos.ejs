@@ -47,6 +47,11 @@
             <div class="s_l-navbar" id="nav-bar">
                 <nav class="s_nav">
                     <div> <a href="#" class="s-a s_nav_logo"> <i class='bx bx-store s_nav_icon'></i> <span class="s_nav_logo-name"> <%= user.nombre_tienda %> </span> </a>
+                        
+                    <% if(trabajador){%>
+                        <div> <a href="#" class="s-a s_nav_logo"> <i class='bx bx-user'></i> <span class="s_nav_logo-name"><%= trabajador.nombre +' '+trabajador.apellido %> </span> </a>
+                    <%}%>
+
                         <div class="nav_list"> 
     
     

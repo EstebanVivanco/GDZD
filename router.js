@@ -20,7 +20,7 @@ router.get('/caja_productos/:id', (req, res)=>{
             if (error) {
                 throw error;
             } else {
-                res.render('caja_productos', { tienda :tienda, productos :productos, user : req.session.user });
+                res.render('caja_productos', { tienda :tienda, productos :productos, user : req.session.user, trabajador: req.session.trabajador });
             }
         })
     })
@@ -104,7 +104,7 @@ router.get('/ver_productos/:id', (req, res) => {
             if (error) {
                 throw error;
             } else {
-                res.render('ver_productos', { results: results, user : req.session.user});
+                res.render('ver_productos', { results: results, user : req.session.user, trabajador: req.session.trabajador});
             }
     });
 });
@@ -118,7 +118,7 @@ router.get('/ver_productos_bodega/:id', (req, res) => {
             if (error) {
                 throw error;
             } else {
-                res.render('ver_productos_bodega', { results: results, user : req.session.user});
+                res.render('ver_productos_bodega', { results: results, user : req.session.user, trabajador: req.session.trabajador});
             }
     });
 });
@@ -131,7 +131,7 @@ router.get('/productos', (req, res)=>{
             conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
                 conexion.query('SELECT * FROM bodega  Where estado_bodega_id_fk = 1', (error, bodega) => {
 
-                    res.render('crear_producto',{categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega, user : req.session.user});
+                    res.render('crear_producto',{categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega, user : req.session.user, trabajador: req.session.trabajador});
                     // console.log('catego :>> ', categoria);
                     // console.log('estado :>> ', estado);
                     // console.log('proveedores :>> ', proveedores);
@@ -175,7 +175,7 @@ router.get('/editar_producto/:id', (req, res)=>{
                 conexion.query('SELECT * FROM bodega ', (error, bodega) => {
                     conexion.query('SELECT * FROM productos WHERE id_producto = ?',[id],(error, producto)=>{
                         
-                        res.render('editar_productos',{categoria:categoria,estado:estado,proveedores:proveedores,producto:producto[0], bodega:bodega, user : req.session.user});
+                        res.render('editar_productos',{categoria:categoria,estado:estado,proveedores:proveedores,producto:producto[0], bodega:bodega, user : req.session.user,  trabajador: req.session.trabajador});
                         // console.log('catego :>> ', categoria);
                         // console.log('estado :>> ', estado);
                         // console.log('proveedores :>> ', proveedores);
@@ -212,7 +212,7 @@ router.get('/ver_productosDes/:id', (req, res) => {
             if (error) {
                 throw error;
             } else {
-                res.render('ver_productosDes', { results: results, user : req.session.user});
+                res.render('ver_productosDes', { results: results, user : req.session.user,  trabajador: req.session.trabajador});
             }
     });
 });
@@ -228,7 +228,7 @@ router.get('/ver_ventas/:id', (req, res) => {
             if (error) {
                 throw error;
             } else {
-                res.render('vista_ventas',{ results: results, user : req.session.user});
+                res.render('vista_ventas',{ results: results, user : req.session.user, trabajador: req.session.trabajador});
             }
     });
 
@@ -280,13 +280,13 @@ router.get('/buscar-productos', async (req, res) => {
 router.get('/superadmin', (req, res)=>{
 
 
-    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda = 1;', (error, tiendas)=>{
         conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
             conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
                 if(error){
                     throw error;
                 }else{
-                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores,  superA: req.session.superA });
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores});
                 }
             })
         })
@@ -304,7 +304,7 @@ router.get('/superadmin_eliminar_tienda/:id',  (req, res)=>{
             throw error;
     
         }else{
-            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda = 1;', (error, tiendas)=>{
                 conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
                     conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
                         if(error){
@@ -332,7 +332,7 @@ router.get('/superadmin_habilitar_tienda/:id',  (req, res)=>{
             throw error;
     
         }else{
-            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda = 1;', (error, tiendas)=>{
                 conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
                     conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
                         if(error){
@@ -421,6 +421,23 @@ router.get('/superadmin_eliminar_habitacion/:id',  (req, res)=>{
             })
         }
     }) 
+})
+
+//VER TIENDAS DESHABILITADAS
+router.get('/tiendasDeshabilitadas', (req, res)=>{
+
+
+    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda != 1;', (error, tiendas)=>{
+        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                if(error){
+                    throw error;
+                }else{
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores,  superA: req.session.superA });
+                }
+            })
+        })
+    })
 })
 
 

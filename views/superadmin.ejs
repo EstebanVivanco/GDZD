@@ -1,4 +1,3 @@
-<% if(superA){ %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -69,7 +68,6 @@
         <header class="masthead" style="background-image: url('/uploads/banners/bannerhashport.jpg');">
             <div class="container">
                 <div class="masthead-subheading">Bienvenido !</div>
-                <div class="masthead-heading text-uppercase"><%= superA.nombre %></div>
                 <a class="btn btn-primary btn-xl text-uppercase text-black" href="#t">Tiendas</a>
             </div>
         </header>
@@ -89,7 +87,9 @@
                         </div> -->
                     </form>
                     <h3 id="t" class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
+                    <a class="btn btn-primary btn-xl text-uppercase text-black" href="/tiendasDeshabilitadas">Ver tiendas deshabilitadas</a>
                 </div>
+                <div class="pt-5"></div>
                 <div class="row">
                 <% tiendas.forEach((tienda)=>{ %>
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -255,6 +255,3 @@
     </script>
 </html>
 
-<% }else{ %>
-<h1>DENAGNOIDE</h1>
-<% } %>
