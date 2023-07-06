@@ -282,7 +282,7 @@ router.get('/loginS',  (req, res)=>{
 router.get('/superadmin', (req, res)=>{
 
 
-    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda = 1;', (error, tiendas)=>{
         conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
             conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
                 if(error){
@@ -306,7 +306,7 @@ router.get('/superadmin_eliminar_tienda/:id',  (req, res)=>{
             throw error;
     
         }else{
-            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda = 1;', (error, tiendas)=>{
                 conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
                     conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
                         if(error){
@@ -334,7 +334,7 @@ router.get('/superadmin_habilitar_tienda/:id',  (req, res)=>{
             throw error;
     
         }else{
-            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+            conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda = 1;', (error, tiendas)=>{
                 conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
                     conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
                         if(error){
@@ -423,6 +423,23 @@ router.get('/superadmin_eliminar_habitacion/:id',  (req, res)=>{
             })
         }
     }) 
+})
+
+//VER TIENDAS DESHABILITADAS
+router.get('/tiendasDeshabilitadas', (req, res)=>{
+
+
+    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda WHERE id_estado_tienda != 1;', (error, tiendas)=>{
+        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                if(error){
+                    throw error;
+                }else{
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores,  superA: req.session.superA });
+                }
+            })
+        })
+    })
 })
 
 
