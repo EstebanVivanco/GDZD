@@ -60,6 +60,21 @@ router.get('/portal_tiendas', (req, res)=>{
     })
 })
 
+    //RUTA PARA VER HABITACIONES ADMIN
+    router.get('/portal_habitaciones', (req,res)=>{
+        conexion.query('SELECT * FROM estado_habitacion', (error, estado)=>{
+            conexion.query('SELECT * FROM sector WHERE id_estado_sector_fk = 1', (error, sector)=>{
+                conexion.query('SELECT habitaciones.id_habitacion, habitaciones.image, habitaciones.estado_habitacion_fk ,habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk,estado_habitacion.nombre_estado_habitacion, sector.nombre_sector FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk INNER JOIN sector ON habitaciones.id_sector_fk = sector.id_sector;', (error, habitaciones)=>{
+                    if(error){
+                        throw error;
+                    }else{
+                        res.render('portal_habitaciones', {habitaciones:habitaciones, estado:estado, sector:sector});
+                    }
+                })
+            })
+        })
+    })
+
 router.get('/index_tienda/:id', (req, res)=>{
     
     const id = req.params.id;
