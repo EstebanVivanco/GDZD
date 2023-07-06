@@ -6,6 +6,10 @@ router.get('/',  (req, res)=>{
     res.render('login');
 })
 
+router.get('/loginS',  (req, res)=>{
+    res.render('loginS');
+})
+
 router.get('/caja_productos/:id', (req, res)=>{
     
     const id = req.params.id;
@@ -270,12 +274,6 @@ router.get('/buscar-productos', async (req, res) => {
     res.status(500).json({ error: 'Error en la consulta' });
   }
 });
-
-//LOGIN SUPERADMIN
-
-router.get('/loginS',  (req, res)=>{
-    res.render('loginSuperAdmin');
-})
 
 
 //RUTA PARA EL SUPERADMIN

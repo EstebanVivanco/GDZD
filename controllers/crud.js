@@ -118,7 +118,7 @@ exports.LoginSuperAdmin = (req, res)=>{
                     conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
                         conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
                             conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
-                                res.render('login',{
+                                res.render('loginS',{
                                     alert:true,
                                     alertTitle: 'Conexion exitosa',
                                     alertMessage: 'Bienvenido! ',
@@ -137,7 +137,7 @@ exports.LoginSuperAdmin = (req, res)=>{
 
                 }else{
                     //NO ENTRA
-                    res.render('login',{
+                    res.render('loginS',{
                         alert:true,
                         alertTitle: 'Error',
                         alertMessage: 'Rut o Contraseña incorrectos!',
