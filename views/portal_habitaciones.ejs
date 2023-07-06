@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Aerobulla - Portal Tiendas</title>
+        <title>Aerobulla - Portal Habitaciones</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -30,8 +30,8 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/portal_habitaciones">Habitaciones</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Tiendas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Habitaciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/portal_tiendas">Tiendas</a></li>
                         <li class="nav-item"><a class="nav-link" href="/itinerario">Itinerario</a></li>
                         
                     </ul>
@@ -84,67 +84,64 @@
         </section>
 
         <!-- Portfolio Grid-->
+
         <section class="page-section bg-light" id="portfolio">
+            <div class="text-center">
+                <h2 id="t" class="section-heading text-uppercase">Habitaciones</h2>
+                <form action="/buscarTienda" method="POST">
+                    <!-- <div class="form-group d-flex mb-4">
+                        
+                        <input class="form-control p-4 rounded-pill" id="comparacion" name="comparacion" type="text" placeholder="Buscador de tiendas">
+                        <button class="btn btn-warning px-4 rounded-circle" type="submit"><i class="bi bi-search fs-4"></i></button>
+                    </div> -->
+                </form>
+
+            </div>
+            <div class="pt-5"></div>
             <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Tiendas</h2>
-                    <form action="/buscarTienda" method="POST">
-                        <!-- <div class="form-group d-flex mb-4">
-                            
-                            <input class="form-control p-4 rounded-pill" id="comparacion" name="comparacion" type="text" placeholder="Buscador de tiendas">
-                            <button class="btn btn-warning px-4 rounded-circle" type="submit"><i class="bi bi-search fs-4"></i></button>
-                        </div> -->
-                    </form>
-                    <h3 class="section-subheading text-muted">Todas las tiendas disponibles.</h3>
-                </div>
                 <div class="row">
-                <% tiendas.forEach((tienda)=>{ %>
+                <% habitaciones.forEach((habitaciones)=>{ %>
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <!-- Portfolio item 1-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="/index_tienda/<%=tienda.id_tienda %>">
-                                <!--
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                                </div>
-                                -->
-                                <div class="image-container">
-                                    <img class="" src="/uploads/img_tiendas/<%= tienda.banner_tienda %>" alt="..." height="225px" width="100%"/>
+                        <div class="portfolio-item mx-4">
+                           
+                            <a class="portfolio-link" >
+                              <div class="image-container">
+                                <img class="" src="/uploads/img_habitaciones/<%= habitaciones.image %>" alt="..." height="225px" width="100%"/>
+                                <% if(habitaciones.estado_habitacion_fk === 1) {%>
                                     <div class="image-text">
-                                        <a class="btn btn-primary btn-xl text-uppercase text-black" href="/index_tienda/<%=tienda.id_tienda %>"><%= tienda.nombre_tienda %></a>
+                                      <a class="btn btn-primary btn-xl text-uppercase text-black" data-bs-toggle="collapse"  data-toggle="collapse" href="#collapse-<%= habitaciones.id_habitacion %>"> <%= habitaciones.nombre_estado_habitacion %></a>
                                     </div>
-                                </div>
+                                <%}else{%>
+                                    <div class="texto-superpuesto text-center">
+                                        <a class="btn btn-danger btn-xl text-uppercase text-black text-center" data-bs-toggle="modal" href="#portfolioModal-<%= habitaciones.id_habitacion %>" ><%= habitaciones.nombre_estado_habitacion %></a>
+                                    </div>
+                                <%}%>
+                              </div>
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading"><%= tienda.nombre_tienda %></div>
-                                <div class="portfolio-caption-subheading text-muted fs-5"><%= tienda.horarios_tienda %></div>
+                              <div class="portfolio-caption-heading"><span>Numero de habitacion: </span><%= habitaciones.numero %></div>
+                              <div class="collapse" id="collapse-<%= habitaciones.id_habitacion %>">
+                                <div class="card-body text-black text-start">
+                                    <hr>
+                                    <p class="card-text m-0"><b>Ubicacion:</b> <%= habitaciones.nombre_sector %></p>
+                                    <p class="card-text m-0"><b>Precio por hora: </b> <%= habitaciones.precio_hora %></p>
+                                    <p class="card-text"><b>Caracteristicas: </b><br> <%= habitaciones.descripcion %></p>
+                                
+                                </div>
+                            </div>
                             </div>
                             
-                        </div>
+                          </div>
+
                     </div>
-                    <% }) %>
-                </div>
+
+                <% }) %>
+
+            
             </div>
         </section>
 
-        <div class="py-5" hidden>
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="/img_tienda/logos/microsoft.svg" alt="..." aria-label="Microsoft Logo" /></a>
-                    </div>
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="/img_tienda/logos/google.svg" alt="..." aria-label="Google Logo" /></a>
-                    </div>
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="/img_tienda/logos/facebook.svg" alt="..." aria-label="Facebook Logo" /></a>
-                    </div>
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="/img_tienda/logos/ibm.svg" alt="..." aria-label="IBM Logo" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         <!-- Footer-->

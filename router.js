@@ -60,6 +60,21 @@ router.get('/portal_tiendas', (req, res)=>{
     })
 })
 
+    //RUTA PARA VER HABITACIONES ADMIN
+    router.get('/portal_habitaciones', (req,res)=>{
+        conexion.query('SELECT * FROM estado_habitacion', (error, estado)=>{
+            conexion.query('SELECT * FROM sector WHERE id_estado_sector_fk = 1', (error, sector)=>{
+                conexion.query('SELECT habitaciones.id_habitacion, habitaciones.image, habitaciones.estado_habitacion_fk ,habitaciones.numero, habitaciones.descripcion, habitaciones.precio_hora, habitaciones.id_sector_fk,estado_habitacion.nombre_estado_habitacion, sector.nombre_sector FROM habitaciones INNER JOIN estado_habitacion ON estado_habitacion.id_estado_habitacion = habitaciones.estado_habitacion_fk INNER JOIN sector ON habitaciones.id_sector_fk = sector.id_sector;', (error, habitaciones)=>{
+                    if(error){
+                        throw error;
+                    }else{
+                        res.render('portal_habitaciones', {habitaciones:habitaciones, estado:estado, sector:sector});
+                    }
+                })
+            })
+        })
+    })
+
 router.get('/index_tienda/:id', (req, res)=>{
     
     const id = req.params.id;
@@ -90,13 +105,27 @@ router.get('/ver_productos/:id', (req, res) => {
     });
 });
 
+router.get('/ver_productos_bodega/:id', (req, res) => {
+
+    const id = req.params.id;
+
+    conexion.query('SELECT pb.nombre_producto, ib.cantidad, b.nombre_bodega FROM productos_bodega pb JOIN inventario_bodega ib ON pb.id = ib.producto_bodega_id_fk JOIN bodega b ON ib.bodega_id_fk = b.id where tienda_id_fk = ?', [id] ,(error, results) => {
+        
+            if (error) {
+                throw error;
+            } else {
+                res.render('ver_productos_bodega', { results: results, user : req.session.user});
+            }
+    });
+});
+
 router.get('/productos', (req, res)=>{
 
 
     conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
         conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
             conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
-                conexion.query('SELECT * FROM bodega JOIN sector ON bodega.id_sector_fk = sector.id_sector where tipo_bodega = "tienda" AND estado_bodega_id_fk = 1', (error, bodega) => {
+                conexion.query('SELECT * FROM bodega  Where estado_bodega_id_fk = 1', (error, bodega) => {
 
                     res.render('crear_producto',{categoria:categoria,estado:estado,proveedores:proveedores, bodega:bodega, user : req.session.user});
                     // console.log('catego :>> ', categoria);
@@ -259,7 +288,7 @@ router.get('/superadmin', (req, res)=>{
                 if(error){
                     throw error;
                 }else{
-                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores,  superA: req.session.superA });
+                    res.render('superadmin', {tiendas:tiendas, tipo_tiendas:tipo_tiendas, sectores:sectores});
                 }
             })
         })

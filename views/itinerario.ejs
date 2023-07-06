@@ -30,10 +30,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#">Itinerario</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/portal_habitaciones">Habitaciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="/portal_tiendas">Tiendas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Habitaciones</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/portal_tiendas">Volver</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Itinerario</a></li>
                     </ul>
                 </div>
             </div>
@@ -48,14 +47,14 @@
                             <thead class="table-light" >
                                 <tr>
             
-                                    <th class="py-4" style="font-size: x-large;">COMPAÑIA</th>
-                                    <th class="py-4" style="font-size: x-large;">VUELO</th>
-                                    <th class="py-4" style="font-size: x-large;">EMBARQUE</th>
-                                    <th class="py-4" style="font-size: x-large;">ORIGEN</th>
+                                    <th class="py-4" style="font-size: large;">COMPAÑIA</th>
+                                    <th class="py-4" style="font-size: large;">VUELO</th>
+                                    <th class="py-4" style="font-size: large;">EMBARQUE</th>
+                                    <th class="py-4" style="font-size: large;">ORIGEN</th>
                                     <!-- <th>CIUDAD</th> -->
-                                    <th class="py-4" style="font-size: x-large;">DESTINO</th>
+                                    <th class="py-4" style="font-size: large;">DESTINO</th>
                                     <!-- <th>CIUDAD</th> -->
-                                    <th class="py-4" style="font-size: x-large;">ESTADO</th> 
+                                    <th class="py-4" style="font-size: large;">ESTADO</th> 
             
                                 </tr>
                             </thead>
@@ -66,15 +65,26 @@
                                 
                                   <tr  class="py-">
                                   
-                                    <td  class="py-4" style="font-size: x-large;"><%= iti.compania_aerea %></td>
-                                    <td  class="py-4" style="font-size: x-large;"><%= iti.numero_vuelo %></td>
-                                    <td  class="py-4" style="font-size: x-large;"><%= iti.puerta_embarque %></td>
-                                    <td  class="py-4" style="font-size: x-large;"><%= iti.aeropuerto_origen %></td>
+                                    <td  class="py-4" style="font-size: large;"><%= iti.compania_aerea %></td>
+                                    <td  class="py-4" style="font-size: large;"><%= iti.numero_vuelo %></td>
+                                    <td  class="py-4" style="font-size: large;"><%= iti.puerta_embarque %></td>
+                                    <td  class="py-4" style="font-size:large;"><%= iti.aeropuerto_origen %></td>
                                     <!-- <td><%= iti.ciudad_origen %></td> -->
-                                    <td  class="py-4" style="font-size: x-large;"><%= iti.aeropuerto_destino %></td>
+                                    <td  class="py-4" style="font-size: large;"><%= iti.aeropuerto_destino %></td>
                                     <!-- <td><%= iti.ciudad_destino%></td> -->
-                                    <td  class="py-4" style="font-size: x-large;"><%= iti.estado_vuelo %></td>
-                                    
+                                    <% if(iti.estado_vuelo === 'Programado'){ %>
+                                        <td  class="py-4" style="font-size: large; background-color: #fbd650;">
+                                            <%= iti.estado_vuelo %>
+                                        </td>
+                                    <%}else if(iti.estado_vuelo === 'Cancelado'){%>
+                                        <td  class="py-4" style="font-size: large; background-color: rgb(234, 139, 139);">
+                                            <%= iti.estado_vuelo %>
+                                        </td>
+                                    <%}else{%>
+                                        <td  class="py-4" style="font-size: large; background-color: rgb(154, 230, 92);">
+                                            <%= iti.estado_vuelo %>
+                                        </td>
+                                    <%}%>
                                   </tr>
             
                               <%}) %>
