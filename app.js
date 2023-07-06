@@ -33,9 +33,6 @@ app.use(multer({
     storage,
 }).fields([{ name: 'image' }, { name: 'logo' }]),);
 
-
-
-
 //Motor de plantillas
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname,'views'));
