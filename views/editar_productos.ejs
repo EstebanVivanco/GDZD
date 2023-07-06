@@ -98,10 +98,6 @@
                         required>
                 </div>
                 
-                <div class="mt-4">        
-                <b>Stock del producto</b><br>
-                <input type='text'  class="form-control  mt-1" name="stock" id="stock"  value="<%= producto.stock %>" placeholder="Stock del producto" size='15'  required>
-                </div>       
                 <div class="mt-4">
                     <b>Precio</b>
                     <input  type='number' name="precio_producto" id="precio_producto" value="<%= producto.precio_producto %>" class="form-control mt-1"  placeholder="Ingrese el precio" size='45' maxlength='30' required>
@@ -109,7 +105,8 @@
 
                 <div class="mb-3 mt-4">
                     <b>Imagen del producto en tienda</b>
-                    <input class="form-control" type="file" id="image" name="image" value="<%= producto.imagen_producto %>" tabindex="7" accept="image/*" required>
+                    <input class="form-control" type="file" id="image" name="image" value="" required>
+                    <input type="text" value="<%=  producto.imagen_producto %>" id="imgexistente" name="imgexistente" hidden>
                 </div> 
 
                 <div class="mt-4" >
@@ -137,32 +134,20 @@
                     
                 </div>
 
-                <div class="mt-4" >
-
-                    <b>Bodega</b>
-                    <select class="form-select mt-1 " name="id_bodega_fk" id="id_bodega_fk" aria-label="Default select example">
-                        <option selected>Seleccione bodega</option>
-                        <% bodega.forEach((bodega)=>{ %>
-                          <option <%= producto.id_bodega_fk == bodega.id ? "selected" : "" %> value= "<%= bodega.id %>" > <%= bodega.tipo_bodega %> </option>
-                        <%})%>
-                    </select>
-                    
-                </div>
 
                 <div class="mt-4" >
 
                     <b>Proveedores</b>
                     <select class="form-select mt-1 " name="id_proveedor_fk" id="id_proveedor_fk" aria-label="Default select example">
                         <option selected>Proveedores</option>
+                        
                         <% proveedores.forEach((proveedores)=>{ %>
                           <option <%= producto.id_proveedor_fk == proveedores.id_proveedor ? "selected" : "" %> value= "<%= proveedores.id_proveedor %>" > <%= proveedores.nombre_proveedor %> </option>
                         <%})%>
+
                     </select>
                     
                 </div>
-
-
-
 
                 <button title="Actualizar producto" data-bs-toggle="tooltip" type="submit" class="btn btn-primary w-100 fw-semibold text-black shadow-sm mt-3">
                     Actualizar

@@ -151,9 +151,13 @@
                                                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Slogan</label> <input type="text" id="slogan" name="slogan" value="<%= tienda.slogan_tienda %>"> </div>
                                                     </div>
                                                     <div class="row justify-content-between text-left">
-                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Logo</label> <input class="form-control" type="file" id="logo" name="logo" value="<%= tienda.logo_tienda %>"></div>
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Logo</label> <input class="form-control" type="file" id="logo" name="logo" value=""></div>
+                                                        <input type="text" value="<%= tienda.logo_tienda %>" id="logoexistente" name="logoexistente" hidden>
+
                                                         
-                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Banner</label> <input class="form-control" type="file" id="image" name="image" value="<%= tienda.banner_tienda %>"></div>
+                                                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3">Banner</label> <input class="form-control" type="file" id="image" name="image" value=""></div>
+                                                        <input type="text" value="<%= tienda.banner_tienda %>" id="bannerexistente" name="bannerexistente" hidden>
+                                                    
                                                     </div>
                                                     <div class="row justify-content-between text-left">
                                                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tipo de tienda</label>
