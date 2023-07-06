@@ -11,53 +11,74 @@
 
 <body>
 
-    <div class=" d-flex justify-content-center align-items-center vh-100 mt-2" style="background-color: hsl(0, 0%, 90%); ">
-        <div class="bg-white p-5 rounded-5 text-secondary shadow" style="width: 27rem; border-radius: 30px;">
+    <style>
+        body{
+            background-image: url("https://img2.rtve.es/imagenes/avion-pleno-vuelo/1634194794500.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
+    <div class=" d-flex justify-content-center align-items-center vh-100">
+        <div class="bg-white p-5 rounded-5 text-secondary " style="width: 80%; border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;">
             <form action="/savestore" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate >
                 <input type="hidden" name="formType" value="tienda">
                 <h3 class="text-center">Registro de Tienda</h3>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 mt-3">        
+                    <b>Nombre de la tienda</b>
+                    <input type='text' class="form-control" name="name" id="name" placeholder="Ingrese el nombre de la tienda" size='15' maxlength='13' required>
+                    </div>       
+                    <div class="col-12 col-md-6 mt-3">
+                        <b>Correo</b>
+                        <input type='email' name="correo" id="correo" class="form-control"  placeholder="Ingrese su correo electrónico" size='45' maxlength='30' required>
+                    </div>
+                    <div class="col-sm-6 mt-3">
+                        <b>Contraseña</b>
+                        <input type='password' name="password" class="form-control" placeholder="Ingrese su contraseña" required>
+                    </div>
+                    <div class="col-sm-6 mt-3">        
+                        <b>Slogan de la tienda</b>
+                        <input type='text' class="form-control" name="slogan" id="slogan" placeholder="Ingrese el slogan de la tienda" size='15' maxlength='50' required>
+                    </div>
+    
+                    <div class="col-sm-12 mt-3">
+                        <b>Ingrese el logo de su tienda</b>
+                        <input class="form-control" type="file" id="logo" name="logo" tabindex="7" accept="image/*" required>
+                    </div> 
+                    
+                    <div class="col-sm-12 mt-3">
+                        <b>Ingrese el banner de su tienda</b>
+                        <input class="form-control" type="file" id="image" name="image" tabindex="7" accept="image/*" required>
+                    </div> 
+                    
+                    <div class="col-sm-12 mt-3">
+                        <b>Seleccione el tipo de tienda</b>
+                        <select class="form-select form-control-lg" aria-label="Default select example" id="tipo" name="tipo" required>
+                            <% tipotienda.forEach((tipotienda) => { %>
+                                <option value="<%= tipotienda.id_tipo %>"><%= tipotienda.nombre_tipo %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 mt-3">
+                        <b>Seleccione el sector</b>
+                        <select class="form-select form-control-lg" aria-label="Default select example" id="sector" name="sector" required>
+                            <% sector.forEach((sector) => { %>
+                                <option value="<%= sector.id_sector %>"><%= sector.nombre_sector %></option>
+                            <% }) %>
+                        </select>
+                       
+                    </div>
+                    
+                    <div class="">
+                        <button type="submit" class="col-sm-12 mt-3 btn btn-warning text-black"> Registrarme </button>
+                    </div>
+                    <div class="d-flex gap-1 justify-content-center mt-1">
+                        <div>Ya tienes una cuenta?</div>
+                        <a href="/" class="text-decoration-none text-warning fw-semibold">Iniciar Sesión</a>
+                    </div>
         
-                <div class="mt-1">        
-                <b>Nombre de la tienda</b><br>
-                <input type='text' class="form-control" name="name" id="name" placeholder="Ingrese el nombre de la tienda" size='15' maxlength='13' required>
-                </div>       
-                <br>
-                <div class="mt-1">
-                    <b>Correo</b>
-                    <input type='email' name="correo" id="correo" class="form-control"  placeholder="Ingrese su correo electrónico" size='45' maxlength='30' required><br>
-                </div>
-                <div>
-                    <b>Contraseña</b>
-                    <input type='password' name="password" class="form-control" placeholder="Ingrese su contraseña" required><br>
-                </div>
-                <div class="mt-1">        
-                    <b>Slogan de la tienda</b><br>
-                    <input type='text' class="form-control" name="slogan" id="slogan" placeholder="Ingrese el slogan de la tienda" size='15' maxlength='50' required>
-                </div>  <br> 
-
-                <div class="mb-3">
-                    <b>Ingrese el logo de su tienda</b>
-                    <input class="form-control" type="file" id="logo" name="logo" tabindex="7" accept="image/*" required>
-                </div> 
-                
-                <div class="mb-3">
-                    <b>Ingrese el banner de su tienda</b>
-                    <input class="form-control" type="file" id="image" name="image" tabindex="7" accept="image/*" required>
-                </div> 
-
-                <b>Seleccione el tipo de tienda</b>
-                <select class="form-select form-control-lg" aria-label="Default select example" id="tipo" name="tipo" required>
-                    <% tipotienda.forEach((tipotienda) => { %>
-                        <option value="<%= tipotienda.id_tipo %>"><%= tipotienda.nombre_tipo %></option>
-                    <% }) %>
-                </select><br>
-                <b>Seleccione el sector</b>
-
-                <br>
-                <button type="submit" class="btn btn-warning text-white w-100 fw-semibold shadow-sm"> Registrarme </button>
-                <div class="d-flex gap-1 justify-content-center mt-1">
-                    <div>Ya tienes una cuenta?</div>
-                    <a href="/" class="text-decoration-none text-warning fw-semibold">Iniciar Sesión</a>
                 </div>
             </form>
         </div>
