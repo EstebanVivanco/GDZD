@@ -56,6 +56,12 @@
                               <i class='bx bx-columns'></i>
                               <span class="nav_name">Ver Ventas</span> 
                           </a> 
+
+                          
+                          <a href="/ver_productos_bodega/<%= user.id_tienda %>" class="s-a s_nav_link"> 
+                            <i class='bx bx-package'></i>
+                            <span class="nav_name">Ver Productos en Bodega</span> 
+                          </a> 
     
                           <a href="/index_tienda/<%= user.id_tienda %>" class="s-a s_nav_link"> 
                               <i class='bx bx-chalkboard' ></i>
@@ -69,7 +75,7 @@
     
           <% } %>
           
-    <div class="d-flex justify-content-center align-items-center vh-100 mt-2 " style="background-color: hsl(0, 0%, 90%); ">
+    <div class="d-flex justify-content-center align-items-center vh-100 mt-2 " >
       <div class="bg-white p-5 rounded-5" style="width: 60rem; border-radius: 30px;">
         <div class="container mt-1">
             <h1 style="text-align: center; "> Actualizar Producto </h1>
