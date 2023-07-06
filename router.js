@@ -126,7 +126,7 @@ router.get('/ver_productos_bodega/:id', (req, res) => {
 router.get('/productos', (req, res)=>{
 
 
-    conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+    conexion.query('SELECT * FROM categoria_producto WHERE seccion_id_fk = 1', (error, categoria) => {
         conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
             conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
                 conexion.query('SELECT * FROM bodega  Where estado_bodega_id_fk = 1', (error, bodega) => {
@@ -169,7 +169,7 @@ router.get('/itinerario',  (req, res)=>{
 router.get('/editar_producto/:id', (req, res)=>{
     const id = req.params.id;
 
-    conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+    conexion.query('SELECT * FROM categoria_producto WHERE seccion_id_fk = 1 ', (error, categoria) => {
         conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
             conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
                 conexion.query('SELECT * FROM bodega ', (error, bodega) => {
