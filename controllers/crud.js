@@ -114,11 +114,11 @@ exports.LoginSuperAdmin = (req, res) => {
 
                     //ENTRA
 
-                    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas) => {
-                        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas) => {
-                            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores) => {
-                                res.render('loginSuperAdmin', {
-                                    alert: true,
+                    conexion.query('select * from tienda t JOIN estado_tienda e ON t.id_estado_tienda_fk = e.id_estado_tienda;', (error, tiendas)=>{
+                        conexion.query('select * from tipo_tiendas;', (error, tipo_tiendas)=>{
+                            conexion.query('select * from sector JOIN estado_sector ON sector.id_estado_sector_fk = estado_sector.id_estado_sector;', (error, sectores)=>{
+                                res.render('loginS',{
+                                    alert:true,
                                     alertTitle: 'Conexion exitosa',
                                     alertMessage: 'Bienvenido! ',
                                     alertIcon: 'success',
@@ -131,13 +131,10 @@ exports.LoginSuperAdmin = (req, res) => {
                             })
                         })
                     })
-
-
-
                 } else {
                     //NO ENTRA
-                    res.render('login', {
-                        alert: true,
+                    res.render('loginS',{
+                        alert:true,
                         alertTitle: 'Error',
                         alertMessage: 'Rut o Contraseña incorrectos!',
                         alertIcon: 'error',
@@ -169,9 +166,9 @@ exports.savestore = (req, res) => {
     const ruta = 'registro';
 
 
-    conexion.query('INSERT INTO tienda SET ?', { nombre_tienda: nombre, correo_tienda: email, pass_tienda: pass, slogan_tienda: slogan, banner_tienda: imagen, logo_tienda: logo, horarios_tienda: horaio, id_tipo_fk: tipo, id_sector_fk: sector }, (error, results) => {
-
-        if (error) {
+    conexion.query('INSERT INTO tienda SET ?', {nombre_tienda:nombre,correo_tienda:email,pass_tienda:pass,slogan_tienda:slogan, banner_tienda:imagen, logo_tienda:logo,  horarios_tienda:horaio,id_tipo_fk: tipo, id_sector_fk: sector, id_estado_tienda_fk: 1}, (error, results)=>{
+        
+        if(error){
             throw error;
         } else {
 

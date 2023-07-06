@@ -1,109 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/loginTienda.css">
-  <script src="https://kit.fontawesome.com/ca048bf1d7.js" crossorigin="anonymous"></script>
-  <title>Inicio de sesión</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/0716e95df2.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <link rel="stylesheet" href="loginNico.css">
+
+    <title>Inicio de sesión - Flyop</title>
 </head>
-
 <body>
-  <img class="wave" src="/uploads/wave.svg" height="100%">
-  <div class="container">
-    <div class="img">
-      <img src="/uploads/logo.png" style="margin-left: 20%; width: 100%;">
-    </div>
-    <div class="login-container">
-      <form method="POST" action="/login">
-        <h2>Bienvenido</h2>
-        <div class="input-div one">
-          <div class="i">
-            <i class="fa-regular fa-envelope"></i>
-          </div>
-          <div>
-            <h5>Correo electrónico</h5>
-            <input class="input" type="email" name="email" required/>
-          </div>
+    <section class="pantalla-dividida">
+        <div class="izquierda">
+            <form method="POST" action="/login">
+                <h2>Bienvenido a AeropuertoST</h2>
+                <p style="text-align: center; margin-bottom: 60px;" class="texto plomo">Inicio de sesión para tiendas</p>
+
+                <div class="contenedor-label-input">
+                    <label>Correo electronico:</label>
+                    <input type="email" id="email" name="email" placeholder="Ingrese su correo electronico" required>
+                </div>
+                <div class="contenedor-label-input">
+                    <label>Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                </div>
+                <div class="contenedor-button">
+                    <button type="submit">Iniciar sesion</button>
+                </div>
+                <div>¿No tienes una cuenta? <a href="registro" class="text-decoration-none text-warning fw-semibold">Registrar</a></div>
+                
+            </form>
         </div>
-        <div class="input-div two">
-          <div class="i">
-            <i class="fa-solid fa-lock"></i>
-          </div>
-          <div>
-            <h5>Contraseña</h5>
-            <input class="input" type="password" name="password" required/>
-          </div>
+
+        <div class="derecha">
+            <img src="https://cdn.discordapp.com/attachments/1112967903705300992/1126311027068383262/img-login.jpg"> 
         </div>
-        <button type="submit" class="btn">
-          Ingresar
-        </button>
-          <div>¿No tienes una cuenta? <a href="registro" class="text-decoration-none text-warning fw-semibold">Registrar</a></div>
-      </form>
-    </div>
-  </div>
-  <script type="text/javascript" src="uwu.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <% if(typeof alert !="undefined" ){ %>
-    <script>
-      Swal.fire({
-        title: '<%= alertTitle%>',
-        text: '<%= alertMessage%>',
-        icon: '<%= alertIcon%>',
-        showConfirmButton: <%= showConfirmButton%> ,
-        timer: <%= timer %>
-            }).then(() => {
-          window.location = '/<%= ruta%>'
-        })
-    </script>
-    <% } %>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert !="undefined" ){ %>
       <script>
-          // Example starter JavaScript for disabling form submissions if there are invalid fields
-          (() => {
-            'use strict'
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-              form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-              }, false)
-            })
-          })()
+        Swal.fire({
+          title: '<%= alertTitle%>',
+          text: '<%= alertMessage%>',
+          icon: '<%= alertIcon%>',
+          showConfirmButton: <%= showConfirmButton%> ,
+          timer: <%= timer %>
+              }).then(() => {
+            window.location = '/<%= ruta%>'
+          })
       </script>
-
-
-<script>
-  const inputs = document.querySelectorAll('.input');
-
-function focusFunc(){
-    let parent = this.parentNode.parentNode;
-    parent.classList.add('focus');
-}
-
-function blurFunc(){
-    let parent = this.parentNode.parentNode;
-    if(this.value == ""){
-        parent.classList.remove('focus');
-    }
-}
-
-inputs.forEach(input =>{
-    input.addEventListener('focus', focusFunc);
-    input.addEventListener('blur', blurFunc);
-});
-</script>
-
+      <% } %>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (() => {
+              'use strict'
+              // Fetch all the forms we want to apply custom Bootstrap validation styles to
+              const forms = document.querySelectorAll('.needs-validation')
+              // Loop over them and prevent submission
+              Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                  if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                  }
+                  form.classList.add('was-validated')
+                }, false)
+              })
+            })()
+        </script>
+  
+  <script>
+    const inputs = document.querySelectorAll('.input');
+  
+  function focusFunc(){
+      let parent = this.parentNode.parentNode;
+      parent.classList.add('focus');
+  }
+  
+  function blurFunc(){
+      let parent = this.parentNode.parentNode;
+      if(this.value == ""){
+          parent.classList.remove('focus');
+      }
+  }
+  
+  inputs.forEach(input =>{
+      input.addEventListener('focus', focusFunc);
+      input.addEventListener('blur', blurFunc);
+  });
+  </script>
+  
+  
 
 </body>
-
 </html>

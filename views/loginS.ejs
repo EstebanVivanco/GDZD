@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/0716e95df2.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <link rel="stylesheet" href="loginNico.css">
+
+    <title>Inicio de sesión - Flyop</title>
+</head>
+<body>
+    <section class="pantalla-dividida">
+        <div class="izquierda">
+            <form method="POST" action="/LoginSuperAdmin">
+                <h2>Bienvenido a AeropuertoST</h2>
+                <p style="text-align: center; margin-bottom: 60px;" class="texto plomo">Inicio de sesión para Super Administador</p>
+
+                <div class="contenedor-label-input">
+                    <label>Correo electronico:</label>
+                    <input type="text" id="rut" name="rut" placeholder="Ingrese su correo electronico" maxlength="10" required>
+                </div>
+                <div class="contenedor-label-input">
+                    <label>Contraseña:</label>
+                    <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+                </div>
+                <div class="contenedor-button">
+                    <button type="submit">Iniciar sesion</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="derecha">
+            <img src="https://cdn.discordapp.com/attachments/1112967903705300992/1126311027068383262/img-login.jpg"> 
+        </div>
+    </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+  <script>
+    //VALIDADOR DE RUT
+
+let rutInput = document.getElementById('rut');
+let submitBtn = document.getElementById('submit-btn-vali');
+let validacionRut = document.getElementById('validacion-rut');
+
+rutInput.addEventListener('input', function() {
+
+let rut = this.value;
+
+if (/^[0-9]{7,8}-[0-9Kk]{1}$/.test(rut) && validarRut(rut) && !esRutConDigitosIguales(rut)) {
+  submitBtn.disabled = false;
+  validacionRut.innerHTML = '<i class="fas fa-check-circle" style="color: #21252B;"></i>';
+} else {
+    submitBtn.disabled = true;
+    validacionRut.innerHTML = '<i class="fas fa-times-circle" style="color: #21252B;"></i>';
+}
+});
+
+function validarRut(rut) {
+
+
+
+  let [numero, digitoVerificador] = rut.split('-');
+  let suma = 0;
+  let multiplicador = 2;
+
+  for (let i = numero.length - 1; i >= 0; i--) {
+    suma += multiplicador * numero.charAt(i);
+    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+  }
+
+  let resto = suma % 11;
+  let digitoCalculado = 11 - resto;
+  if (digitoCalculado === 11) {
+    digitoCalculado = '0';
+  } else if (digitoCalculado === 10) {
+    digitoCalculado = 'K';
+  }
+
+  return digitoCalculado.toString() === digitoVerificador.toUpperCase();
+}
+
+function esRutConDigitosIguales(rut) {
+  let [numero] = rut.split('-');
+  return numero.split('').every(d => d === numero[0]);
+}
+
+
+</script>
+
+
+  <% if(typeof alert !="undefined" ){ %>
+  <script>
+    Swal.fire({
+      title: '<%= alertTitle%>',
+      text: '<%= alertMessage%>',
+      icon: '<%= alertIcon%>',
+      showConfirmButton: <%= showConfirmButton%> ,
+      timer: <%= timer %>
+          }).then(() => {
+        window.location = '/<%= ruta%>'
+      })
+  </script>
+  <% } %>
+  <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+          'use strict'
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+              form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+  </script>
+
+    <script>
+      const inputs = document.querySelectorAll('.input');
+    
+    function focusFunc(){
+        let parent = this.parentNode.parentNode;
+        parent.classList.add('focus');
+    }
+    
+    function blurFunc(){
+        let parent = this.parentNode.parentNode;
+        if(this.value == ""){
+            parent.classList.remove('focus');
+        }
+    }
+    
+    inputs.forEach(input =>{
+        input.addEventListener('focus', focusFunc);
+        input.addEventListener('blur', blurFunc);
+    });
+    </script>
+    
+
+  
+
+</body>
+</html>
