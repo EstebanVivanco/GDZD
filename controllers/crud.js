@@ -62,39 +62,40 @@ exports.login = (req, res) => {
                 
                 try{
 
-                conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [results_user[0].fk_tienda_id], (error, results) => {
-                        if (error) {
-                            throw error;
-                        } else {
-                            if (results.length > 0) {
-                                //ENTRA
-                                conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
-                                    conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
-                                        conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
-                                            conexion.query('SELECT * FROM bodega ', (error, bodega) => {
-                                                res.render('login', {
-                                                    alert: true,
-                                                    alertTitle: 'Conexion exitosa',
-                                                    alertMessage: 'Bienvenido! ',
-                                                    alertIcon: 'success',
-                                                    showConfirmButton: false,
-                                                    timer: 1500,
-                                                    ruta: 'productos',
-                                                    user: req.session.user = results[0], //session 1 
-                                                    trabajador: req.session.trabajador = results_user[0], //session 2
-                                                    categoria: categoria, estado: estado, proveedores: proveedores, bodega: bodega
+                    conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [results_user[0].fk_tienda_id], (error, results) => {
+                            if (error) {
+                                throw error;
+                            } else {
+                                if (results.length > 0) {
+                                    //ENTRA
+                                    conexion.query('SELECT * FROM categoria_producto ', (error, categoria) => {
+                                        conexion.query('SELECT * FROM estado_producto ', (error, estado) => {
+                                            conexion.query('SELECT * FROM proveedores ', (error, proveedores) => {
+                                                conexion.query('SELECT * FROM bodega ', (error, bodega) => {
+                                                    res.render('login', {
+                                                        alert: true,
+                                                        alertTitle: 'Conexion exitosa',
+                                                        alertMessage: 'Bienvenido! ',
+                                                        alertIcon: 'success',
+                                                        showConfirmButton: false,
+                                                        timer: 1500,
+                                                        ruta: 'productos',
+                                                        user: req.session.user = results[0], //session 1 
+                                                        trabajador: req.session.trabajador = results_user[0], //session 2
+                                                        categoria: categoria, estado: estado, proveedores: proveedores, bodega: bodega
+                                                    })
+                                                    
                                                 })
-                                                
                                             })
                                         })
                                     })
-                                })
+                                }
                             }
-                        }
-                    })
+                        })
 
 
                 } catch (error) {
+
                     // Manejar el error de la consulta
                     res.render('login', {
                         alert: true,
@@ -105,6 +106,7 @@ exports.login = (req, res) => {
                         timer: false,
                         ruta: '/'
                     });
+                    
                 }
             
         })
