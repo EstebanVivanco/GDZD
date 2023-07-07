@@ -59,7 +59,6 @@ exports.login = (req, res) => {
     const pass = req.body.password;
     if (correo && pass) {
         conexion.query('SELECT fk_tienda_id, nombre, apellido  FROM trabajador_externo WHERE correo = ? AND contraseña = md5(?)', [correo, pass], (error, results_user) => {
-            if (results_user.length > 0) {
                 conexion.query('SELECT * FROM tienda WHERE id_tienda = ?', [results_user[0].fk_tienda_id], (error, results) => {
                     if (error) {
                         throw error;
@@ -87,23 +86,24 @@ exports.login = (req, res) => {
                                     })
                                 })
                             })
+                        }else{
+                            res.render('login', {
+                                alert: true,
+                                alertTitle: 'Error',
+                                alertMessage: 'Nombre o contraseña incorrectos!',
+                                alertIcon: 'error',
+                                showConfirmButton: true,
+                                timer: false,
+                                ruta: '/'
+                            })
                         }
                     }
                 })
-            } else {
-                res.render('login', {
-                    alert: true,
-                    alertTitle: 'Error',
-                    alertMessage: 'Nombre o contraseña incorrectos!',
-                    alertIcon: 'error',
-                    showConfirmButton: true,
-                    timer: false,
-                    ruta: '/'
-                })
-            }
+            
         })
     }
 }
+
 
 exports.LoginSuperAdmin = (req, res) => {
     const rut = req.body.rut;
